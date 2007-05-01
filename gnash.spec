@@ -157,7 +157,7 @@ Gnash Konqueror plugin
 
 %prep
 %setup -q -n %name
-%patch0
+#%patch0
 
 %build
 sh autogen.sh
