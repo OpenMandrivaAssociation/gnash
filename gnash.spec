@@ -9,7 +9,7 @@
 %define version 0.7.3
 %define release %mkrel 0.%cvs.3
 
-%define cvs     070318
+%define cvs     070501
 
 %define libname %mklibname %{name} 0
 %define libname_orig lib%{name}
