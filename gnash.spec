@@ -67,6 +67,7 @@ at best. Gnash is based on GameSWF, and supports many SWF v7 features.
 %{_mandir}/man?/*
 
 %{_infodir}/%{name}.info.bz2
+%{_infodir}/asspec.info.bz2
 %{_datadir}/omf/gnash
 %{_datadir}/gnash
 
@@ -86,9 +87,17 @@ Gnash library.
 
 %files -n %{libname}
 %defattr(-,root,root)
-
-#%{_libdir}/gnash/plugins/dejagnu.so
-#%{_libdir}/gnash/plugins/fileio.so
+%{_libdir}/libgnashamf-cvs20070502.so
+%{_libdir}/libgnashasobjs-cvs20070502.so
+%{_libdir}/libgnashbackend-cvs20070502.so
+%{_libdir}/libgnashbase-cvs20070502.so
+%{_libdir}/libgnashgeo-cvs20070502.so
+%{_libdir}/libgnashgui-cvs20070502.so
+%{_libdir}/libgnashparser-cvs20070502.so
+%{_libdir}/libgnashparser.so
+%{_libdir}/libgnashplayer-cvs20070502.so
+%{_libdir}/libgnashserver-cvs20070502.so
+%{_libdir}/libgnashvm-cvs20070502.so
 %{_libdir}/libgnashamf.so
 %{_libdir}/libgnashbackend.so
 %{_libdir}/libgnashbase.so
@@ -112,8 +121,7 @@ Headers of %{name} for development.
 
 %files -n %{libname}-devel
 %defattr(-,root,root)
-#%{_libdir}/gnash/plugins/dejagnu.la
-#%{_libdir}/gnash/plugins/fileio.la
+%{_libdir}/libgnashasobjs.la
 %{_libdir}/libgnashamf.la
 %{_libdir}/libgnashvm.la
 %{_libdir}/libgnashbackend.la
@@ -123,7 +131,7 @@ Headers of %{name} for development.
 %{_libdir}/libgnashgui.la
 %{_libdir}/libgnashserver.la
 %{_libdir}/kde3/libklashpart.la
-
+%{_libdir}/libgnashparser.la
 
 #--------------------------------------------------------------------
 
