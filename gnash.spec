@@ -87,8 +87,8 @@ Gnash library.
 %files -n %{libname}
 %defattr(-,root,root)
 
-%{_libdir}/gnash/plugins/dejagnu.so
-%{_libdir}/gnash/plugins/fileio.so
+#%{_libdir}/gnash/plugins/dejagnu.so
+#%{_libdir}/gnash/plugins/fileio.so
 %{_libdir}/libgnashamf.so
 %{_libdir}/libgnashbackend.so
 %{_libdir}/libgnashbase.so
@@ -112,8 +112,8 @@ Headers of %{name} for development.
 
 %files -n %{libname}-devel
 %defattr(-,root,root)
-%{_libdir}/gnash/plugins/dejagnu.la
-%{_libdir}/gnash/plugins/fileio.la
+#%{_libdir}/gnash/plugins/dejagnu.la
+#%{_libdir}/gnash/plugins/fileio.la
 %{_libdir}/libgnashamf.la
 %{_libdir}/libgnashvm.la
 %{_libdir}/libgnashbackend.la
