@@ -106,6 +106,7 @@ Gnash library.
 %{_libdir}/libgnashplayer.so
 %{_libdir}/libgnashserver.so
 %{_libdir}/libgnashvm.so
+%{_libdir}/libgnashasobjs.so
 
 #--------------------------------------------------------------------
 
