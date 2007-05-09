@@ -7,9 +7,9 @@
 %define __libtoolize /bin/true
 %define name	gnash
 %define version 0.7.3
-%define release %mkrel 0.%cvs.3
+%define release %mkrel 0.%cvs.1
 
-%define cvs     070501
+%define cvs     070508
 
 %define libname %mklibname %{name} 0
 %define libname_orig lib%{name}
@@ -21,7 +21,6 @@ Release:	%release
 License:	GPL
 Group:		Networking/WWW
 Source0:	%name-%cvs.tar.bz2
-Patch0:         gnash-gcc-warning-fixes.diff
 BuildRoot:	%{_tmppath}/%{name}-root
 URL:		http://www.gnu.org/software/gnash/
 BuildRequires:	mesaglut-devel
@@ -166,7 +165,6 @@ Gnash Konqueror plugin
 
 %prep
 %setup -q -n %name
-#%patch0
 
 %build
 sh autogen.sh
