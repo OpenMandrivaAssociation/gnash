@@ -173,6 +173,7 @@ sh autogen.sh
 		--enable-docbook \
 		--enable-plugin \
 		--with-plugindir=%{_libdir}/mozilla/plugins  \
+		--media-handler=mad \
 		--disable-rpath \
 		--enable-extensions \
 		--enable-sdk-install \
