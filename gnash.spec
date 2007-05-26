@@ -173,7 +173,7 @@ sh autogen.sh
 		--enable-docbook \
 		--enable-plugin \
 		--with-plugindir=%{_libdir}/mozilla/plugins  \
-		--media-handler=mad \
+		--enable-media=mad \
 		--disable-rpath \
 		--enable-extensions \
 		--enable-sdk-install \
@@ -206,7 +206,3 @@ perl -pi -e "s,-L%{_builddir}/%{name}-%{version}/libbase,,g" %{buildroot}/%{_lib
 
 %clean
 rm -rf %{buildroot}
-
-
-
-
