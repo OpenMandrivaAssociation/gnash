@@ -123,7 +123,7 @@ Headers of %{name} for development.
 %files -n %{libname}-devel
 %defattr(-,root,root)
 %{_libdir}/libgnash*.la
-%{_libdir}/kde3/libgnash*.la
+%{_libdir}/kde3/*.la
 #%{_libdir}/libgnashasobjs.la
 #%{_libdir}/libgnashamf.la
 #%{_libdir}/libgnashvm.la
