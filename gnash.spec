@@ -86,26 +86,27 @@ Gnash library.
 
 %files -n %{libname}
 %defattr(-,root,root)
-%{_libdir}/libgnashamf-cvs20070502.so
-%{_libdir}/libgnashasobjs-cvs20070502.so
-%{_libdir}/libgnashbackend-cvs20070502.so
-%{_libdir}/libgnashbase-cvs20070502.so
-%{_libdir}/libgnashgeo-cvs20070502.so
-%{_libdir}/libgnashgui-cvs20070502.so
-%{_libdir}/libgnashparser-cvs20070502.so
-%{_libdir}/libgnashparser.so
-%{_libdir}/libgnashplayer-cvs20070502.so
-%{_libdir}/libgnashserver-cvs20070502.so
-%{_libdir}/libgnashvm-cvs20070502.so
-%{_libdir}/libgnashamf.so
-%{_libdir}/libgnashbackend.so
-%{_libdir}/libgnashbase.so
-%{_libdir}/libgnashgeo.so
-%{_libdir}/libgnashgui.so
-%{_libdir}/libgnashplayer.so
-%{_libdir}/libgnashserver.so
-%{_libdir}/libgnashvm.so
-%{_libdir}/libgnashasobjs.so
+%{_libdir}/libgnash*.so
+#%{_libdir}/libgnashamf-cvs20070502.so
+#%{_libdir}/libgnashasobjs-cvs20070502.so
+#%{_libdir}/libgnashbackend-cvs20070502.so
+#%{_libdir}/libgnashbase-cvs20070502.so
+#%{_libdir}/libgnashgeo-cvs20070502.so
+#%{_libdir}/libgnashgui-cvs20070502.so
+#%{_libdir}/libgnashparser-cvs20070502.so
+#%{_libdir}/libgnashparser.so
+#%{_libdir}/libgnashplayer-cvs20070502.so
+#%{_libdir}/libgnashserver-cvs20070502.so
+#%{_libdir}/libgnashvm-cvs20070502.so
+#%{_libdir}/libgnashamf.so
+#%{_libdir}/libgnashbackend.so
+#%{_libdir}/libgnashbase.so
+#%{_libdir}/libgnashgeo.so
+#%{_libdir}/libgnashgui.so
+#%{_libdir}/libgnashplayer.so
+#%{_libdir}/libgnashserver.so
+#%{_libdir}/libgnashvm.so
+#%{_libdir}/libgnashasobjs.so
 
 #--------------------------------------------------------------------
 
@@ -121,17 +122,19 @@ Headers of %{name} for development.
 
 %files -n %{libname}-devel
 %defattr(-,root,root)
-%{_libdir}/libgnashasobjs.la
-%{_libdir}/libgnashamf.la
-%{_libdir}/libgnashvm.la
-%{_libdir}/libgnashbackend.la
-%{_libdir}/libgnashplayer.la
-%{_libdir}/libgnashbase.la
-%{_libdir}/libgnashgeo.la
-%{_libdir}/libgnashgui.la
-%{_libdir}/libgnashserver.la
-%{_libdir}/kde3/libklashpart.la
-%{_libdir}/libgnashparser.la
+%{_libdir}/libgnash*.la
+%{_libdir}/kde3/libgnash*.la
+#%{_libdir}/libgnashasobjs.la
+#%{_libdir}/libgnashamf.la
+#%{_libdir}/libgnashvm.la
+#%{_libdir}/libgnashbackend.la
+#%{_libdir}/libgnashplayer.la
+#%{_libdir}/libgnashbase.la
+#%{_libdir}/libgnashgeo.la
+#%{_libdir}/libgnashgui.la
+#%{_libdir}/libgnashserver.la
+#%{_libdir}/kde3/libklashpart.la
+#%{_libdir}/libgnashparser.la
 
 #--------------------------------------------------------------------
 
