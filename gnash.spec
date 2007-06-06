@@ -7,7 +7,7 @@
 %define __libtoolize /bin/true
 %define name	gnash
 %define version 0.7.3
-%define release %mkrel -c %cvs 2
+%define release %mkrel -c %cvs 3
 
 %define cvs     070508
 
@@ -34,8 +34,9 @@ BuildRequires:  curl-devel
 BuildRequires:  docbook2x
 BuildRequires:  texinfo
 BuildRequires:  doxygen
-BuildRequires:	scrollkeeper
-BuildRequires:	libxslt-proc
+BuildRequires:  scrollkeeper
+BuildRequires:  slang-devel
+BuildRequires:  libxslt-proc
 BuildRequires:  agg-devel
 BuildRequires:  mysql-devel
 BuildRequires:  libltdl-devel
