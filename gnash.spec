@@ -7,9 +7,9 @@
 %define __libtoolize /bin/true
 %define name	gnash
 %define version 0.7.3
-%define release %mkrel -c %cvs 3
+%define release %mkrel -c %cvs 1
 
-%define cvs     070508
+%define cvs     070609
 
 %define libname %mklibname %{name} 0
 %define libname_orig lib%{name}
