@@ -6,8 +6,8 @@
 
 %define __libtoolize /bin/true
 %define name	gnash
-%define version 0.7.3
-%define release %mkrel -c %cvs 1
+%define version 0.8.0
+%define release %mkrel 1
 
 %define cvs     070609
 
@@ -20,7 +20,7 @@ Version:	%version
 Release:	%release
 License:	GPL
 Group:		Networking/WWW
-Source0:	%name-%cvs.tar.bz2
+Source0:	%name-%version.tar.bz2
 BuildRoot:	%{_tmppath}/%{name}-root
 URL:		http://www.gnu.org/software/gnash/
 BuildRequires:	mesaglut-devel
@@ -168,10 +168,9 @@ Gnash Konqueror plugin
 #--------------------------------------------------------------------
 
 %prep
-%setup -q -n %name
+%setup -q -n %name-%version
 
 %build
-sh autogen.sh
 %configure2_5x	--enable-mp3 \
 		--enable-ghelp  \
 		--enable-docbook \
