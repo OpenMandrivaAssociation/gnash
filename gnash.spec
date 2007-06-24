@@ -7,9 +7,9 @@
 %define __libtoolize /bin/true
 %define name	gnash
 %define version 0.8.0
-%define release %mkrel 1
+%define release %mkrel -c %cvs 1
 
-%define cvs     070609
+%define cvs     070624
 
 %define libname %mklibname %{name} 0
 %define libname_orig lib%{name}
@@ -20,12 +20,13 @@ Version:	%version
 Release:	%release
 License:	GPL
 Group:		Networking/WWW
-Source0:	%name-%version.tar.bz2
+Source0:	%name-%cvs.tar.bz2
 BuildRoot:	%{_tmppath}/%{name}-root
 URL:		http://www.gnu.org/software/gnash/
 BuildRequires:	mesaglut-devel
 BuildRequires:  mozilla-firefox-devel > 1.5
-BuildRequires:  mad-devel
+#BuildRequires:  mad-devel
+BuildRequires:  gstreamer-devel
 BuildRequires:  SDL_mixer-devel
 BuildRequires:  kdebase-devel
 BuildRequires:  gtkglext-devel
@@ -57,7 +58,7 @@ at best. Gnash is based on GameSWF, and supports many SWF v7 features.
 %preun -n %{name}
 %_remove_install_info %{name}.info
 
-%files
+%files -f %name.lang
 %defattr(-,root,root,0755)
 %doc AUTHORS COPYING ChangeLog ChangeLog.gameswf INSTALL NEWS README TODO
 %{_bindir}/gnash
@@ -88,26 +89,6 @@ Gnash library.
 %files -n %{libname}
 %defattr(-,root,root)
 %{_libdir}/libgnash*.so
-#%{_libdir}/libgnashamf-cvs20070502.so
-#%{_libdir}/libgnashasobjs-cvs20070502.so
-#%{_libdir}/libgnashbackend-cvs20070502.so
-#%{_libdir}/libgnashbase-cvs20070502.so
-#%{_libdir}/libgnashgeo-cvs20070502.so
-#%{_libdir}/libgnashgui-cvs20070502.so
-#%{_libdir}/libgnashparser-cvs20070502.so
-#%{_libdir}/libgnashparser.so
-#%{_libdir}/libgnashplayer-cvs20070502.so
-#%{_libdir}/libgnashserver-cvs20070502.so
-#%{_libdir}/libgnashvm-cvs20070502.so
-#%{_libdir}/libgnashamf.so
-#%{_libdir}/libgnashbackend.so
-#%{_libdir}/libgnashbase.so
-#%{_libdir}/libgnashgeo.so
-#%{_libdir}/libgnashgui.so
-#%{_libdir}/libgnashplayer.so
-#%{_libdir}/libgnashserver.so
-#%{_libdir}/libgnashvm.so
-#%{_libdir}/libgnashasobjs.so
 
 #--------------------------------------------------------------------
 
@@ -125,17 +106,7 @@ Headers of %{name} for development.
 %defattr(-,root,root)
 %{_libdir}/libgnash*.la
 %{_libdir}/kde3/*.la
-#%{_libdir}/libgnashasobjs.la
-#%{_libdir}/libgnashamf.la
-#%{_libdir}/libgnashvm.la
-#%{_libdir}/libgnashbackend.la
-#%{_libdir}/libgnashplayer.la
-#%{_libdir}/libgnashbase.la
-#%{_libdir}/libgnashgeo.la
-#%{_libdir}/libgnashgui.la
-#%{_libdir}/libgnashserver.la
-#%{_libdir}/kde3/libklashpart.la
-#%{_libdir}/libgnashparser.la
+
 
 #--------------------------------------------------------------------
 
@@ -168,15 +139,15 @@ Gnash Konqueror plugin
 #--------------------------------------------------------------------
 
 %prep
-%setup -q -n %name-%version
-
+%setup -q -n %name
 %build
+sh autogen.sh
 %configure2_5x	--enable-mp3 \
 		--enable-ghelp  \
 		--enable-docbook \
 		--enable-plugin \
 		--with-plugindir=%{_libdir}/mozilla/plugins  \
-		--enable-media=mad \
+		--enable-media=gst \
 		--disable-rpath \
 		--enable-extensions \
 		--enable-sdk-install \
@@ -202,10 +173,7 @@ perl -pi -e "s,install-info,/../sbin/install-info," doc/C/Makefile
 rm -rf %{buildroot}/%{_localstatedir}/scrollkeeper
 perl -pi -e "s,-L%{_builddir}/%{name}-%{version}/libbase,,g" %{buildroot}/%{_libdir}/libgnashgeo.la
 
-#drop devel files
-#rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
-#rm -f $RPM_BUILD_ROOT%{_libdir}/gnash/plugins/*.la
-#rm -f $RPM_BUILD_ROOT%{_libdir}/kde3/*.la
+%find_lang %name
 
 %clean
 rm -rf %{buildroot}
