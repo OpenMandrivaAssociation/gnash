@@ -7,7 +7,7 @@
 %define __libtoolize /bin/true
 %define name	gnash
 %define version 0.8.0
-%define release %mkrel -c %cvs 1
+%define release %mkrel -c %cvs 2
 
 %define cvs     070624
 
@@ -133,20 +133,20 @@ Gnash firefox plugin
 %{_libdir}/mozilla/plugins/*.so
 
 #--------------------------------------------------------------------
-#
-#%package -n	%{name}-konqueror-plugin
-#Summary:	Gnash konqueror plugin
-#Group:		Graphical desktop/KDE
-#Requires:	gnash = %{version}
-#%description -n %{name}-konqueror-plugin
-#Gnash Konqueror plugin
-#
-#%files -n %{name}-konqueror-plugin
-#%{_libdir}/kde3/*.so
-#%{_libdir}/kde3/*.la
-#%{_datadir}/apps/klash
-#%{_datadir}/services/klash_part.desktop
-#
+
+%package -n	%{name}-konqueror-plugin
+Summary:	Gnash konqueror plugin
+Group:		Graphical desktop/KDE
+Requires:	gnash = %{version}
+%description -n %{name}-konqueror-plugin
+Gnash Konqueror plugin
+
+%files -n %{name}-konqueror-plugin
+%{_libdir}/kde3/*.so
+%{_libdir}/kde3/*.la
+%{_datadir}/apps/klash
+%{_datadir}/services/klash_part.desktop
+
 #--------------------------------------------------------------------
 
 %prep
@@ -168,7 +168,7 @@ sh autogen.sh
 		--enable-sound=sdl \
 		--with-qt-incl="`pkg-config --variable=includedir qt-mt`" \
 		--with-qt-lib="`pkg-config --variable=libdir qt-mt`" \
-                --disable-klash 
+                --enable-klash 
 
 %make "OPENGL_LIBS = -lGL"
 
