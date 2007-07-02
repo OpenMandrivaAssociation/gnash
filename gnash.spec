@@ -25,7 +25,6 @@ BuildRoot:	%{_tmppath}/%{name}-root
 URL:		http://www.gnu.org/software/gnash/
 BuildRequires:	mesaglut-devel
 BuildRequires:  mozilla-firefox-devel > 1.5
-#BuildRequires:  mad-devel
 BuildRequires:  libgstreamer0.10-devel
 BuildRequires:  SDL_mixer-devel
 BuildRequires:  kdebase-devel
@@ -88,7 +87,13 @@ Gnash library.
 
 %files -n %{libname}
 %defattr(-,root,root)
-%{_libdir}/libgnash*.so
+%{_libdir}/libgnashbackend-cvs20070702.so
+%{_libdir}/libgnashbase-cvs20070702.so
+%{_libdir}/libgnashgeo-cvs20070702.so
+%{_libdir}/libgnashgui-cvs20070702.so
+%{_libdir}/libgnashplayer-cvs20070702.so
+%{_libdir}/libgnashserver-cvs20070702.so
+%{_libdir}/libgnashamf-cvs20070702.so
 
 #--------------------------------------------------------------------
 
@@ -105,8 +110,13 @@ Headers of %{name} for development.
 %files -n %{libname}-devel
 %defattr(-,root,root)
 %{_libdir}/libgnash*.la
-%{_libdir}/kde3/*.la
-
+%{_libdir}/libgnashamf.so
+%{_libdir}/libgnashbackend.so
+%{_libdir}/libgnashbase.so
+%{_libdir}/libgnashgeo.so
+%{_libdir}/libgnashgui.so
+%{_libdir}/libgnashplayer.so
+%{_libdir}/libgnashserver.so
 
 #--------------------------------------------------------------------
 
@@ -123,19 +133,20 @@ Gnash firefox plugin
 %{_libdir}/mozilla/plugins/*.so
 
 #--------------------------------------------------------------------
-
-%package -n	%{name}-konqueror-plugin
-Summary:	Gnash konqueror plugin
-Group:		Graphical desktop/KDE
-Requires:	gnash = %{version}
-%description -n %{name}-konqueror-plugin
-Gnash Konqueror plugin
-
-%files -n %{name}-konqueror-plugin
-%{_libdir}/kde3/*.so
-%{_datadir}/apps/klash
-%{_datadir}/services/klash_part.desktop
-
+#
+#%package -n	%{name}-konqueror-plugin
+#Summary:	Gnash konqueror plugin
+#Group:		Graphical desktop/KDE
+#Requires:	gnash = %{version}
+#%description -n %{name}-konqueror-plugin
+#Gnash Konqueror plugin
+#
+#%files -n %{name}-konqueror-plugin
+#%{_libdir}/kde3/*.so
+#%{_libdir}/kde3/*.la
+#%{_datadir}/apps/klash
+#%{_datadir}/services/klash_part.desktop
+#
 #--------------------------------------------------------------------
 
 %prep
@@ -153,11 +164,11 @@ sh autogen.sh
 		--enable-sdk-install \
 		--enable-jpeg \
 		--enable-ghelp \
-		--enable-klash \
 		--enable-gui=gtk \
 		--enable-sound=sdl \
 		--with-qt-incl="`pkg-config --variable=includedir qt-mt`" \
-		--with-qt-lib="`pkg-config --variable=libdir qt-mt`"
+		--with-qt-lib="`pkg-config --variable=libdir qt-mt`" \
+                --disable-klash 
 
 %make "OPENGL_LIBS = -lGL"
 
