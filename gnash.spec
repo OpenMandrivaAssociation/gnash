@@ -7,9 +7,9 @@
 %define __libtoolize /bin/true
 %define name	gnash
 %define version 0.8.0
-%define release %mkrel -c %cvs 2
+%define release %mkrel -c %cvs 1
 
-%define cvs     070624
+%define cvs     070708
 
 %define libname %mklibname %{name} 0
 %define libname_orig lib%{name}
@@ -87,13 +87,13 @@ Gnash library.
 
 %files -n %{libname}
 %defattr(-,root,root)
-%{_libdir}/libgnashbackend-cvs20070702.so
-%{_libdir}/libgnashbase-cvs20070702.so
-%{_libdir}/libgnashgeo-cvs20070702.so
-%{_libdir}/libgnashgui-cvs20070702.so
-%{_libdir}/libgnashplayer-cvs20070702.so
-%{_libdir}/libgnashserver-cvs20070702.so
-%{_libdir}/libgnashamf-cvs20070702.so
+%{_libdir}/libgnashbackend-cvs20%{cvs}.so
+%{_libdir}/libgnashbase-cvs20%{cvs}.so
+%{_libdir}/libgnashgeo-cvs20%{cvs}.so
+%{_libdir}/libgnashgui-cvs20%{cvs}.so
+%{_libdir}/libgnashplayer-cvs20%{cvs}.so
+%{_libdir}/libgnashserver-cvs20%{cvs}.so
+%{_libdir}/libgnashamf-cvs20%{cvs}.so
 
 #--------------------------------------------------------------------
 
@@ -153,7 +153,7 @@ Gnash Konqueror plugin
 %setup -q -n %name
 %build
 sh autogen.sh
-%configure2_5x	--enable-mp3 \
+%configure	--enable-mp3 \
 		--enable-ghelp  \
 		--enable-docbook \
 		--enable-plugin \
