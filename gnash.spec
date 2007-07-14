@@ -38,7 +38,7 @@ BuildRequires:  scrollkeeper
 BuildRequires:  slang-devel
 BuildRequires:  libxslt-proc
 BuildRequires:  agg-devel
-BuildRequires:  libmysql-devel
+BuildRequires:  MySQL-devel
 BuildRequires:  libltdl-devel
 Buildrequires:	gtk2-devel
 Buildrequires:	dejagnu
