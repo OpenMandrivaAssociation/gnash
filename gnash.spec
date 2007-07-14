@@ -9,7 +9,7 @@
 %define version 0.8.0
 %define release %mkrel -c %cvs 1
 
-%define cvs     070708
+%define cvs     070714
 
 %define libname %mklibname %{name} 0
 %define libname_orig lib%{name}
@@ -18,7 +18,7 @@ Name:		%name
 Summary:	Gnash - a GNU Flash movie player
 Version:	%version
 Release:	%release
-License:	GPL
+License:	GPLv3
 Group:		Networking/WWW
 Source0:	%name-%cvs.tar.bz2
 BuildRoot:	%{_tmppath}/%{name}-root
@@ -38,7 +38,7 @@ BuildRequires:  scrollkeeper
 BuildRequires:  slang-devel
 BuildRequires:  libxslt-proc
 BuildRequires:  agg-devel
-BuildRequires:  mysql-devel
+BuildRequires:  libmysql-devel
 BuildRequires:  libltdl-devel
 Buildrequires:	gtk2-devel
 Buildrequires:	dejagnu
@@ -66,8 +66,8 @@ at best. Gnash is based on GameSWF, and supports many SWF v7 features.
 %{_bindir}/cygnal
 %{_mandir}/man?/*
 
-%{_infodir}/%{name}.info.bz2
-%{_infodir}/asspec.info.bz2
+%{_infodir}/%{name}.info.*
+%{_infodir}/asspec.info.*
 %{_datadir}/omf/gnash
 %{_datadir}/gnash
 
@@ -178,7 +178,7 @@ rm -rf %{buildroot}
 
 
 # Big fat but working hack
-perl -pi -e "s,install-info,/../sbin/install-info," doc/C/Makefile
+# perl -pi -e "s,install-info,/../sbin/install-info," doc/C/Makefile
 
 %makeinstall_std
 rm -rf %{buildroot}/%{_localstatedir}/scrollkeeper
