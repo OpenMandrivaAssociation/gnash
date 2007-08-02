@@ -9,7 +9,7 @@
 %define version 0.8.0
 %define release %mkrel -c %cvs 1
 
-%define cvs     070714
+%define cvs     070802
 
 %define libname %mklibname %{name} 0
 %define libname_orig lib%{name}
@@ -63,7 +63,7 @@ at best. Gnash is based on GameSWF, and supports many SWF v7 features.
 %{_bindir}/gnash
 %{_bindir}/gparser
 %{_bindir}/gprocessor
-%{_bindir}/cygnal
+%{_bindir}/gtk-gnash
 %{_mandir}/man?/*
 
 %{_infodir}/%{name}.info.*
@@ -87,13 +87,11 @@ Gnash library.
 
 %files -n %{libname}
 %defattr(-,root,root)
-%{_libdir}/libgnashbackend-cvs20%{cvs}.so
-%{_libdir}/libgnashbase-cvs20%{cvs}.so
-%{_libdir}/libgnashgeo-cvs20%{cvs}.so
-%{_libdir}/libgnashgui-cvs20%{cvs}.so
-%{_libdir}/libgnashplayer-cvs20%{cvs}.so
-%{_libdir}/libgnashserver-cvs20%{cvs}.so
-%{_libdir}/libgnashamf-cvs20%{cvs}.so
+%{_libdir}/libgnashbackend-cvs.so
+%{_libdir}/libgnashbase-cvs.so
+%{_libdir}/libgnashgeo-cvs.so
+%{_libdir}/libgnashserver-cvs.so
+%{_libdir}/libgnashamf-cvs.so
 
 #--------------------------------------------------------------------
 
@@ -111,12 +109,15 @@ Headers of %{name} for development.
 %defattr(-,root,root)
 %{_libdir}/libgnash*.la
 %{_libdir}/libgnashamf.so
+%{_libdir}/libgnashamf.a
 %{_libdir}/libgnashbackend.so
+%{_libdir}/libgnashbackend.a
 %{_libdir}/libgnashbase.so
+%{_libdir}/libgnashbase.a
 %{_libdir}/libgnashgeo.so
-%{_libdir}/libgnashgui.so
-%{_libdir}/libgnashplayer.so
+%{_libdir}/libgnashgeo.a
 %{_libdir}/libgnashserver.so
+%{_libdir}/libgnashserver.a
 
 #--------------------------------------------------------------------
 
@@ -142,7 +143,9 @@ Requires:	gnash = %{version}
 Gnash Konqueror plugin
 
 %files -n %{name}-konqueror-plugin
+%{_bindir}/kde-gnash
 %{_libdir}/kde3/*.so
+%{_libdir}/kde3/*.a
 %{_libdir}/kde3/*.la
 %{_datadir}/apps/klash
 %{_datadir}/services/klash_part.desktop
