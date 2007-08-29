@@ -6,7 +6,7 @@
 
 %define __libtoolize /bin/true
 %define name	gnash
-%define version 0.8.0
+%define version 0.8.1
 %define release %mkrel -c %cvs 1
 
 %define cvs     070802
@@ -20,7 +20,7 @@ Version:	%version
 Release:	%release
 License:	GPLv3
 Group:		Networking/WWW
-Source0:	%name-%cvs.tar.bz2
+Source0:	%name-%version.tar.bz2
 BuildRoot:	%{_tmppath}/%{name}-root
 URL:		http://www.gnu.org/software/gnash/
 BuildRequires:	mesaglut-devel
