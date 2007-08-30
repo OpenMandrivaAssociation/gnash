@@ -7,9 +7,8 @@
 %define __libtoolize /bin/true
 %define name	gnash
 %define version 0.8.1
-%define release %mkrel -c %cvs 1
-
-%define cvs     070802
+%define release %mkrel 1
+#%define cvs     070802
 
 %define libname %mklibname %{name} 0
 %define libname_orig lib%{name}
@@ -153,7 +152,7 @@ Gnash Konqueror plugin
 #--------------------------------------------------------------------
 
 %prep
-%setup -q -n %name
+%setup -q -n %name-%version
 %build
 sh autogen.sh
 %configure	--enable-mp3 \
