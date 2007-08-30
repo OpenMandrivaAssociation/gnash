@@ -142,19 +142,19 @@ Requires:	gnash = %{version}
 Gnash Konqueror plugin
 
 %files -n %{name}-konqueror-plugin
-#%{_bindir}/kde-gnash
-#%{_libdir}/kde3/*.so
-#%{_libdir}/kde3/*.a
-#%{_libdir}/kde3/*.la
-#%{_datadir}/apps/klash
-#%{_datadir}/services/klash_part.desktop
+%{_bindir}/kde-gnash
+%{_libdir}/kde3/*.so
+%{_libdir}/kde3/*.a
+%{_libdir}/kde3/*.la
+%{_datadir}/apps/klash
+%{_datadir}/services/klash_part.desktop
 
 #--------------------------------------------------------------------
 
 %prep
 %setup -q -n %name-%version
 %build
-sh autogen.sh
+
 %configure	--enable-mp3 \
 		--enable-ghelp  \
 		--enable-docbook \
@@ -166,7 +166,6 @@ sh autogen.sh
 		--enable-sdk-install \
 		--enable-jpeg \
 		--enable-ghelp \
-		--enable-gui=gtk \
 		--enable-sound=sdl \
 		--with-qt-incl="`pkg-config --variable=includedir qt-mt`" \
 		--with-qt-lib="`pkg-config --variable=libdir qt-mt`" \
