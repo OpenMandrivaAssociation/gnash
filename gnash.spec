@@ -58,7 +58,7 @@ at best. Gnash is based on GameSWF, and supports many SWF v7 features.
 
 %files -f %name.lang
 %defattr(-,root,root,0755)
-%doc AUTHORS COPYING ChangeLog ChangeLog.gameswf INSTALL NEWS README TODO
+%doc AUTHORS COPYING ChangeLog INSTALL NEWS README TODO
 %{_bindir}/gnash
 %{_bindir}/gparser
 %{_bindir}/gprocessor
@@ -86,11 +86,11 @@ Gnash library.
 
 %files -n %{libname}
 %defattr(-,root,root)
-%{_libdir}/libgnashbackend-cvs.so
-%{_libdir}/libgnashbase-cvs.so
-%{_libdir}/libgnashgeo-cvs.so
-%{_libdir}/libgnashserver-cvs.so
-%{_libdir}/libgnashamf-cvs.so
+%{_libdir}/gnash/libgnashbackend-%version.so
+%{_libdir}/gnash/libgnashbase-%version.so
+%{_libdir}/gnash/libgnashgeo-%version.so
+%{_libdir}/gnash/libgnashserver-%version.so
+%{_libdir}/gnash/libgnashamf-%version.so
 
 #--------------------------------------------------------------------
 
@@ -106,17 +106,17 @@ Headers of %{name} for development.
 
 %files -n %{libname}-devel
 %defattr(-,root,root)
-%{_libdir}/libgnash*.la
-%{_libdir}/libgnashamf.so
-%{_libdir}/libgnashamf.a
-%{_libdir}/libgnashbackend.so
-%{_libdir}/libgnashbackend.a
-%{_libdir}/libgnashbase.so
-%{_libdir}/libgnashbase.a
-%{_libdir}/libgnashgeo.so
-%{_libdir}/libgnashgeo.a
-%{_libdir}/libgnashserver.so
-%{_libdir}/libgnashserver.a
+%{_libdir}/gnash/libgnash*.la
+%{_libdir}/gnash/libgnashamf.so
+%{_libdir}/gnash/libgnashamf.a
+%{_libdir}/gnash/libgnashbackend.so
+%{_libdir}/gnash/libgnashbackend.a
+%{_libdir}/gnash/libgnashbase.so
+%{_libdir}/gnash/libgnashbase.a
+%{_libdir}/gnash/libgnashgeo.so
+%{_libdir}/gnash/libgnashgeo.a
+%{_libdir}/gnash/libgnashserver.so
+%{_libdir}/gnash/libgnashserver.a
 
 #--------------------------------------------------------------------
 
@@ -142,12 +142,12 @@ Requires:	gnash = %{version}
 Gnash Konqueror plugin
 
 %files -n %{name}-konqueror-plugin
-%{_bindir}/kde-gnash
-%{_libdir}/kde3/*.so
-%{_libdir}/kde3/*.a
-%{_libdir}/kde3/*.la
-%{_datadir}/apps/klash
-%{_datadir}/services/klash_part.desktop
+#%{_bindir}/kde-gnash
+#%{_libdir}/kde3/*.so
+#%{_libdir}/kde3/*.a
+#%{_libdir}/kde3/*.la
+#%{_datadir}/apps/klash
+#%{_datadir}/services/klash_part.desktop
 
 #--------------------------------------------------------------------
 
