@@ -6,9 +6,9 @@
 
 %define __libtoolize /bin/true
 %define name	gnash
-%define version 0.8.1
-%define release %mkrel 2
-#%define cvs     070802
+%define version 0.8.2
+%define release %mkrel 0.%cvs.0
+%define cvs     071102
 
 %define libname %mklibname %{name} 0
 %define libname_orig lib%{name}
@@ -19,7 +19,7 @@ Version:	%version
 Release:	%release
 License:	GPLv3
 Group:		Networking/WWW
-Source0:	%name-%version.tar.bz2
+Source0:	%name-%cvs.tar.bz2
 BuildRoot:	%{_tmppath}/%{name}-root
 URL:		http://www.gnu.org/software/gnash/
 BuildRequires:	mesaglut-devel
@@ -86,11 +86,11 @@ Gnash library.
 
 %files -n %{libname}
 %defattr(-,root,root)
-%{_libdir}/gnash/libgnashbackend-%version.so
-%{_libdir}/gnash/libgnashbase-%version.so
-%{_libdir}/gnash/libgnashgeo-%version.so
-%{_libdir}/gnash/libgnashserver-%version.so
-%{_libdir}/gnash/libgnashamf-%version.so
+%{_libdir}/gnash/libgnashbase-cvs.so
+%{_libdir}/gnash/libgnashgeo-cvs.so
+%{_libdir}/gnash/libgnashserver-cvs.so
+%{_libdir}/gnash/libgnashamf-cvs.so
+%{_libdir}/gnash/libgnashmedia-cvs.so
 
 #--------------------------------------------------------------------
 
@@ -109,14 +109,14 @@ Headers of %{name} for development.
 %{_libdir}/gnash/libgnash*.la
 %{_libdir}/gnash/libgnashamf.so
 %{_libdir}/gnash/libgnashamf.a
-%{_libdir}/gnash/libgnashbackend.so
-%{_libdir}/gnash/libgnashbackend.a
 %{_libdir}/gnash/libgnashbase.so
 %{_libdir}/gnash/libgnashbase.a
 %{_libdir}/gnash/libgnashgeo.so
 %{_libdir}/gnash/libgnashgeo.a
 %{_libdir}/gnash/libgnashserver.so
 %{_libdir}/gnash/libgnashserver.a
+%{_libdir}/gnash/libgnashmedia.a
+%{_libdir}/gnash/libgnashmedia.so
 
 #--------------------------------------------------------------------
 
@@ -152,9 +152,9 @@ Gnash Konqueror plugin
 #--------------------------------------------------------------------
 
 %prep
-%setup -q -n %name-%version
+%setup -q -n %name-%cvs
 %build
-
+sh autogen.sh
 %configure	--enable-mp3 \
 		--enable-ghelp  \
 		--enable-docbook \
