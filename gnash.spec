@@ -8,7 +8,7 @@
 %define name	gnash
 %define version 0.8.2
 %define release %mkrel 0.%cvs.0
-%define cvs     071102
+%define cvs     071213
 
 %define libname %mklibname %{name} 0
 %define libname_orig lib%{name}
@@ -60,7 +60,6 @@ at best. Gnash is based on GameSWF, and supports many SWF v7 features.
 %defattr(-,root,root,0755)
 %doc AUTHORS COPYING ChangeLog INSTALL NEWS README TODO
 %{_bindir}/gnash
-%{_bindir}/gparser
 %{_bindir}/gprocessor
 %{_bindir}/gtk-gnash
 %{_mandir}/man?/*
@@ -87,7 +86,6 @@ Gnash library.
 %files -n %{libname}
 %defattr(-,root,root)
 %{_libdir}/gnash/libgnashbase-cvs.so
-%{_libdir}/gnash/libgnashgeo-cvs.so
 %{_libdir}/gnash/libgnashserver-cvs.so
 %{_libdir}/gnash/libgnashamf-cvs.so
 %{_libdir}/gnash/libgnashmedia-cvs.so
@@ -111,8 +109,6 @@ Headers of %{name} for development.
 %{_libdir}/gnash/libgnashamf.a
 %{_libdir}/gnash/libgnashbase.so
 %{_libdir}/gnash/libgnashbase.a
-%{_libdir}/gnash/libgnashgeo.so
-%{_libdir}/gnash/libgnashgeo.a
 %{_libdir}/gnash/libgnashserver.so
 %{_libdir}/gnash/libgnashserver.a
 %{_libdir}/gnash/libgnashmedia.a
@@ -152,8 +148,12 @@ Gnash Konqueror plugin
 #--------------------------------------------------------------------
 
 %prep
-%setup -q -n %name-%cvs
+%setup -q -n %name
+
 %build
+QTDIR="/usr/lib/qt3" ; export QTDIR ;
+PATH="/usr/lib/qt3/bin:$PATH" ; export PATH ;
+
 sh autogen.sh
 %configure	--enable-mp3 \
 		--enable-ghelp  \
@@ -167,8 +167,6 @@ sh autogen.sh
 		--enable-jpeg \
 		--enable-ghelp \
 		--enable-sound=sdl \
-		--with-qt-incl="`pkg-config --variable=includedir qt-mt`" \
-		--with-qt-lib="`pkg-config --variable=libdir qt-mt`" \
                 --enable-klash 
 
 %make "OPENGL_LIBS = -lGL"
