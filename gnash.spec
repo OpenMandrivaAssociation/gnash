@@ -20,6 +20,7 @@ Release:	%release
 License:	GPLv3
 Group:		Networking/WWW
 Source0:	%name-%cvs.tar.bz2
+BuildRoot:	%{_tmppath}/%{name}-root
 URL:		http://www.gnu.org/software/gnash/
 BuildRequires:	mesaglut-devel
 BuildRequires:  mozilla-firefox-devel > 1.5
