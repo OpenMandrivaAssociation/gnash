@@ -8,7 +8,7 @@
 %define name	gnash
 %define version 0.8.2
 %define release %mkrel 0.%cvs.0
-%define cvs     071213
+%define cvs     071227
 
 %define libname %mklibname %{name} 0
 %define libname_orig lib%{name}
@@ -62,6 +62,7 @@ at best. Gnash is based on GameSWF, and supports many SWF v7 features.
 %{_bindir}/gnash
 %{_bindir}/gprocessor
 %{_bindir}/gtk-gnash
+%{_bindir}/soldumper
 %{_mandir}/man?/*
 
 %{_infodir}/%{name}.info.*
