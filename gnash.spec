@@ -7,8 +7,8 @@
 %define __libtoolize /bin/true
 %define name	gnash
 %define version 0.8.2
-%define release %mkrel 0.%cvs.0
-%define cvs     071227
+%define release %mkrel 0.%cvs.1
+%define cvs     080111
 
 %define libname %mklibname %{name} 0
 %define libname_orig lib%{name}
@@ -129,6 +129,7 @@ Gnash firefox plugin
 %files -n %{name}-firefox-plugin
 %{_libdir}/mozilla/plugins/*.so
 
+
 #--------------------------------------------------------------------
 
 %package -n	%{name}-konqueror-plugin
@@ -182,7 +183,10 @@ rm -rf %{buildroot}
 
 %makeinstall_std
 rm -rf %{buildroot}/%{_localstatedir}/scrollkeeper
-perl -pi -e "s,-L%{_builddir}/%{name}-%{version}/libbase,,g" %{buildroot}/%{_libdir}/libgnashgeo.la
+#perl -pi -e "s,-L%{_builddir}/%{name}-%{version}/libbase,,g" %{buildroot}/%{_libdir}/libgnashgeo.la
+
+rm -rf %{buildroot}/%{_libdir}/mozilla/plugins/*.a
+rm -rf %{buildroot}/%{_libdir}/mozilla/plugins/*.la
 
 %find_lang %name
 
