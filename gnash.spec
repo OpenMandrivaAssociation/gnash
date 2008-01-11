@@ -33,7 +33,7 @@ BuildRequires:  curl-devel
 BuildRequires:  docbook2x
 BuildRequires:  texinfo
 BuildRequires:  doxygen
-BuildRequires:  scrollkeeper
+BuildRequires:  rarian
 BuildRequires:  slang-devel
 BuildRequires:  libxslt-proc
 BuildRequires:  agg-devel
