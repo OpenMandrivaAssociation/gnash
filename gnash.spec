@@ -8,7 +8,7 @@
 %define name	gnash
 %define version 0.8.2
 %define release %mkrel 0.%cvs.1
-%define cvs     080111
+%define cvs     080119
 
 %define libname %mklibname %{name} 0
 %define libname_orig lib%{name}
@@ -141,11 +141,11 @@ Gnash Konqueror plugin
 
 %files -n %{name}-konqueror-plugin
 %{_bindir}/kde-gnash
-%{_libdir}/kde3/*.so
-%{_libdir}/kde3/*.a
-%{_libdir}/kde3/*.la
-%{_datadir}/apps/klash
-%{_datadir}/services/klash_part.desktop
+#%{_libdir}/kde3/*.so
+#%{_libdir}/kde3/*.a
+#%{_libdir}/kde3/*.la
+#%{_datadir}/apps/klash
+#%{_datadir}/services/klash_part.desktop
 
 #--------------------------------------------------------------------
 
@@ -169,7 +169,8 @@ sh autogen.sh
 		--enable-jpeg \
 		--enable-ghelp \
 		--enable-sound=sdl \
-                --enable-klash 
+                --enable-klash \
+                --enable-render=agg
 
 %make "OPENGL_LIBS = -lGL"
 
@@ -181,7 +182,7 @@ rm -rf %{buildroot}
 # Big fat but working hack
 # perl -pi -e "s,install-info,/../sbin/install-info," doc/C/Makefile
 
-%makeinstall_std
+%makeinstall_std install-plugin
 rm -rf %{buildroot}/%{_localstatedir}/scrollkeeper
 #perl -pi -e "s,-L%{_builddir}/%{name}-%{version}/libbase,,g" %{buildroot}/%{_libdir}/libgnashgeo.la
 
