@@ -8,7 +8,7 @@
 %define name	gnash
 %define version 0.8.2
 %define release %mkrel 0.%cvs.1
-%define cvs     080119
+%define cvs     080207
 
 %define libname %mklibname %{name} 0
 %define libname_orig lib%{name}
@@ -63,8 +63,8 @@ at best. Gnash is based on GameSWF, and supports many SWF v7 features.
 %{_bindir}/gprocessor
 %{_bindir}/gtk-gnash
 %{_bindir}/soldumper
+%{_bindir}/dumpshm
 %{_mandir}/man?/*
-
 %{_infodir}/%{name}.info.*
 %{_infodir}/asspec.info.*
 %{_datadir}/omf/gnash
@@ -176,16 +176,12 @@ sh autogen.sh
 
 
 %install
-rm -rf %{buildroot}
+#%makeinstall_std install-plugin
+strip gui/.libs/*-gnash utilities/.libs/dumpshm  utilities/.libs/g*  utilities/.libs/soldumper
+rm -rf $RPM_BUILD_ROOT
+make install install-plugin DESTDIR=$RPM_BUILD_ROOT
 
-
-# Big fat but working hack
-# perl -pi -e "s,install-info,/../sbin/install-info," doc/C/Makefile
-
-%makeinstall_std install-plugin
 rm -rf %{buildroot}/%{_localstatedir}/scrollkeeper
-#perl -pi -e "s,-L%{_builddir}/%{name}-%{version}/libbase,,g" %{buildroot}/%{_libdir}/libgnashgeo.la
-
 rm -rf %{buildroot}/%{_libdir}/mozilla/plugins/*.a
 rm -rf %{buildroot}/%{_libdir}/mozilla/plugins/*.la
 
