@@ -25,6 +25,7 @@ BuildRequires:  gtkglext-devel
 BuildRequires:  boost-devel
 BuildRequires:  curl-devel
 BuildRequires:  docbook2x
+BuildRequires:	docbook-dtd412-xml
 BuildRequires:  texinfo
 BuildRequires:  doxygen
 BuildRequires:  rarian
