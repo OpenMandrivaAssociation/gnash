@@ -1,14 +1,8 @@
-# TODO
-# Add a cvs switch
-# Fix --enable-renderer=agg
-# fix --enable-gui=fltk
-####################################################
-
 %define __libtoolize /bin/true
 %define name	gnash
 %define version 0.8.2
-%define release %mkrel 0.%cvs.2
-%define cvs     080207
+%define release %mkrel 0.%cvs.1
+%define cvs     080224
 
 %define libname %mklibname %{name} 0
 %define libname_orig lib%{name}
@@ -43,6 +37,8 @@ Buildrequires:	gtk2-devel
 Buildrequires:	dejagnu
 # (nl) : needed for the test-suite
 BuildRequires:  ming-devel
+Requires:	gstreamer0.10
+Requires:	gstreamer-plugins-base, gstreamer-plugins-ugly, gstreamer-plugins-bad
 
 %description
 Gnash is a GNU Flash movie player. Till now it has been possible 
@@ -141,11 +137,8 @@ Gnash Konqueror plugin
 
 %files -n %{name}-konqueror-plugin
 %{_bindir}/kde-gnash
-#%{_libdir}/kde3/*.so
-#%{_libdir}/kde3/*.a
-#%{_libdir}/kde3/*.la
-#%{_datadir}/apps/klash
-#%{_datadir}/services/klash_part.desktop
+%{_datadir}/apps/klash/pluginsinfo
+%{_datadir}/services/klash_part.desktop
 
 #--------------------------------------------------------------------
 
