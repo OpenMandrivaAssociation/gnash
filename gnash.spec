@@ -38,8 +38,11 @@ Buildrequires:	gtk2-devel
 Buildrequires:	dejagnu
 # (nl) : needed for the test-suite
 BuildRequires:  ming-devel
+
 Requires:	gstreamer0.10
-Requires:	gstreamer-plugins-base, gstreamer-plugins-ugly, gstreamer-plugins-bad
+Requires:	gstreamer0.10-plugins-base
+Requires:	gstreamer0.10-plugins-ugly
+Requires:	gstreamer0.10-plugins-bad
 
 %description
 Gnash is a GNU Flash movie player. Till now it has been possible 
@@ -63,7 +66,6 @@ at best. Gnash is based on GameSWF, and supports many SWF v7 features.
 %{_bindir}/dumpshm
 %{_mandir}/man?/*
 %{_infodir}/%{name}.info.*
-%{_infodir}/asspec.info.*
 %{_datadir}/omf/gnash
 %{_datadir}/gnash
 
