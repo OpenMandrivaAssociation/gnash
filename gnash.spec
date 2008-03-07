@@ -64,8 +64,8 @@ at best. Gnash is based on GameSWF, and supports many SWF v7 features.
 %{_bindir}/soldumper
 %{_bindir}/dumpshm
 %{_mandir}/man?/*
-%{_infodir}/%{name}.info.*
-%{_datadir}/omf/gnash
+#%{_infodir}/%{name}.info.*
+#%{_datadir}/omf/gnash
 %{_datadir}/gnash
 
 #--------------------------------------------------------------------
