@@ -1,8 +1,8 @@
 %define __libtoolize /bin/true
 %define name	gnash
 %define version 0.8.2
-%define release %mkrel 0.%cvs.2
-%define cvs     080224
+%define release %mkrel 1
+#%define cvs     080224
 
 %define libname %mklibname %{name} 0
 %define libname_orig lib%{name}
@@ -13,7 +13,7 @@ Version:	%version
 Release:	%release
 License:	GPLv3
 Group:		Networking/WWW
-Source0:	%name-%cvs.tar.bz2
+Source0:	%name-%version.tar.bz2
 BuildRoot:	%{_tmppath}/%{name}-root
 URL:		http://www.gnu.org/software/gnash/
 BuildRequires:	mesaglut-devel
@@ -84,10 +84,10 @@ Gnash library.
 
 %files -n %{libname}
 %defattr(-,root,root)
-%{_libdir}/gnash/libgnashbase-cvs.so
-%{_libdir}/gnash/libgnashserver-cvs.so
-%{_libdir}/gnash/libgnashamf-cvs.so
-%{_libdir}/gnash/libgnashmedia-cvs.so
+%{_libdir}/gnash/libgnashbase-%{version}.so
+%{_libdir}/gnash/libgnashserver-%{version}.so
+%{_libdir}/gnash/libgnashamf-%{version}.so
+%{_libdir}/gnash/libgnashmedia-%{version}.so
 
 #--------------------------------------------------------------------
 
@@ -110,8 +110,8 @@ Headers of %{name} for development.
 %{_libdir}/gnash/libgnashbase.a
 %{_libdir}/gnash/libgnashserver.so
 %{_libdir}/gnash/libgnashserver.a
-%{_libdir}/gnash/libgnashmedia.a
 %{_libdir}/gnash/libgnashmedia.so
+%{_libdir}/gnash/libgnashmedia.a
 
 #--------------------------------------------------------------------
 
@@ -145,7 +145,7 @@ Gnash Konqueror plugin
 #--------------------------------------------------------------------
 
 %prep
-%setup -q -n %name
+%setup -q -n %name-%version
 
 %build
 QTDIR="/usr/lib/qt3" ; export QTDIR ;
@@ -156,7 +156,7 @@ sh autogen.sh
 		--enable-ghelp  \
 		--enable-docbook \
 		--enable-plugin \
-		--with-plugindir=%{_libdir}/mozilla/plugins  \
+		--with-npapi-plugindir=%{_libdir}/mozilla/plugins  \
 		--enable-media=gst \
 		--disable-rpath \
 		--enable-extensions \
