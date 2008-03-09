@@ -1,21 +1,16 @@
-%define __libtoolize /bin/true
-%define name	gnash
-%define version 0.8.2
-%define release %mkrel 1
-#%define cvs     080224
-
 %define libname %mklibname %{name} 0
+%define libname_dev %mklibname -d %{name} 
 %define libname_orig lib%{name}
 
-Name:		%name
-Summary:	Gnash - a GNU Flash movie player
-Version:	%version
-Release:	%release
-License:	GPLv3
-Group:		Networking/WWW
-Source0:	%name-%version.tar.bz2
-BuildRoot:	%{_tmppath}/%{name}-root
-URL:		http://www.gnu.org/software/gnash/
+Name: gnash
+Version: 0.8.2
+Release: %mkrel 2
+Summary: Gnash - a GNU Flash movie player
+License: GPLv3
+Group: Networking/WWW
+Source0: %name-%version.tar.bz2
+BuildRoot: %{_tmppath}/%{name}-root
+URL: http://www.gnu.org/software/gnash/
 BuildRequires:	mesaglut-devel
 BuildRequires:  mozilla-firefox-devel > 1.5
 BuildRequires:  libgstreamer0.10-devel
@@ -79,7 +74,6 @@ Provides:	%{libname_orig} = %{version}
 Gnash library.
 
 %post -n %{libname} -p /sbin/ldconfig
-
 %postun -n %{libname} -p /sbin/ldconfig
 
 %files -n %{libname}
@@ -91,17 +85,18 @@ Gnash library.
 
 #--------------------------------------------------------------------
 
-%package -n	%{libname}-devel
+%package -n	%{libname_dev}
 Summary:	Headers of %name for development
 Group:		Development/C
 Requires:	%{libname} = %{version}
 Provides:	%{name}-devel = %{version}-%{release}
 Provides:	%{libname_orig}-devel = %{version}-%{release}
+Obsoletes: %{libname}-devel
 
-%description -n %{libname}-devel
+%description -n %{libname_dev}
 Headers of %{name} for development.
 
-%files -n %{libname}-devel
+%files -n %{libname_dev}
 %defattr(-,root,root)
 %{_libdir}/gnash/libgnash*.la
 %{_libdir}/gnash/libgnashamf.so
@@ -115,7 +110,7 @@ Headers of %{name} for development.
 
 #--------------------------------------------------------------------
 
-%package -n     %{name}-firefox-plugin
+%package -n %{name}-firefox-plugin
 Summary:	Gnash firefox plugin
 Group:		Networking/WWW
 Requires:	gnash = %{version}
@@ -141,6 +136,9 @@ Gnash Konqueror plugin
 %{_bindir}/kde-gnash
 %{_datadir}/apps/klash/pluginsinfo
 %{_datadir}/services/klash_part.desktop
+%{_datadir}/apps/klash
+%{_libdir}/kde3/*
+%exclude %{_libdir}/kde3/*.a
 
 #--------------------------------------------------------------------
 
@@ -152,7 +150,8 @@ QTDIR="/usr/lib/qt3" ; export QTDIR ;
 PATH="/usr/lib/qt3/bin:$PATH" ; export PATH ;
 
 sh autogen.sh
-%configure	--enable-mp3 \
+%configure	\
+		--enable-mp3 \
 		--enable-ghelp  \
 		--enable-docbook \
 		--enable-plugin \
@@ -164,17 +163,16 @@ sh autogen.sh
 		--enable-jpeg \
 		--enable-ghelp \
 		--enable-sound=sdl \
-                --enable-klash \
-                --enable-render=agg
+		--enable-klash \
+		--enable-render=agg
 
 %make "OPENGL_LIBS = -lGL"
-
 
 %install
 #%makeinstall_std install-plugin
 strip gui/.libs/*-gnash utilities/.libs/dumpshm  utilities/.libs/g*  utilities/.libs/soldumper
 rm -rf $RPM_BUILD_ROOT
-make install install-plugin DESTDIR=$RPM_BUILD_ROOT
+make install install-plugins DESTDIR=$RPM_BUILD_ROOT
 
 rm -rf %{buildroot}/%{_localstatedir}/scrollkeeper
 rm -rf %{buildroot}/%{_libdir}/mozilla/plugins/*.a
