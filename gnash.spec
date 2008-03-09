@@ -13,7 +13,11 @@ BuildRoot: %{_tmppath}/%{name}-root
 URL: http://www.gnu.org/software/gnash/
 BuildRequires:	mesaglut-devel
 BuildRequires:  mozilla-firefox-devel > 1.5
+%if %mdkversion < 200810
 BuildRequires:  libgstreamer0.10-devel
+%else
+BuildRequires:  gstreamer0.10-devel
+%endif
 BuildRequires:  SDL_mixer-devel
 BuildRequires:  kdebase-devel
 BuildRequires:  gtkglext-devel
