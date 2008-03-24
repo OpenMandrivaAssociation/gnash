@@ -4,14 +4,14 @@
 
 Name: gnash
 Version: 0.8.2
-Release: %mkrel 2
+Release: %mkrel 3
 Summary: Gnash - a GNU Flash movie player
 License: GPLv3
 Group: Networking/WWW
 Source0: %name-%version.tar.bz2
 BuildRoot: %{_tmppath}/%{name}-root
 URL: http://www.gnu.org/software/gnash/
-BuildRequires:	mesaglut-devel
+#BuildRequires:	mesaglut-devel
 BuildRequires:  mozilla-firefox-devel > 1.5
 %if %mdkversion < 200810
 BuildRequires:  libgstreamer0.10-devel
@@ -20,7 +20,7 @@ BuildRequires:  gstreamer0.10-devel
 %endif
 BuildRequires:  SDL_mixer-devel
 BuildRequires:  kdebase-devel
-BuildRequires:  gtkglext-devel
+#BuildRequires:  gtkglext-devel
 BuildRequires:  boost-devel
 BuildRequires:  curl-devel
 BuildRequires:  docbook2x
@@ -34,7 +34,7 @@ BuildRequires:  agg-devel
 BuildRequires:  MySQL-devel
 BuildRequires:  libltdl-devel
 Buildrequires:	gtk2-devel
-Buildrequires:	dejagnu
+#Buildrequires:	dejagnu
 # (nl) : needed for the test-suite
 BuildRequires:  ming-devel
 
@@ -43,10 +43,13 @@ Requires:	gstreamer0.10-plugins-ugly
 Requires:	gstreamer0.10-plugins-bad
 
 %description
-Gnash is a GNU Flash movie player. Till now it has been possible 
-to play flash movies with proprietary software. While there are a 
-few free flash players, none supports anything higher than SWF v4 
-at best. Gnash is based on GameSWF, and supports many SWF v7 features.
+Gnash is capable of reading up to SWF v9 files and opcodes, but primarily
+supports SWF v7, with better SWF v8 and v9 support under heavy development.
+With the 0.8.2 release, Gnash includes initial parser support for SWF v8
+and v9. Not all ActionScript 2 classes are implemented yet, but all of
+the most heavily used ones are. Many ActionScript 2 classes are partially
+implemented; there is support for all of the commonly used methods of each
+class.
 
 %post -n %{name}
 %_install_info %{name}.info
@@ -59,7 +62,9 @@ at best. Gnash is based on GameSWF, and supports many SWF v7 features.
 %doc AUTHORS COPYING ChangeLog INSTALL NEWS README TODO
 %{_bindir}/gnash
 %{_bindir}/gprocessor
+%{_bindir}/fb-gnash
 %{_bindir}/gtk-gnash
+%{_bindir}/sdl-gnash
 %{_bindir}/soldumper
 %{_bindir}/dumpshm
 %{_mandir}/man?/*
@@ -168,7 +173,8 @@ sh autogen.sh
 		--enable-ghelp \
 		--enable-sound=sdl \
 		--enable-klash \
-		--enable-render=agg
+		--enable-render=agg \
+		--enable-gui=gtk,kde,sdl,fb
 
 %make "OPENGL_LIBS = -lGL"
 
