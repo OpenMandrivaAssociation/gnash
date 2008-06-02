@@ -184,7 +184,7 @@ strip gui/.libs/*-gnash utilities/.libs/dumpshm  utilities/.libs/g*  utilities/.
 rm -rf $RPM_BUILD_ROOT
 make install install-plugins DESTDIR=$RPM_BUILD_ROOT
 
-rm -rf %{buildroot}/%{_localstatedir}/scrollkeeper
+rm -rf %{buildroot}/%{_localstatedir}/lib/scrollkeeper
 rm -rf %{buildroot}/%{_libdir}/mozilla/plugins/*.a
 rm -rf %{buildroot}/%{_libdir}/mozilla/plugins/*.la
 
