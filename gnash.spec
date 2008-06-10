@@ -91,6 +91,7 @@ Gnash library.
 
 %files -n %{libname}
 %defattr(-,root,root)
+%dir %{_libdir}/gnash
 %{_libdir}/gnash/libgnashbase-%{version}.so
 %{_libdir}/gnash/libgnashserver-%{version}.so
 %{_libdir}/gnash/libgnashamf-%{version}.so
