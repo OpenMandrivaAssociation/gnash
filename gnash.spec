@@ -206,7 +206,7 @@ rm -rf %{buildroot}/%{_libdir}/mozilla/plugins/*.la
 
 #(nl) Fix makefile to have it automacally done
 %__mkdir -p %{buildroot}/%{_kde3_bindir}
-%__mv %{_bindir}/kde-gnash %{buildroot}/%{_kde3_bindir}/kde-gnash
+%__mv %{buildroot}/%{_bindir}/kde-gnash %{buildroot}/%{_kde3_bindir}/kde-gnash
 
 %find_lang %name
 
