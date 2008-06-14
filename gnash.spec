@@ -1,14 +1,15 @@
 %define libname %mklibname %{name} 0
 %define libname_dev %mklibname -d %{name} 
 %define libname_orig lib%{name}
-
+%define date 061108
+%define oversion cvs
 Name: gnash
-Version: 0.8.2
-Release: %mkrel 4
+Version: 0.8.3
+Release: %mkrel 0.%{date}.1
 Summary: Gnash - a GNU Flash movie player
 License: GPLv3
 Group: Networking/WWW
-Source0: %name-%version.tar.bz2
+Source0: %name-%version.%{date}.tar.bz2
 BuildRoot: %{_tmppath}/%{name}-root
 URL: http://www.gnu.org/software/gnash/
 #BuildRequires:	mesaglut-devel
@@ -19,7 +20,7 @@ BuildRequires:  libgstreamer0.10-devel
 BuildRequires:  gstreamer0.10-devel
 %endif
 BuildRequires:  SDL_mixer-devel
-BuildRequires:  kdebase-devel
+BuildRequires:  kdebase3-devel
 #BuildRequires:  gtkglext-devel
 BuildRequires:  boost-devel
 BuildRequires:  curl-devel
@@ -68,9 +69,10 @@ class.
 %{_bindir}/soldumper
 %{_bindir}/dumpshm
 %{_mandir}/man?/*
-#%{_infodir}/%{name}.info.*
-#%{_datadir}/omf/gnash
+%_sysconfdir/gnashrc
 %{_datadir}/gnash
+%{_libdir}/gnash/plugins
+%_sysconfdir/gnashpluginrc
 
 #--------------------------------------------------------------------
 
@@ -92,10 +94,13 @@ Gnash library.
 %files -n %{libname}
 %defattr(-,root,root)
 %dir %{_libdir}/gnash
-%{_libdir}/gnash/libgnashbase-%{version}.so
-%{_libdir}/gnash/libgnashserver-%{version}.so
-%{_libdir}/gnash/libgnashamf-%{version}.so
-%{_libdir}/gnash/libgnashmedia-%{version}.so
+%{_libdir}/gnash/libgnashbase-%{oversion}.so
+%{_libdir}/gnash/libgnashserver-%{oversion}.so
+%{_libdir}/gnash/libgnashamf-%{oversion}.so
+%{_libdir}/gnash/libgnashmedia-%{oversion}.so
+%{_libdir}/gnash/libgnashnet.so.0*
+%{_libdir}/gnash/libmozsdk.la
+%{_libdir}/gnash/libmozsdk.so.0*
 
 #--------------------------------------------------------------------
 
@@ -121,6 +126,10 @@ Headers of %{name} for development.
 %{_libdir}/gnash/libgnashserver.a
 %{_libdir}/gnash/libgnashmedia.so
 %{_libdir}/gnash/libgnashmedia.a
+%{_libdir}/gnash/libgnashnet.so
+%{_libdir}/gnash/libgnashnet.a
+%{_libdir}/gnash/libmozsdk.a
+%{_libdir}/gnash/libmozsdk.so
 
 #--------------------------------------------------------------------
 
@@ -135,7 +144,6 @@ Gnash firefox plugin
 
 %files -n %{name}-firefox-plugin
 %{_libdir}/mozilla/plugins/*.so
-
 
 #--------------------------------------------------------------------
 
@@ -157,13 +165,14 @@ Gnash Konqueror plugin
 #--------------------------------------------------------------------
 
 %prep
-%setup -q -n %name-%version
+%setup -q -n %name
 
 %build
 QTDIR="/usr/lib/qt3" ; export QTDIR ;
 PATH="/usr/lib/qt3/bin:$PATH" ; export PATH ;
 
 sh autogen.sh
+%define _disable_ld_no_undefined 1
 %configure	\
 		--enable-mp3 \
 		--enable-ghelp  \
@@ -179,7 +188,8 @@ sh autogen.sh
 		--enable-sound=sdl \
 		--enable-klash \
 		--enable-render=agg \
-		--enable-gui=gtk,kde,sdl,fb
+		--enable-gui=gtk,kde,sdl,fb \
+		--enable-extensions=ALL
 
 %make "OPENGL_LIBS = -lGL"
 
