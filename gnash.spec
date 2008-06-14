@@ -155,12 +155,12 @@ Requires:	gnash = %{version}
 Gnash Konqueror plugin
 
 %files -n %{name}-konqueror-plugin
-%{_bindir}/kde-gnash
-%{_datadir}/apps/klash/pluginsinfo
-%{_datadir}/services/klash_part.desktop
-%{_datadir}/apps/klash
-%{_libdir}/kde3/*
-%exclude %{_libdir}/kde3/*.a
+%{_kde3_bindir}/kde-gnash
+%{_kde3_datadir}/apps/klash/pluginsinfo
+%{_kde3_datadir}/services/klash_part.desktop
+%{_kde3_datadir}/apps/klash
+%{_kde3_libdir}/kde3/*
+%exclude %{_kde3_libdir}/kde3/*.a
 
 #--------------------------------------------------------------------
 
@@ -187,6 +187,7 @@ sh autogen.sh
 		--enable-ghelp \
 		--enable-sound=sdl \
 		--enable-klash \
+		--with-kparts-install=system \
 		--enable-render=agg \
 		--enable-gui=gtk,kde,sdl,fb \
 		--enable-extensions=ALL
@@ -202,6 +203,10 @@ make install install-plugins DESTDIR=$RPM_BUILD_ROOT
 rm -rf %{buildroot}/%{_localstatedir}/lib/scrollkeeper
 rm -rf %{buildroot}/%{_libdir}/mozilla/plugins/*.a
 rm -rf %{buildroot}/%{_libdir}/mozilla/plugins/*.la
+
+#(nl) Fix makefile to have it automacally done
+%__mkdir -p %{buildroot}/%{_kde3_bindir}
+%__mv %{_bindir}/kde-gnash %{buildroot}/%{_kde3_bindir}/kde-gnash
 
 %find_lang %name
 
