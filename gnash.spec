@@ -187,6 +187,9 @@ sh autogen.sh
 		--enable-ghelp \
 		--enable-sound=sdl \
 		--enable-klash \
+		--with-kde-incl=%{_kde3_includedir} \
+                --with-kde-lib=%{_kde3_libdir} \
+                --with-kde-pluginprefix=%{_kde3_prefix} \
 		--with-kparts-install=system \
 		--enable-render=agg \
 		--enable-gui=gtk,kde,sdl,fb \
