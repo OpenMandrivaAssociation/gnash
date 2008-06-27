@@ -1,15 +1,18 @@
+#TODO: Do a switch for cvs use 
+
 %define libname %mklibname %{name} 0
 %define libname_dev %mklibname -d %{name} 
 %define libname_orig lib%{name}
 %define date 061108
 %define oversion cvs
+
 Name: gnash
 Version: 0.8.3
-Release: %mkrel 0.%{date}.1
+Release: %mkrel 1 
 Summary: Gnash - a GNU Flash movie player
 License: GPLv3
 Group: Networking/WWW
-Source0: %name-%version.%{date}.tar.bz2
+Source0: %name-%version.tar.bz2
 BuildRoot: %{_tmppath}/%{name}-root
 URL: http://www.gnu.org/software/gnash/
 #BuildRequires:	mesaglut-devel
@@ -38,7 +41,7 @@ Buildrequires:	gtk2-devel
 #Buildrequires:	dejagnu
 # (nl) : needed for the test-suite
 BuildRequires:  ming-devel
-
+BuildRequires:  ming-utils
 Requires:	gstreamer0.10-plugins-base
 Requires:	gstreamer0.10-plugins-ugly
 Requires:	gstreamer0.10-plugins-bad
@@ -165,13 +168,13 @@ Gnash Konqueror plugin
 #--------------------------------------------------------------------
 
 %prep
-%setup -q -n %name
+%setup -q
 
 %build
-QTDIR="/usr/lib/qt3" ; export QTDIR ;
-PATH="/usr/lib/qt3/bin:$PATH" ; export PATH ;
+QTDIR="%qt3dir" ; export QTDIR ;
+PATH="%qt3dir/bin:$PATH" ; export PATH ;
 
-sh autogen.sh
+#sh autogen.sh
 %define _disable_ld_no_undefined 1
 %configure	\
 		--enable-mp3 \
@@ -190,6 +193,8 @@ sh autogen.sh
 		--with-kde-incl=%{_kde3_includedir} \
                 --with-kde-lib=%{_kde3_libdir} \
                 --with-kde-pluginprefix=%{_kde3_prefix} \
+		--with-qt-lib=%_libdir \
+		--with-qt-incl=%qt3dir/include \
 		--with-kparts-install=system \
 		--enable-render=agg \
 		--enable-gui=gtk,kde,sdl,fb \
