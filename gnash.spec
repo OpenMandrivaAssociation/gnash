@@ -8,7 +8,7 @@
 
 Name: gnash
 Version: 0.8.3
-Release: %mkrel 1 
+Release: %mkrel 2
 Summary: Gnash - a GNU Flash movie player
 License: GPLv3
 Group: Networking/WWW
