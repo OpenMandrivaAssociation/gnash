@@ -176,7 +176,7 @@ PATH="%qt3dir/bin:$PATH" ; export PATH ;
 
 #sh autogen.sh
 %define _disable_ld_no_undefined 1
-%configure	\
+%configure2_5x	\
 		--enable-mp3 \
 		--enable-ghelp  \
 		--enable-docbook \
