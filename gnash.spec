@@ -191,7 +191,6 @@ PATH="%qt3dir/bin:$PATH" ; export PATH ;
   --with-kde-appsdatadir=%{_kde3_datadir}/apps/klash \
   --with-kde-incl=%{_kde3_includedir} \
   --with-kde-lib=%{_kde3_libdir} \
-  --with-qt-lib=%_libdir \
   --with-qt-incl=%qt3dir/include
 
 #--enable-ghelp 
