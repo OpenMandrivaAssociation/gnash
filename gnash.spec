@@ -1,5 +1,8 @@
 #TODO: Do a switch for cvs use 
 
+%define with_klash 0
+%{?_with_klash: %{expand: %%global with_klash 1}}
+
 %define libname %mklibname %{name} 0
 %define libname_dev %mklibname -d %{name} 
 %define libname_orig lib%{name}
@@ -166,22 +169,14 @@ sh autogen.sh
 %define _disable_ld_no_undefined 1
 
 %configure --disable-static --with-npapi-plugindir=%{_libdir}/mozilla/plugins \
-  --enable-mp3 \
   --enable-extensions=ALL \
-  --enable-plugin \
   --enable-docbook \
   --enable-ghelp \
   --disable-rpath \
   --enable-extensions=ALL \
-  --enable-sdk-install \
   --enable-jpeg \
-  --enable-sound=sdl \
+%if %{with_klash}
   --with-kparts-install=system \
-  --enable-render=agg \
-  --enable-gui=gtk,kde,sdl,fb \
-  --enable-media=GST \
-  --disable-dependency-tracking --disable-rpath \
-  --enable-cygnal \
   --enable-gui=gtk,kde,sdl,fb \
   --with-qtdir=$QTDIR \
   --with-kde-plugindir=%{_kde3_libdir}/kde3 \
@@ -191,15 +186,20 @@ sh autogen.sh
   --with-kde-incl=%{_kde3_includedir} \
   --with-kde-lib=%{_kde3_libdir} \
   --with-qt-incl=%qt3dir/include
-
-#--enable-ghelp 
+%else
+  --disable-kparts \
+  --enable-gui=gtk,sdl,fb \
+%endif
+  --enable-media=GST \
+  --disable-dependency-tracking \
+  --disable-rpath \
+  --enable-cygnal
 
 make
 
 
 
 %install
-#%makeinstall_std install-plugin
 strip gui/.libs/*-gnash utilities/.libs/dumpshm  utilities/.libs/g*  utilities/.libs/soldumper
 rm -rf $RPM_BUILD_ROOT
 make install install-plugins \
