@@ -7,7 +7,7 @@
 %define libname_dev %mklibname -d %{name} 
 %define libname_orig lib%{name}
 %define date 20080830
-%define oversion 0.8.3
+%define oversion trunk
 
 Name: gnash
 Version: 0.8.4
@@ -70,10 +70,11 @@ class.
 %{_bindir}/sdl-gnash
 %{_bindir}/soldumper
 %{_bindir}/dumpshm
+%{_bindir}/flvdumper
 %{_mandir}/man?/*
 %_sysconfdir/gnashrc
 %{_datadir}/gnash
-#%{_libdir}/gnash/plugins
+%{_libdir}/gnash/plugins
 %_sysconfdir/gnashpluginrc
 
 #--------------------------------------------------------------------
@@ -97,7 +98,7 @@ Gnash library.
 %defattr(-,root,root)
 %dir %{_libdir}/gnash
 %{_libdir}/gnash/libgnashbase-%{oversion}.so
-%{_libdir}/gnash/libgnashserver-%{oversion}.so
+%{_libdir}/gnash/libgnashcore-%{oversion}.so
 %{_libdir}/gnash/libgnashamf-%{oversion}.so
 %{_libdir}/gnash/libgnashmedia-%{oversion}.so
 %{_libdir}/gnash/libgnashnet.so.0*
@@ -122,7 +123,7 @@ Headers of %{name} for development.
 %{_libdir}/gnash/libgnash*.la
 %{_libdir}/gnash/libgnashamf.so
 %{_libdir}/gnash/libgnashbase.so
-%{_libdir}/gnash/libgnashserver.so
+%{_libdir}/gnash/libgnashcore.so
 %{_libdir}/gnash/libgnashmedia.so
 %{_libdir}/gnash/libgnashnet.so
 %{_libdir}/gnash/libmozsdk.so
@@ -143,6 +144,7 @@ Gnash firefox plugin
 
 #--------------------------------------------------------------------
 
+%if %{with_klash}
 %package -n	%{name}-konqueror-plugin
 Summary:	Gnash konqueror plugin
 Group:		Graphical desktop/KDE
@@ -155,6 +157,7 @@ Gnash Konqueror plugin
 #%{_kde3_datadir}/services/klash_part.desktop
 %{_kde3_datadir}/apps/klash
 #%{_kde3_libdir}/kde3/*
+%endif
 
 #--------------------------------------------------------------------
 
@@ -213,9 +216,11 @@ rm -rf %{buildroot}/%{_localstatedir}/lib/scrollkeeper
 rm -rf %{buildroot}/%{_libdir}/mozilla/plugins/*.a
 rm -rf %{buildroot}/%{_libdir}/mozilla/plugins/*.la
 
+%if %{with_klash}
 #(nl) Fix makefile to have it automacally done
 %__mkdir -p %{buildroot}/%{_kde3_bindir}
 %__mv %{buildroot}/%{_bindir}/kde-gnash %{buildroot}/%{_kde3_bindir}/kde-gnash
+%endif
 
 %find_lang %name
 
