@@ -16,7 +16,6 @@ Source0: %name-%version.%date.tar.bz2
 BuildRoot: %{_tmppath}/%{name}-root
 URL: http://www.gnu.org/software/gnash/
 #BuildRequires:	mesaglut-devel
-#BuildRequires:  mozilla-firefox-devel > 1.5
 BuildRequires:  gstreamer0.10-devel
 BuildRequires:  SDL_mixer-devel
 BuildRequires:  kdebase3-devel
@@ -34,7 +33,7 @@ BuildRequires:  agg-devel
 BuildRequires:  MySQL-devel
 BuildRequires:  libltdl-devel
 Buildrequires:	gtk2-devel
-#Buildrequires:	dejagnu
+Buildrequires:	dejagnu
 # (nl) : needed for the test-suite
 BuildRequires:  ming-devel
 BuildRequires:  ming-utils
