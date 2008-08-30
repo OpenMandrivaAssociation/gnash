@@ -4,7 +4,7 @@
 %define libname_dev %mklibname -d %{name} 
 %define libname_orig lib%{name}
 %define date 061108
-%define oversion cvs
+%define oversion 0.8.3
 
 Name: gnash
 Version: 0.8.3
@@ -16,12 +16,8 @@ Source0: %name-%version.tar.bz2
 BuildRoot: %{_tmppath}/%{name}-root
 URL: http://www.gnu.org/software/gnash/
 #BuildRequires:	mesaglut-devel
-BuildRequires:  mozilla-firefox-devel > 1.5
-%if %mdkversion < 200810
-BuildRequires:  libgstreamer0.10-devel
-%else
+#BuildRequires:  mozilla-firefox-devel > 1.5
 BuildRequires:  gstreamer0.10-devel
-%endif
 BuildRequires:  SDL_mixer-devel
 BuildRequires:  kdebase3-devel
 #BuildRequires:  gtkglext-devel
@@ -65,6 +61,7 @@ class.
 %defattr(-,root,root,0755)
 %doc AUTHORS COPYING ChangeLog INSTALL NEWS README TODO
 %{_bindir}/gnash
+%{_bindir}/cygnal
 %{_bindir}/gprocessor
 %{_bindir}/fb-gnash
 %{_bindir}/gtk-gnash
@@ -74,7 +71,7 @@ class.
 %{_mandir}/man?/*
 %_sysconfdir/gnashrc
 %{_datadir}/gnash
-%{_libdir}/gnash/plugins
+#%{_libdir}/gnash/plugins
 %_sysconfdir/gnashpluginrc
 
 #--------------------------------------------------------------------
@@ -122,16 +119,10 @@ Headers of %{name} for development.
 %defattr(-,root,root)
 %{_libdir}/gnash/libgnash*.la
 %{_libdir}/gnash/libgnashamf.so
-%{_libdir}/gnash/libgnashamf.a
 %{_libdir}/gnash/libgnashbase.so
-%{_libdir}/gnash/libgnashbase.a
 %{_libdir}/gnash/libgnashserver.so
-%{_libdir}/gnash/libgnashserver.a
 %{_libdir}/gnash/libgnashmedia.so
-%{_libdir}/gnash/libgnashmedia.a
 %{_libdir}/gnash/libgnashnet.so
-%{_libdir}/gnash/libgnashnet.a
-%{_libdir}/gnash/libmozsdk.a
 %{_libdir}/gnash/libmozsdk.so
 
 #--------------------------------------------------------------------
@@ -159,11 +150,9 @@ Gnash Konqueror plugin
 
 %files -n %{name}-konqueror-plugin
 %{_kde3_bindir}/kde-gnash
-%{_kde3_datadir}/apps/klash/pluginsinfo
-%{_kde3_datadir}/services/klash_part.desktop
+#%{_kde3_datadir}/services/klash_part.desktop
 %{_kde3_datadir}/apps/klash
-%{_kde3_libdir}/kde3/*
-%exclude %{_kde3_libdir}/kde3/*.a
+#%{_kde3_libdir}/kde3/*
 
 #--------------------------------------------------------------------
 
@@ -176,37 +165,46 @@ PATH="%qt3dir/bin:$PATH" ; export PATH ;
 
 #sh autogen.sh
 %define _disable_ld_no_undefined 1
-%configure2_5x	\
-		--enable-mp3 \
-		--enable-ghelp  \
-		--enable-docbook \
-		--enable-plugin \
-		--with-npapi-plugindir=%{_libdir}/mozilla/plugins  \
-		--enable-media=gst \
-		--disable-rpath \
-		--enable-extensions \
-		--enable-sdk-install \
-		--enable-jpeg \
-		--enable-ghelp \
-		--enable-sound=sdl \
-		--enable-klash \
-		--with-kde-incl=%{_kde3_includedir} \
-                --with-kde-lib=%{_kde3_libdir} \
-                --with-kde-pluginprefix=%{_kde3_prefix} \
-		--with-qt-lib=%_libdir \
-		--with-qt-incl=%qt3dir/include \
-		--with-kparts-install=system \
-		--enable-render=agg \
-		--enable-gui=gtk,kde,sdl,fb \
-		--enable-extensions=ALL
 
-%make "OPENGL_LIBS = -lGL"
+%configure --disable-static --with-npapi-plugindir=%{_libdir}/mozilla/plugins \
+  --enable-mp3 \
+  --enable-extensions=ALL \
+  --enable-plugin \
+  --enable-docbook \
+  --enable-ghelp \
+  --disable-rpath \
+  --enable-extensions \
+  --enable-sdk-install \
+  --enable-jpeg \
+  --enable-sound=sdl \
+  --with-kparts-install=system \
+  --enable-render=agg \
+  --enable-gui=gtk,kde,sdl,fb \
+  --enable-media=GST \
+  --disable-dependency-tracking --disable-rpath \
+  --enable-cygnal \
+  --enable-gui=gtk,kde,sdl,fb \
+  --with-qtdir=$QTDIR \
+  --with-kde-plugindir=%{_kde3_libdir}/kde3 \
+  --with-kde-servicesdir=%{_kde3_datadir}/services \
+  --with-kde-configdir=%{_kde3_datadir}/config \
+  --with-kde-appsdatadir=%{_kde3_datadir}/apps/klash
+#--enable-ghelp 
+
+make
+
+
 
 %install
 #%makeinstall_std install-plugin
 strip gui/.libs/*-gnash utilities/.libs/dumpshm  utilities/.libs/g*  utilities/.libs/soldumper
 rm -rf $RPM_BUILD_ROOT
-make install install-plugins DESTDIR=$RPM_BUILD_ROOT
+make install install-plugins \
+ DESTDIR=$RPM_BUILD_ROOT INSTALL='install -p' \
+ KDE_PLUGINDIR=%{__kde3_libdir}/kde3 \
+ KDE_SERVICESDIR=%{__kde3datadir}/services \
+ KDE_CONFIGDIR=%{__kde3_datadir}/config \
+ KDE_APPSDATADIR=%{_kde3_datadir}/apps/klash
 
 rm -rf %{buildroot}/%{_localstatedir}/lib/scrollkeeper
 rm -rf %{buildroot}/%{_libdir}/mozilla/plugins/*.a
