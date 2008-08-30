@@ -3,16 +3,16 @@
 %define libname %mklibname %{name} 0
 %define libname_dev %mklibname -d %{name} 
 %define libname_orig lib%{name}
-%define date 061108
+%define date 20080830
 %define oversion 0.8.3
 
 Name: gnash
-Version: 0.8.3
-Release: %mkrel 3
+Version: 0.8.4
+Release: %mkrel 0.%date.1
 Summary: Gnash - a GNU Flash movie player
 License: GPLv3
 Group: Networking/WWW
-Source0: %name-%version.tar.bz2
+Source0: %name-%version.%date.tar.bz2
 BuildRoot: %{_tmppath}/%{name}-root
 URL: http://www.gnu.org/software/gnash/
 #BuildRequires:	mesaglut-devel
@@ -157,13 +157,13 @@ Gnash Konqueror plugin
 #--------------------------------------------------------------------
 
 %prep
-%setup -q
+%setup -q -n %name
 
 %build
 QTDIR="%qt3dir" ; export QTDIR ;
 PATH="%qt3dir/bin:$PATH" ; export PATH ;
 
-#sh autogen.sh
+sh autogen.sh
 %define _disable_ld_no_undefined 1
 
 %configure --disable-static --with-npapi-plugindir=%{_libdir}/mozilla/plugins \
@@ -173,7 +173,7 @@ PATH="%qt3dir/bin:$PATH" ; export PATH ;
   --enable-docbook \
   --enable-ghelp \
   --disable-rpath \
-  --enable-extensions \
+  --enable-extensions=ALL \
   --enable-sdk-install \
   --enable-jpeg \
   --enable-sound=sdl \
