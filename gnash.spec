@@ -11,11 +11,11 @@
 
 Name: gnash
 Version: 0.8.4
-Release: %mkrel 0.%date.1
+Release: %mkrel 1
 Summary: Gnash - a GNU Flash movie player
 License: GPLv3
 Group: Networking/WWW
-Source0: %name-%version.%date.tar.bz2
+Source0: %name-%version.tar.bz2
 BuildRoot: %{_tmppath}/%{name}-root
 URL: http://www.gnu.org/software/gnash/
 #BuildRequires:	mesaglut-devel
@@ -134,7 +134,7 @@ Headers of %{name} for development.
 Summary:	Gnash firefox plugin
 Group:		Networking/WWW
 Requires:	gnash = %{version}
-Requires:	libmozilla-firefox > 1.5
+Requires:   firefox > 1.5	
 
 %description -n %{name}-firefox-plugin
 Gnash firefox plugin
