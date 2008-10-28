@@ -7,7 +7,7 @@
 %define libname_dev %mklibname -d %{name} 
 %define libname_orig lib%{name}
 %define date 20080830
-%define oversion trunk
+%define oversion 0.8.4
 
 Name: gnash
 Version: 0.8.4
@@ -162,7 +162,7 @@ Gnash Konqueror plugin
 #--------------------------------------------------------------------
 
 %prep
-%setup -q -n %name
+%setup -q -n %name-%version
 
 %build
 QTDIR="%qt3dir" ; export QTDIR ;
