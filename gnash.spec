@@ -33,7 +33,7 @@ BuildRequires:  rarian
 BuildRequires:  slang-devel
 BuildRequires:  libxslt-proc
 BuildRequires:  agg-devel
-BuildRequires:  MySQL-devel
+BuildRequires:  mysql-devel
 BuildRequires:  libltdl-devel
 Buildrequires:	gtk2-devel
 Buildrequires:	dejagnu
