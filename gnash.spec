@@ -21,7 +21,9 @@ URL: http://www.gnu.org/software/gnash/
 #BuildRequires:	mesaglut-devel
 BuildRequires:  gstreamer0.10-devel
 BuildRequires:  SDL_mixer-devel
+%if %{with_klash}
 BuildRequires:  kdebase3-devel
+%endif
 #BuildRequires:  gtkglext-devel
 BuildRequires:  boost-devel
 BuildRequires:  curl-devel
