@@ -14,7 +14,6 @@ Summary: Gnash - a GNU Flash movie player
 License: GPLv3
 Group: Networking/WWW
 Source0: %name-%version.tar.bz2
-Patch0: gnash-0.8.5-fix-underlinking.patch
 BuildRoot: %{_tmppath}/%{name}-root
 URL: http://www.gnu.org/software/gnash/
 #BuildRequires:	mesaglut-devel
@@ -166,7 +165,6 @@ Gnash Konqueror plugin
 
 %prep
 %setup -q -n %name-%version
-%patch0 -p1 -b .link~
 
 %build
 QTDIR="%qt3dir" ; export QTDIR ;
@@ -174,6 +172,7 @@ PATH="%qt3dir/bin:$PATH" ; export PATH ;
 
 sh autogen.sh
 %define __libtoolize /bin/true
+%define _disable_ld_no_undefined 1
 
 %configure --disable-static --with-npapi-plugindir=%{_libdir}/mozilla/plugins \
   --enable-extensions=ALL \
@@ -207,7 +206,6 @@ sh autogen.sh
 
 
 %install
-strip gui/.libs/*-gnash utilities/.libs/dumpshm  utilities/.libs/g*  utilities/.libs/soldumper
 rm -rf $RPM_BUILD_ROOT
 make install install-plugins \
  DESTDIR=$RPM_BUILD_ROOT INSTALL='install -p' \
