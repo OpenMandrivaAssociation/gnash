@@ -6,16 +6,15 @@
 %define libname %mklibname %{name} 0
 %define libname_dev %mklibname -d %{name} 
 %define libname_orig lib%{name}
-%define date 20080830
-%define oversion 0.8.4
 
 Name: gnash
-Version: 0.8.4
-Release: %mkrel 3
+Version: 0.8.5
+Release: %mkrel 1
 Summary: Gnash - a GNU Flash movie player
 License: GPLv3
 Group: Networking/WWW
 Source0: %name-%version.tar.bz2
+Patch0: gnash-0.8.5-fix-underlinking.patch
 BuildRoot: %{_tmppath}/%{name}-root
 URL: http://www.gnu.org/software/gnash/
 #BuildRequires:	mesaglut-devel
@@ -99,11 +98,12 @@ Gnash library.
 %files -n %{libname}
 %defattr(-,root,root)
 %dir %{_libdir}/gnash
-%{_libdir}/gnash/libgnashbase-%{oversion}.so
-%{_libdir}/gnash/libgnashcore-%{oversion}.so
-%{_libdir}/gnash/libgnashamf-%{oversion}.so
-%{_libdir}/gnash/libgnashmedia-%{oversion}.so
+%{_libdir}/gnash/libgnashbase-%{version}.so
+%{_libdir}/gnash/libgnashcore-%{version}.so
+%{_libdir}/gnash/libgnashamf-%{version}.so
+%{_libdir}/gnash/libgnashmedia-%{version}.so
 %{_libdir}/gnash/libgnashnet.so.0*
+%{_libdir}/gnash/libgnashsound-%{version}.so
 %{_libdir}/gnash/libmozsdk.la
 %{_libdir}/gnash/libmozsdk.so.0*
 
@@ -128,6 +128,7 @@ Headers of %{name} for development.
 %{_libdir}/gnash/libgnashcore.so
 %{_libdir}/gnash/libgnashmedia.so
 %{_libdir}/gnash/libgnashnet.so
+%{_libdir}/gnash/libgnashsound.so
 %{_libdir}/gnash/libmozsdk.so
 
 #--------------------------------------------------------------------
@@ -165,13 +166,14 @@ Gnash Konqueror plugin
 
 %prep
 %setup -q -n %name-%version
+%patch0 -p1 -b .link~
 
 %build
 QTDIR="%qt3dir" ; export QTDIR ;
 PATH="%qt3dir/bin:$PATH" ; export PATH ;
 
 sh autogen.sh
-%define _disable_ld_no_undefined 1
+%define __libtoolize /bin/true
 
 %configure --disable-static --with-npapi-plugindir=%{_libdir}/mozilla/plugins \
   --enable-extensions=ALL \
@@ -200,7 +202,7 @@ sh autogen.sh
   --disable-rpath \
   --enable-cygnal
 
-make
+%make
 
 
 
