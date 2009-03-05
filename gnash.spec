@@ -1,7 +1,7 @@
 #TODO: Do a switch for cvs use 
 
 %if %mdkversion >= 200910
-%define with_klash 0
+%define with_klash 1
 %else
 %define with_klash 0
 %endif
@@ -18,6 +18,7 @@ Summary: Gnash - a GNU Flash movie player
 License: GPLv3
 Group: Networking/WWW
 Source0: %name-%version.tar.bz2
+Patch0: gnash-0.8.5-ignore-moc-output-version.patch
 BuildRoot: %{_tmppath}/%{name}-root
 URL: http://www.gnu.org/software/gnash/
 #BuildRequires:	mesaglut-devel
@@ -160,9 +161,10 @@ Requires:	gnash = %{version}
 Gnash Konqueror plugin
 
 %files -n %{name}-konqueror-plugin
-%{_kde_bindir}/kde-gnash
+%{_kde_bindir}/kde4-gnash
+%{_kde_libdir}/kde4/libklashpart.la
 %{_kde_libdir}/kde4/libklashpart.so
-%{_kde_datadir}/services/klash_part.desktop
+%{_kde_datadir}/kde4/services/klash_part.desktop
 %{_kde_datadir}/apps/klash/
 %endif
 
@@ -170,6 +172,7 @@ Gnash Konqueror plugin
 
 %prep
 %setup -q -n %name-%version
+%patch0 -p1 -b .ignore~
 
 %build
 QTDIR="%qt3dir" ; export QTDIR ;
@@ -213,14 +216,8 @@ make install install-plugins \
  KDE4_APPSDATADIR=%{_kde_appsdir}/klash
 
 rm -rf %{buildroot}/%{_localstatedir}/lib/scrollkeeper
-rm -rf %{buildroot}/%{_libdir}/mozilla/plugins/*.a
-rm -rf %{buildroot}/%{_libdir}/mozilla/plugins/*.la
-
-%if %{with_klash}
-#(nl) Fix makefile to have it automacally done
-%__mkdir -p %{buildroot}/%{_kde3_bindir}
-%__mv %{buildroot}/%{_bindir}/kde-gnash %{buildroot}/%{_kde3_bindir}/kde-gnash
-%endif
+rm -f %{buildroot}/%{_libdir}/mozilla/plugins/*.a
+rm -f %{buildroot}/%{_libdir}/mozilla/plugins/*.la
 
 %find_lang %name
 
