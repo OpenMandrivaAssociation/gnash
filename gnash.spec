@@ -44,6 +44,7 @@ Buildrequires:	dejagnu
 # (nl) : needed for the test-suite
 BuildRequires:  ming-devel
 BuildRequires:  ming-utils
+BuildRequires:	speex-devel
 Requires:	gstreamer0.10-plugins-base
 Requires:	gstreamer0.10-plugins-ugly
 Requires:	gstreamer0.10-plugins-bad
