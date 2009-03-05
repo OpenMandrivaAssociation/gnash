@@ -177,9 +177,6 @@ Gnash Konqueror plugin
 %patch1 -p1 -b .manual~
 
 %build
-QTDIR="%qt3dir" ; export QTDIR ;
-PATH="%qt3dir/bin:$PATH" ; export PATH ;
-
 sh autogen.sh
 %define __libtoolize /bin/true
 %define _disable_ld_no_undefined 1
