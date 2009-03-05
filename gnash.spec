@@ -178,10 +178,9 @@ Gnash Konqueror plugin
 
 %build
 sh autogen.sh
-%define __libtoolize /bin/true
 %define _disable_ld_no_undefined 1
 
-%configure --disable-static --with-npapi-plugindir=%{_libdir}/mozilla/plugins \
+%configure2_5x --disable-static --with-npapi-plugindir=%{_libdir}/mozilla/plugins \
   --enable-extensions=ALL \
   --enable-docbook \
   --enable-ghelp \
