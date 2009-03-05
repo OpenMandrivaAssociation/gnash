@@ -1,6 +1,10 @@
 #TODO: Do a switch for cvs use 
 
+%if %mdkversion >= 200910
 %define with_klash 0
+%else
+%define with_klash 0
+%endif
 %{?_with_klash: %{expand: %%global with_klash 1}}
 
 %define libname %mklibname %{name} 0
@@ -20,7 +24,7 @@ URL: http://www.gnu.org/software/gnash/
 BuildRequires:  gstreamer0.10-devel
 BuildRequires:  SDL_mixer-devel
 %if %{with_klash}
-BuildRequires:  kdebase3-devel
+BuildRequires:  kdelibs4-devel
 %endif
 #BuildRequires:  gtkglext-devel
 BuildRequires:  boost-devel
@@ -155,10 +159,10 @@ Requires:	gnash = %{version}
 Gnash Konqueror plugin
 
 %files -n %{name}-konqueror-plugin
-%{_kde3_bindir}/kde-gnash
-#%{_kde3_datadir}/services/klash_part.desktop
-%{_kde3_datadir}/apps/klash
-#%{_kde3_libdir}/kde3/*
+%{_kde_bindir}/kde-gnash
+%{_kde_libdir}/kde4/libklashpart.so
+%{_kde_datadir}/services/klash_part.desktop
+%{_kde_datadir}/apps/klash/
 %endif
 
 #--------------------------------------------------------------------
@@ -182,16 +186,9 @@ sh autogen.sh
   --enable-extensions=ALL \
   --enable-jpeg \
 %if %{with_klash}
-  --with-kparts-install=system \
-  --enable-gui=gtk,kde,sdl,fb \
-  --with-qtdir=$QTDIR \
-  --with-kde-plugindir=%{_kde3_libdir}/kde3 \
-  --with-kde-servicesdir=%{_kde3_datadir}/services \
-  --with-kde-configdir=%{_kde3_datadir}/config \
-  --with-kde-appsdatadir=%{_kde3_datadir}/apps/klash \
-  --with-kde-incl=%{_kde3_includedir} \
-  --with-kde-lib=%{_kde3_libdir} \
-  --with-qt-incl=%qt3dir/include
+  --enable-gui=gtk,kde4,sdl,fb \
+  --with-qt4=%{_kde_prefix} \
+  --with-kde4=%{_kde_prefix} \
 %else
   --disable-kparts \
   --enable-gui=gtk,sdl,fb \
@@ -209,10 +206,10 @@ sh autogen.sh
 rm -rf $RPM_BUILD_ROOT
 make install install-plugins \
  DESTDIR=$RPM_BUILD_ROOT INSTALL='install -p' \
- KDE_PLUGINDIR=%{__kde3_libdir}/kde3 \
- KDE_SERVICESDIR=%{__kde3datadir}/services \
- KDE_CONFIGDIR=%{__kde3_datadir}/config \
- KDE_APPSDATADIR=%{_kde3_datadir}/apps/klash
+ KDE4_PLUGINDIR=%{_kde_libdir}/kde4 \
+ KDE4_SERVICESDIR=%{_kde_datadir}/kde4/services \
+ KDE4_CONFIGDIR=%{_kde_configdir} \
+ KDE4_APPSDATADIR=%{_kde_appsdir}/klash
 
 rm -rf %{buildroot}/%{_localstatedir}/lib/scrollkeeper
 rm -rf %{buildroot}/%{_libdir}/mozilla/plugins/*.a
