@@ -19,6 +19,7 @@ License: GPLv3
 Group: Networking/WWW
 Source0: %name-%version.tar.bz2
 Patch0: gnash-0.8.5-ignore-moc-output-version.patch
+Patch1:	gnash-0.8.3-manual.patch
 BuildRoot: %{_tmppath}/%{name}-root
 URL: http://www.gnu.org/software/gnash/
 #BuildRequires:	mesaglut-devel
@@ -173,6 +174,7 @@ Gnash Konqueror plugin
 %prep
 %setup -q -n %name-%version
 %patch0 -p1 -b .ignore~
+%patch1 -p1 -b .manual~
 
 %build
 QTDIR="%qt3dir" ; export QTDIR ;
