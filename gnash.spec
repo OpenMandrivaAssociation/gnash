@@ -22,13 +22,11 @@ Patch0: gnash-0.8.5-ignore-moc-output-version.patch
 Patch1:	gnash-0.8.3-manual.patch
 BuildRoot: %{_tmppath}/%{name}-root
 URL: http://www.gnu.org/software/gnash/
-#BuildRequires:	mesaglut-devel
 BuildRequires:  gstreamer0.10-devel
 BuildRequires:  SDL_mixer-devel
 %if %{with_klash}
 BuildRequires:  kdelibs4-devel
 %endif
-#BuildRequires:  gtkglext-devel
 BuildRequires:  boost-devel
 BuildRequires:  curl-devel
 BuildRequires:  docbook2x
