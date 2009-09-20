@@ -12,7 +12,7 @@
 %define libname_orig lib%{name}
 
 Name: gnash
-Version: 0.8.5
+Version: 0.8.6
 Release: %mkrel 1
 Summary: Gnash - a GNU Flash movie player
 License: GPLv3
