@@ -13,7 +13,7 @@
 
 Name: gnash
 Version: 0.8.6
-Release: %mkrel 1
+Release: %mkrel 2
 Summary: Gnash - a GNU Flash movie player
 License: GPLv3
 Group: Networking/WWW
@@ -50,6 +50,7 @@ BuildRequires:  ming-devel
 BuildRequires:  ming-utils
 BuildRequires:	speex-devel
 BuildRequires:  libgstreamer-plugins-base-devel
+BuildRequires:  csound-devel
 Requires:	gstreamer0.10-plugins-base
 Requires:	gstreamer0.10-plugins-ugly
 Requires:	gstreamer0.10-plugins-bad
