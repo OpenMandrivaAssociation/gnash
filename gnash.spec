@@ -45,7 +45,6 @@ Buildrequires:	gtk2-devel
 Buildrequires:	dejagnu 
 Buildrequires:  netcat 
 Buildrequires:  wget 
-Buildrequires:  swftools
 # (nl) : needed for the test-suite
 BuildRequires:  ming-devel
 BuildRequires:  ming-utils
