@@ -49,6 +49,7 @@ Buildrequires:  wget
 BuildRequires:  ming-devel
 BuildRequires:  ming-utils
 BuildRequires:	speex-devel
+BuildRequires:  libgstreamer-plugins-base-devel
 Requires:	gstreamer0.10-plugins-base
 Requires:	gstreamer0.10-plugins-ugly
 Requires:	gstreamer0.10-plugins-bad
@@ -80,10 +81,14 @@ class.
 %{_bindir}/soldumper
 %{_bindir}/dumpshm
 %{_bindir}/flvdumper
+%{_bindir}/findmicrophones
+%{_bindir}/findwebcams
 %{_mandir}/man?/*
 %_sysconfdir/gnashrc
+%_sysconfdir/cygnalrc
 %{_datadir}/gnash
 %{_libdir}/gnash/plugins
+%{_libdir}/cygnal/plugins
 %_sysconfdir/gnashpluginrc
 
 #--------------------------------------------------------------------
@@ -95,13 +100,6 @@ Provides:	%{libname_orig} = %{version}
 
 %description -n %{libname}
 Gnash library.
-
-%if %mdkversion < 200900
-%post -n %{libname} -p /sbin/ldconfig
-%endif
-%if %mdkversion < 200900
-%postun -n %{libname} -p /sbin/ldconfig
-%endif
 
 %files -n %{libname}
 %defattr(-,root,root)
@@ -130,6 +128,7 @@ Headers of %{name} for development.
 
 %files -n %{libname_dev}
 %defattr(-,root,root)
+%{_includedir}/gnash/*
 %{_libdir}/gnash/libgnash*.la
 %{_libdir}/gnash/libgnashamf.so
 %{_libdir}/gnash/libgnashbase.so
@@ -138,7 +137,7 @@ Headers of %{name} for development.
 %{_libdir}/gnash/libgnashnet.so
 %{_libdir}/gnash/libgnashsound.so
 %{_libdir}/gnash/libmozsdk.so
-
+%{_libdir}/pkgconfig/gnash.pc
 #--------------------------------------------------------------------
 
 %package -n %{name}-firefox-plugin
