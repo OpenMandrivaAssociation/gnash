@@ -13,6 +13,7 @@
 
 %define bzr	20091231
 %define rel	1
+%define major	0
 
 %if %bzr
 %define release		%mkrel 0.%bzr.%rel
@@ -118,14 +119,13 @@ Gnash library.
 %files -n %{libname}
 %defattr(-,root,root)
 %dir %{_libdir}/gnash
-%{_libdir}/gnash/libgnashbase-%{version}.so
-%{_libdir}/gnash/libgnashcore-%{version}.so
-%{_libdir}/gnash/libgnashamf-%{version}.so
-%{_libdir}/gnash/libgnashmedia-%{version}.so
-%{_libdir}/gnash/libgnashnet.so.0*
-%{_libdir}/gnash/libgnashsound-%{version}.so
-%{_libdir}/gnash/libmozsdk.la
-%{_libdir}/gnash/libmozsdk.so.0*
+%{_libdir}/gnash/libgnashbase.so.%{major}*
+%{_libdir}/gnash/libgnashcore-trunk.so
+%{_libdir}/gnash/libgnashamf-trunk.so
+%{_libdir}/gnash/libgnashmedia-trunk.so
+%{_libdir}/gnash/libgnashnet.so.%{major}*
+%{_libdir}/gnash/libgnashsound-trunk.so
+%{_libdir}/gnash/libmozsdk.so.%{major}*
 
 #--------------------------------------------------------------------
 
@@ -150,6 +150,7 @@ Headers of %{name} for development.
 %{_libdir}/gnash/libgnashmedia.so
 %{_libdir}/gnash/libgnashnet.so
 %{_libdir}/gnash/libgnashsound.so
+%{_libdir}/gnash/libmozsdk.la
 %{_libdir}/gnash/libmozsdk.so
 %{_libdir}/pkgconfig/gnash.pc
 #--------------------------------------------------------------------
@@ -207,14 +208,9 @@ sh autogen.sh
   --enable-gui=gtk,sdl,fb \
 %endif
   --enable-media=GST \
-  --disable-rpath \
   --enable-cygnal \
   --disable-dependency-tracking \
-  --enable-avm2 \
-  --enable-expat \
-  --with-gstreamer_app-incl=%{_includedir}/gstreamer-0.10 \
-  --with-gstreamer-incl=%{_includedir}/gstreamer-0.10 \
-  --with-gstpbutils-incl=%{_includedir}/gstreamer-0.10
+  --enable-avm2 
 
 %make
 
