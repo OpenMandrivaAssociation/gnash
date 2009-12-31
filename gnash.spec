@@ -11,13 +11,26 @@
 %define libname_dev %mklibname -d %{name} 
 %define libname_orig lib%{name}
 
+%define bzr	20091231
+%define rel	1
+
+%if %bzr
+%define release		%mkrel 0.%bzr.%rel
+%define distname	%name-%bzr.tar.xz
+%define dirname		%name
+%else
+%define release		%mkrel %rel
+%define distname	%name-%version.tar.bz2
+%define dirname		%name-%version
+%endif
+
 Name: gnash
-Version: 0.8.6
-Release: %mkrel 2
+Version: 0.8.7
+Release: %{release}
 Summary: Gnash - a GNU Flash movie player
 License: GPLv3
 Group: Networking/WWW
-Source0: %name-%version.tar.bz2
+Source0: %{distname}
 Patch0: gnash-0.8.5-ignore-moc-output-version.patch
 Patch1:	gnash-0.8.3-manual.patch
 BuildRoot: %{_tmppath}/%{name}-root
@@ -49,6 +62,8 @@ BuildRequires:  ming-utils
 BuildRequires:	speex-devel
 BuildRequires:  libgstreamer-plugins-base-devel
 BuildRequires:  csound-devel
+BuildRequires:  libssh-devel
+BuildRequires:  ffmpeg-devel
 Requires:	gstreamer0.10-plugins-base
 Requires:	gstreamer0.10-plugins-ugly
 Requires:	gstreamer0.10-plugins-bad
@@ -83,12 +98,12 @@ class.
 %{_bindir}/findmicrophones
 %{_bindir}/findwebcams
 %{_mandir}/man?/*
-%_sysconfdir/gnashrc
-%_sysconfdir/cygnalrc
+%{_sysconfdir}/gnashrc
+%{_sysconfdir}/cygnalrc
+%{_sysconfdir}/gnashpluginrc
 %{_datadir}/gnash
 %{_libdir}/gnash/plugins
 %{_libdir}/cygnal/plugins
-%_sysconfdir/gnashpluginrc
 
 #--------------------------------------------------------------------
 
@@ -172,7 +187,7 @@ Gnash Konqueror plugin
 #--------------------------------------------------------------------
 
 %prep
-%setup -q -n %name-%version
+%setup -q -n %{dirname}
 %patch0 -p1 -b .ignore~
 %patch1 -p1 -b .manual~
 
@@ -185,29 +200,30 @@ sh autogen.sh
   --enable-docbook \
   --enable-ghelp \
   --disable-rpath \
-  --enable-extensions=ALL \
-  --enable-jpeg \
 %if %{with_klash}
   --enable-gui=gtk,kde4,sdl,fb \
-  --with-qt4=%{_kde_prefix} \
-  --with-kde4=%{_kde_prefix} \
 %else
   --disable-kparts \
   --enable-gui=gtk,sdl,fb \
 %endif
   --enable-media=GST \
-  --disable-dependency-tracking \
   --disable-rpath \
-  --enable-cygnal
+  --enable-cygnal \
+  --disable-dependency-tracking \
+  --enable-avm2 \
+  --enable-expat \
+  --with-gstreamer_app-incl=%{_includedir}/gstreamer-0.10 \
+  --with-gstreamer-incl=%{_includedir}/gstreamer-0.10 \
+  --with-gstpbutils-incl=%{_includedir}/gstreamer-0.10
 
 %make
 
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 make install install-plugins \
- DESTDIR=$RPM_BUILD_ROOT INSTALL='install -p' \
+ DESTDIR=%{buildroot} INSTALL='install -p' \
  KDE4_PLUGINDIR=%{_kde_libdir}/kde4 \
  KDE4_SERVICESDIR=%{_kde_datadir}/kde4/services \
  KDE4_CONFIGDIR=%{_kde_configdir} \
