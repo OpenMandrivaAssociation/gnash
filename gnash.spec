@@ -1,5 +1,3 @@
-#TODO: Do a switch for cvs use 
-
 %if %mdkversion >= 200910
 %define with_klash 1
 %else
@@ -12,7 +10,7 @@
 %define libname_orig lib%{name}
 
 %define bzr	20091231
-%define rel	1
+%define rel	2
 %define major	0
 
 %if %bzr
@@ -36,11 +34,10 @@ Patch0: gnash-0.8.5-ignore-moc-output-version.patch
 Patch1:	gnash-0.8.3-manual.patch
 BuildRoot: %{_tmppath}/%{name}-root
 URL: http://www.gnu.org/software/gnash/
-BuildRequires:  gstreamer0.10-devel
-BuildRequires:  SDL_mixer-devel
 %if %{with_klash}
 BuildRequires:  kdelibs4-devel
 %endif
+BuildRequires:  SDL_mixer-devel
 BuildRequires:  boost-devel
 BuildRequires:  curl-devel
 BuildRequires:  docbook2x
@@ -54,6 +51,8 @@ BuildRequires:  agg-devel
 BuildRequires:  mysql-devel
 BuildRequires:  libltdl-devel
 Buildrequires:	gtk2-devel
+BuildRequires:  libgstreamer-plugins-base-devel
+BuildRequires:  csound-devel
 Buildrequires:	dejagnu 
 Buildrequires:  netcat 
 Buildrequires:  wget 
@@ -61,10 +60,7 @@ Buildrequires:  wget
 BuildRequires:  ming-devel
 BuildRequires:  ming-utils
 BuildRequires:	speex-devel
-BuildRequires:  libgstreamer-plugins-base-devel
-BuildRequires:  csound-devel
-BuildRequires:  libssh-devel
-BuildRequires:  ffmpeg-devel
+
 Requires:	gstreamer0.10-plugins-base
 Requires:	gstreamer0.10-plugins-ugly
 Requires:	gstreamer0.10-plugins-bad
@@ -88,7 +84,6 @@ class.
 %defattr(-,root,root,0755)
 %doc AUTHORS COPYING ChangeLog INSTALL NEWS README TODO
 %{_bindir}/gnash
-%{_bindir}/cygnal
 %{_bindir}/gprocessor
 %{_bindir}/fb-gnash
 %{_bindir}/gtk-gnash
@@ -98,13 +93,14 @@ class.
 %{_bindir}/flvdumper
 %{_bindir}/findmicrophones
 %{_bindir}/findwebcams
-%{_mandir}/man?/*
+%{_mandir}/man1/gnash.1*
+%{_mandir}/man1/dumpshm.1*
+%{_mandir}/man1/gprocessor.1*
+%{_mandir}/man1/soldumper.1*
+%{_mandir}/man1/flvdumper.1*
 %{_sysconfdir}/gnashrc
-%{_sysconfdir}/cygnalrc
 %{_sysconfdir}/gnashpluginrc
 %{_datadir}/gnash
-%{_libdir}/gnash/plugins
-%{_libdir}/cygnal/plugins
 
 #--------------------------------------------------------------------
 
@@ -126,6 +122,7 @@ Gnash library.
 %{_libdir}/gnash/libgnashnet.so.%{major}*
 %{_libdir}/gnash/libgnashsound-trunk.so
 %{_libdir}/gnash/libmozsdk.so.%{major}*
+%{_libdir}/gnash/plugins/*.so
 
 #--------------------------------------------------------------------
 
@@ -152,13 +149,14 @@ Headers of %{name} for development.
 %{_libdir}/gnash/libgnashsound.so
 %{_libdir}/gnash/libmozsdk.la
 %{_libdir}/gnash/libmozsdk.so
+%{_libdir}/gnash/plugins/*.la
 %{_libdir}/pkgconfig/gnash.pc
 #--------------------------------------------------------------------
 
 %package -n %{name}-firefox-plugin
 Summary:	Gnash firefox plugin
 Group:		Networking/WWW
-Requires:	gnash = %{version}
+Requires:	%{name} = %{version}-%{release}
 Requires:   firefox > 1.5	
 
 %description -n %{name}-firefox-plugin
@@ -173,7 +171,7 @@ Gnash firefox plugin
 %package -n	%{name}-konqueror-plugin
 Summary:	Gnash konqueror plugin
 Group:		Graphical desktop/KDE
-Requires:	gnash = %{version}
+Requires:	%{name} = %{version}-%{release}
 %description -n %{name}-konqueror-plugin
 Gnash Konqueror plugin
 
@@ -184,6 +182,25 @@ Gnash Konqueror plugin
 %{_kde_datadir}/kde4/services/klash_part.desktop
 %{_kde_datadir}/apps/klash/
 %endif
+
+#--------------------------------------------------------------------
+
+%package cygnal
+Summary:   Streaming media server
+Requires:  %{name} = %{version}-%{release}
+Group:     System/Servers 
+
+%description cygnal
+Cygnal is a streaming media server that's Flash aware.
+
+%files cygnal
+%defattr(-,root,root,-)
+%config(noreplace) %{_sysconfdir}/cygnalrc
+%{_bindir}/cygnal
+%{_mandir}/man1/cygnal.1*
+%{_mandir}/man1/rtmpget.1*
+%dir %{_libdir}/cygnal
+%{_libdir}/cygnal/plugins/*.so*
 
 #--------------------------------------------------------------------
 
@@ -210,7 +227,9 @@ sh autogen.sh
   --enable-media=GST \
   --enable-cygnal \
   --disable-dependency-tracking \
-  --enable-avm2 
+  --enable-avm2 \
+  --with-gstpbutils-incl=%{_includedir}/gstreamer-0.10 \
+  --with-gstpbutils-lib=%{_libdir}
 
 %make
 
