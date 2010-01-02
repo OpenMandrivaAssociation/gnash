@@ -10,7 +10,7 @@
 %define libname_orig lib%{name}
 
 %define bzr	20091231
-%define rel	2
+%define rel	3
 %define major	0
 
 %if %bzr
@@ -52,6 +52,7 @@ BuildRequires:  mysql-devel
 BuildRequires:  libltdl-devel
 Buildrequires:	gtk2-devel
 BuildRequires:  libgstreamer-plugins-base-devel
+BuildRequires:	ffmpeg-devel
 BuildRequires:  csound-devel
 Buildrequires:	dejagnu 
 Buildrequires:  netcat 
@@ -91,8 +92,8 @@ class.
 %{_bindir}/soldumper
 %{_bindir}/dumpshm
 %{_bindir}/flvdumper
-%{_bindir}/findmicrophones
-%{_bindir}/findwebcams
+#%{_bindir}/findmicrophones
+#%{_bindir}/findwebcams
 %{_mandir}/man1/gnash.1*
 %{_mandir}/man1/dumpshm.1*
 %{_mandir}/man1/gprocessor.1*
@@ -225,6 +226,7 @@ sh autogen.sh
   --enable-gui=gtk,sdl,fb \
 %endif
   --enable-media=GST \
+  --enable-media=ffmpeg \
   --enable-cygnal \
   --disable-dependency-tracking \
   --enable-avm2 \
