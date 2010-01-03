@@ -3,7 +3,11 @@
 %else
 %define with_klash 0
 %endif
+
+%define with_gstreamer 0
+
 %{?_with_klash: %{expand: %%global with_klash 1}}
+%{?_with_gstreamer: %{expand: %%global with_gstreamer 1}}
 
 %define libname %mklibname %{name} 0
 %define libname_dev %mklibname -d %{name} 
@@ -51,8 +55,11 @@ BuildRequires:  agg-devel
 BuildRequires:  mysql-devel
 BuildRequires:  libltdl-devel
 Buildrequires:	gtk2-devel
+%if %{with_gstreamer}
 BuildRequires:  libgstreamer-plugins-base-devel
+%else
 BuildRequires:	ffmpeg-devel
+%endif
 BuildRequires:  csound-devel
 Buildrequires:	dejagnu 
 Buildrequires:  netcat 
@@ -62,9 +69,12 @@ BuildRequires:  ming-devel
 BuildRequires:  ming-utils
 BuildRequires:	speex-devel
 
+%if %{with_gstreamer}
 Requires:	gstreamer0.10-plugins-base
 Requires:	gstreamer0.10-plugins-ugly
 Requires:	gstreamer0.10-plugins-bad
+Requires:	gstreamer0.10-ffmpeg
+%endif
 
 %description
 Gnash is capable of reading up to SWF v9 files and opcodes, but primarily
@@ -92,8 +102,10 @@ class.
 %{_bindir}/soldumper
 %{_bindir}/dumpshm
 %{_bindir}/flvdumper
-#%{_bindir}/findmicrophones
-#%{_bindir}/findwebcams
+%if %{with_gstreamer}
+%{_bindir}/findmicrophones
+%{_bindir}/findwebcams
+%endif
 %{_mandir}/man1/gnash.1*
 %{_mandir}/man1/dumpshm.1*
 %{_mandir}/man1/gprocessor.1*
@@ -225,13 +237,17 @@ sh autogen.sh
   --disable-kparts \
   --enable-gui=gtk,sdl,fb \
 %endif
-  --enable-media=GST \
+%if %{with_gstreamer}
+  --enable-media=gst \
+  --with-gstpbutils-incl=%{_includedir}/gstreamer-0.10 \
+  --with-gstpbutils-lib=%{_libdir} \
+%else
   --enable-media=ffmpeg \
+%endif
   --enable-cygnal \
   --disable-dependency-tracking \
-  --enable-avm2 \
-  --with-gstpbutils-incl=%{_includedir}/gstreamer-0.10 \
-  --with-gstpbutils-lib=%{_libdir}
+  --enable-avm2
+  
 
 %make
 
