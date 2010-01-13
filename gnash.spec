@@ -5,9 +5,11 @@
 %endif
 
 %define with_gstreamer 0
+%define with_tests 1
 
 %{?_with_klash: %{expand: %%global with_klash 1}}
 %{?_with_gstreamer: %{expand: %%global with_gstreamer 1}}
+%{?_with_gstreamer: %{expand: %%global with_tests 1}}
 
 %define libname %mklibname %{name} 0
 %define libname_dev %mklibname -d %{name} 
@@ -30,14 +32,14 @@
 Name: gnash
 Version: 0.8.7
 Release: %{release}
-Summary: Gnash - a GNU Flash movie player
+Summary: %{name} - a GNU Flash movie player
 License: GPLv3
 Group: Networking/WWW
 Source0: %{distname}
-Patch0: gnash-0.8.5-ignore-moc-output-version.patch
-Patch1:	gnash-0.8.3-manual.patch
+Patch0: %{name}-0.8.5-ignore-moc-output-version.patch
+Patch1:	%{name}-0.8.3-manual.patch
 BuildRoot: %{_tmppath}/%{name}-root
-URL: http://www.gnu.org/software/gnash/
+URL: http://www.gnu.org/software/%{name}/
 %if %{with_klash}
 BuildRequires:  kdelibs4-devel
 %endif
@@ -63,13 +65,12 @@ BuildRequires:	ffmpeg-devel
 BuildRequires:  csound-devel
 Buildrequires:	dejagnu
 BuildRequires:	speex-devel
- 
-# (nl) : needed for the test-suite
+%if %{with_tests}
 BuildRequires:  ming-devel
 BuildRequires:  ming-utils
 Buildrequires:  netcat 
 Buildrequires:  wget
-
+%endif
 %if %{with_gstreamer}
 Requires:	gstreamer0.10-plugins-base
 Requires:	gstreamer0.10-plugins-ugly
@@ -78,9 +79,9 @@ Requires:	gstreamer0.10-ffmpeg
 %endif
 
 %description
-Gnash is capable of reading up to SWF v9 files and opcodes, but primarily
+%{name} is capable of reading up to SWF v9 files and opcodes, but primarily
 supports SWF v7, with better SWF v8 and v9 support under heavy development.
-With the 0.8.2 release, Gnash includes initial parser support for SWF v8
+With the 0.8.2 release, %{name} includes initial parser support for SWF v8
 and v9. Not all ActionScript 2 classes are implemented yet, but all of
 the most heavily used ones are. Many ActionScript 2 classes are partially
 implemented; there is support for all of the commonly used methods of each
@@ -95,11 +96,11 @@ class.
 %files -f %name.lang
 %defattr(-,root,root,0755)
 %doc AUTHORS COPYING ChangeLog INSTALL NEWS README TODO
-%{_bindir}/gnash
+%{_bindir}/%{name}
 %{_bindir}/gprocessor
-%{_bindir}/fb-gnash
-%{_bindir}/gtk-gnash
-%{_bindir}/sdl-gnash
+%{_bindir}/fb-%{name}
+%{_bindir}/gtk-%{name}
+%{_bindir}/sdl-%{name}
 %{_bindir}/soldumper
 %{_bindir}/dumpshm
 %{_bindir}/flvdumper
@@ -107,36 +108,37 @@ class.
 %{_bindir}/findmicrophones
 %{_bindir}/findwebcams
 %endif
-%{_mandir}/man1/gnash.1*
+%{_mandir}/man1/%{name}.1*
 %{_mandir}/man1/dumpshm.1*
 %{_mandir}/man1/gprocessor.1*
 %{_mandir}/man1/soldumper.1*
 %{_mandir}/man1/flvdumper.1*
-%{_sysconfdir}/gnashrc
-%{_sysconfdir}/gnashpluginrc
-%{_datadir}/gnash
+%{_sysconfdir}/%{name}rc
+%{_sysconfdir}/%{name}pluginrc
+%{_datadir}/%{name}
 
 #--------------------------------------------------------------------
 
 %package -n	%{libname}
-Summary:	Gnash library
+Summary:	%{name} library
 Group:	        Networking/WWW	
 Provides:	%{libname_orig} = %{version}
 
 %description -n %{libname}
-Gnash library.
+%{name} library.
 
 %files -n %{libname}
 %defattr(-,root,root)
-%dir %{_libdir}/gnash
-%{_libdir}/gnash/libgnashbase.so.%{major}*
-%{_libdir}/gnash/libgnashcore-trunk.so
-%{_libdir}/gnash/libgnashamf-trunk.so
-%{_libdir}/gnash/libgnashmedia-trunk.so
-%{_libdir}/gnash/libgnashnet.so.%{major}*
-%{_libdir}/gnash/libgnashsound-trunk.so
-%{_libdir}/gnash/libmozsdk.so.%{major}*
-%{_libdir}/gnash/plugins/*.so
+%dir %{_libdir}/%{name}
+%{_libdir}/%{name}/lib%{name}agg.so.%{major}*
+%{_libdir}/%{name}/lib%{name}base.so.%{major}*
+%{_libdir}/%{name}/lib%{name}core-trunk.so
+%{_libdir}/%{name}/lib%{name}amf-trunk.so
+%{_libdir}/%{name}/lib%{name}media-trunk.so
+%{_libdir}/%{name}/lib%{name}net.so.%{major}*
+%{_libdir}/%{name}/lib%{name}sound-trunk.so
+%{_libdir}/%{name}/libmozsdk.so.%{major}*
+%{_libdir}/%{name}/plugins/*.so
 
 #--------------------------------------------------------------------
 
@@ -153,28 +155,29 @@ Headers of %{name} for development.
 
 %files -n %{libname_dev}
 %defattr(-,root,root)
-%{_includedir}/gnash/*
-%{_libdir}/gnash/libgnash*.la
-%{_libdir}/gnash/libgnashamf.so
-%{_libdir}/gnash/libgnashbase.so
-%{_libdir}/gnash/libgnashcore.so
-%{_libdir}/gnash/libgnashmedia.so
-%{_libdir}/gnash/libgnashnet.so
-%{_libdir}/gnash/libgnashsound.so
-%{_libdir}/gnash/libmozsdk.la
-%{_libdir}/gnash/libmozsdk.so
-%{_libdir}/gnash/plugins/*.la
-%{_libdir}/pkgconfig/gnash.pc
+%{_includedir}/%{name}/*
+%{_libdir}/%{name}/lib%{name}*.la
+%{_libdir}/%{name}/lib%{name}agg.so
+%{_libdir}/%{name}/lib%{name}amf.so
+%{_libdir}/%{name}/lib%{name}base.so
+%{_libdir}/%{name}/lib%{name}core.so
+%{_libdir}/%{name}/lib%{name}media.so
+%{_libdir}/%{name}/lib%{name}net.so
+%{_libdir}/%{name}/lib%{name}sound.so
+%{_libdir}/%{name}/libmozsdk.la
+%{_libdir}/%{name}/libmozsdk.so
+%{_libdir}/%{name}/plugins/*.la
+%{_libdir}/pkgconfig/%{name}.pc
 #--------------------------------------------------------------------
 
 %package -n %{name}-firefox-plugin
-Summary:	Gnash firefox plugin
+Summary:	%{name} firefox plugin
 Group:		Networking/WWW
 Requires:	%{name} = %{version}-%{release}
 Requires:   firefox > 1.5	
 
 %description -n %{name}-firefox-plugin
-Gnash firefox plugin
+%{name} firefox plugin
 
 %files -n %{name}-firefox-plugin
 %{_libdir}/mozilla/plugins/*.so
@@ -183,14 +186,14 @@ Gnash firefox plugin
 
 %if %{with_klash}
 %package -n	%{name}-konqueror-plugin
-Summary:	Gnash konqueror plugin
+Summary:	%{name} konqueror plugin
 Group:		Graphical desktop/KDE
 Requires:	%{name} = %{version}-%{release}
 %description -n %{name}-konqueror-plugin
-Gnash Konqueror plugin
+%{name} Konqueror plugin
 
 %files -n %{name}-konqueror-plugin
-%{_kde_bindir}/kde4-gnash
+%{_kde_bindir}/kde4-%{name}
 %{_kde_libdir}/kde4/libklashpart.la
 %{_kde_libdir}/kde4/libklashpart.so
 %{_kde_datadir}/kde4/services/klash_part.desktop
@@ -252,6 +255,9 @@ sh autogen.sh
 
 %make
 
+%if %{with_tests}
+%make check
+%endif
 
 
 %install
