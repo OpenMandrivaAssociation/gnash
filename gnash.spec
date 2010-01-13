@@ -14,11 +14,11 @@
 %define libname_orig lib%{name}
 
 %define bzr	20091231
-%define rel	4
+%define rel	5
 %define major	0
 
 %if %bzr
-%define release		%mkrel 0.%bzr.%rel
+%define release		%mkrel -c %bzr %rel
 %define distname	%name-%bzr.tar.xz
 %define dirname		%name
 %else
