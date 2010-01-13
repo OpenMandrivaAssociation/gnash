@@ -13,8 +13,8 @@
 %define libname_dev %mklibname -d %{name} 
 %define libname_orig lib%{name}
 
-%define bzr	20091231
-%define rel	5
+%define bzr	20100113
+%define rel	1
 %define major	0
 
 %if %bzr
@@ -61,13 +61,14 @@ BuildRequires:  libgstreamer-plugins-base-devel
 BuildRequires:	ffmpeg-devel
 %endif
 BuildRequires:  csound-devel
-Buildrequires:	dejagnu 
-Buildrequires:  netcat 
-Buildrequires:  wget 
+Buildrequires:	dejagnu
+BuildRequires:	speex-devel
+ 
 # (nl) : needed for the test-suite
 BuildRequires:  ming-devel
 BuildRequires:  ming-utils
-BuildRequires:	speex-devel
+Buildrequires:  netcat 
+Buildrequires:  wget
 
 %if %{with_gstreamer}
 Requires:	gstreamer0.10-plugins-base
