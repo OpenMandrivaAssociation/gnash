@@ -5,7 +5,7 @@
 %endif
 
 %define with_gstreamer 0
-%define with_tests 1
+%define with_tests 0
 
 %{?_with_klash: %{expand: %%global with_klash 1}}
 %{?_with_gstreamer: %{expand: %%global with_gstreamer 1}}
