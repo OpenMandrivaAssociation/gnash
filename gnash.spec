@@ -15,7 +15,7 @@
 %define libname_dev %mklibname -d %{name} 
 %define libname_orig lib%{name}
 
-%define bzr	20100113
+%define bzr	20100117
 %define rel	1
 %define major	0
 
@@ -97,22 +97,14 @@ class.
 %defattr(-,root,root,0755)
 %doc AUTHORS COPYING ChangeLog INSTALL NEWS README TODO
 %{_bindir}/%{name}
-%{_bindir}/gprocessor
 %{_bindir}/fb-%{name}
 %{_bindir}/gtk-%{name}
 %{_bindir}/sdl-%{name}
-%{_bindir}/soldumper
-%{_bindir}/dumpshm
-%{_bindir}/flvdumper
 %if %{with_gstreamer}
 %{_bindir}/findmicrophones
 %{_bindir}/findwebcams
 %endif
 %{_mandir}/man1/%{name}.1*
-%{_mandir}/man1/dumpshm.1*
-%{_mandir}/man1/gprocessor.1*
-%{_mandir}/man1/soldumper.1*
-%{_mandir}/man1/flvdumper.1*
 %{_sysconfdir}/%{name}rc
 %{_sysconfdir}/%{name}pluginrc
 %{_datadir}/%{name}
@@ -218,6 +210,27 @@ Cygnal is a streaming media server that's Flash aware.
 %{_mandir}/man1/rtmpget.1*
 %dir %{_libdir}/cygnal
 %{_libdir}/cygnal/plugins/*.so*
+
+#--------------------------------------------------------------------
+
+%package tools
+Summary:   gnash tools
+Requires:  %{name} = %{version}-%{release}
+Group:     Video 
+
+%description tools
+Gnash tools.
+
+%files tools
+%defattr(-,root,root,-)
+%{_bindir}/gprocessor
+%{_bindir}/soldumper
+%{_bindir}/dumpshm
+%{_bindir}/flvdumper
+%{_mandir}/man1/dumpshm.1*
+%{_mandir}/man1/gprocessor.1*
+%{_mandir}/man1/soldumper.1*
+%{_mandir}/man1/flvdumper.1*
 
 #--------------------------------------------------------------------
 
