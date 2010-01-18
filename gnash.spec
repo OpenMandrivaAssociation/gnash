@@ -123,7 +123,7 @@ Provides:	%{libname_orig} = %{version}
 %defattr(-,root,root)
 %dir %{_libdir}/%{name}
 %{_libdir}/%{name}/lib%{name}agg.so.%{major}*
-%{_libdir}/%{name}/lib%{name}base.so.%{major}*
+%{_libdir}/%{name}/lib%{name}base-trunk.so
 %{_libdir}/%{name}/lib%{name}core-trunk.so
 %{_libdir}/%{name}/lib%{name}amf-trunk.so
 %{_libdir}/%{name}/lib%{name}media-trunk.so
