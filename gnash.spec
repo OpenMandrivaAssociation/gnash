@@ -15,7 +15,7 @@
 %define libname_dev %mklibname -d %{name} 
 %define libname_orig lib%{name}
 
-%define bzr	20100122
+%define bzr	20100131
 %define rel	1
 %define major	0
 
