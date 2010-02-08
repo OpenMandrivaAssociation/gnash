@@ -15,8 +15,8 @@
 %define libname_dev %mklibname -d %{name} 
 %define libname_orig lib%{name}
 
-%define bzr	20100131
-%define rel	3
+%define bzr	20100208
+%define rel	1
 %define major	0
 
 %if %bzr
@@ -66,8 +66,8 @@ BuildRequires:  csound-devel
 Buildrequires:	dejagnu
 BuildRequires:	speex-devel
 %if %{with_tests}
-BuildRequires:  ming-devel
-BuildRequires:  ming-utils
+BuildRequires:  ming-devel >= 0.4.3
+BuildRequires:  ming-utils >= 0.4.3
 Buildrequires:  netcat 
 Buildrequires:  wget
 %endif
@@ -103,8 +103,11 @@ class.
 %if %{with_gstreamer}
 %{_bindir}/findmicrophones
 %{_bindir}/findwebcams
+%{_mandir}/man1/findmicrophones.1.*
+%{_mandir}/man1/findwebcams.1.*
 %endif
 %{_mandir}/man1/%{name}.1*
+%{_mandir}/man1/gtk-%{name}.1*
 %{_sysconfdir}/%{name}rc
 %{_sysconfdir}/%{name}pluginrc
 %{_datadir}/%{name}
@@ -190,6 +193,7 @@ Requires:	%{name} = %{version}-%{release}
 %{_kde_libdir}/kde4/libklashpart.so
 %{_kde_datadir}/kde4/services/klash_part.desktop
 %{_kde_datadir}/apps/klash/
+%{_mandir}/man1/kde4-%{name}.1*
 %endif
 
 #--------------------------------------------------------------------
