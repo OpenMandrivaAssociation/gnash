@@ -103,9 +103,9 @@ class.
 %if %{with_gstreamer}
 %{_bindir}/findmicrophones
 %{_bindir}/findwebcams
+%endif
 %{_mandir}/man1/findmicrophones.1.*
 %{_mandir}/man1/findwebcams.1.*
-%endif
 %{_mandir}/man1/%{name}.1*
 %{_mandir}/man1/gtk-%{name}.1*
 %{_sysconfdir}/%{name}rc
