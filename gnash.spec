@@ -133,6 +133,7 @@ Provides:	%{libname_orig} = %{version}
 %{_libdir}/%{name}/lib%{name}media-%{version}.so
 %{_libdir}/%{name}/lib%{name}net.so.%{major}*
 %{_libdir}/%{name}/lib%{name}sound-%{version}.so
+%{_libdir}/%{name}/libmozsdk.so.*
 %{_libdir}/%{name}/plugins/*.so
 
 #--------------------------------------------------------------------
@@ -246,7 +247,7 @@ Gnash tools.
 
 %build
 ./autogen.sh
-#define _disable_ld_no_undefined 1
+%define _disable_ld_no_undefined 1
 
 %configure2_5x --disable-static --with-npapi-plugindir=%{_libdir}/mozilla/plugins \
   --enable-extensions=ALL \
