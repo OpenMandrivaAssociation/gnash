@@ -38,6 +38,7 @@ Group: Networking/WWW
 Source0: %{distname}
 Patch0: %{name}-0.8.5-ignore-moc-output-version.patch
 Patch1:	%{name}-0.8.3-manual.patch
+Patch2: gnash-0.8.7-linkage.patch
 BuildRoot: %{_tmppath}/%{name}-root
 URL: http://www.gnu.org/software/%{name}/
 %if %{with_klash}
@@ -126,13 +127,12 @@ Provides:	%{libname_orig} = %{version}
 %defattr(-,root,root)
 %dir %{_libdir}/%{name}
 %{_libdir}/%{name}/lib%{name}agg.so.%{major}*
-%{_libdir}/%{name}/lib%{name}base-trunk.so
-%{_libdir}/%{name}/lib%{name}core-trunk.so
-%{_libdir}/%{name}/lib%{name}amf-trunk.so
-%{_libdir}/%{name}/lib%{name}media-trunk.so
+%{_libdir}/%{name}/lib%{name}base-%{version}.so
+%{_libdir}/%{name}/lib%{name}core-%{version}.so
+%{_libdir}/%{name}/lib%{name}amf-%{version}.so
+%{_libdir}/%{name}/lib%{name}media-%{version}.so
 %{_libdir}/%{name}/lib%{name}net.so.%{major}*
-%{_libdir}/%{name}/lib%{name}sound-trunk.so
-%{_libdir}/%{name}/libmozsdk.so.%{major}*
+%{_libdir}/%{name}/lib%{name}sound-%{version}.so
 %{_libdir}/%{name}/plugins/*.so
 
 #--------------------------------------------------------------------
@@ -242,9 +242,10 @@ Gnash tools.
 %setup -q -n %{dirname}
 %patch0 -p1 -b .ignore~
 %patch1 -p1 -b .manual~
+%patch2 -p0 -b .link
 
 %build
-sh autogen.sh
+./autogen.sh
 #define _disable_ld_no_undefined 1
 
 %configure2_5x --disable-static --with-npapi-plugindir=%{_libdir}/mozilla/plugins \
