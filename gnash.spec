@@ -15,7 +15,7 @@
 %define libname_dev %mklibname -d %{name} 
 %define libname_orig lib%{name}
 
-%define bzr	20100208
+%define bzr	0
 %define rel	1
 %define major	0
 
@@ -245,7 +245,7 @@ Gnash tools.
 
 %build
 sh autogen.sh
-%define _disable_ld_no_undefined 1
+#define _disable_ld_no_undefined 1
 
 %configure2_5x --disable-static --with-npapi-plugindir=%{_libdir}/mozilla/plugins \
   --enable-extensions=ALL \
