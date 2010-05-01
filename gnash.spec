@@ -16,7 +16,7 @@
 %define libname_orig lib%{name}
 
 %define bzr	0
-%define rel	2
+%define rel	3
 %define major	0
 
 %if %bzr
@@ -36,6 +36,7 @@ Summary: %{name} - a GNU Flash movie player
 License: GPLv3
 Group: Networking/WWW
 Source0: %{distname}
+Source1: http://www.getgnash.org/gnash-splash.swf
 Patch0: %{name}-0.8.5-ignore-moc-output-version.patch
 Patch1:	%{name}-0.8.3-manual.patch
 Patch2: gnash-0.8.7-linkage.patch
@@ -112,6 +113,8 @@ class.
 %{_sysconfdir}/%{name}rc
 %{_sysconfdir}/%{name}pluginrc
 %{_datadir}/%{name}
+%{_datadir}/icons/hicolor/32x32/apps/*.png
+%{_datadir}/applications/mandriva-%{name}.desktop
 
 #--------------------------------------------------------------------
 
@@ -170,7 +173,6 @@ Headers of %{name} for development.
 Summary:	%{name} firefox plugin
 Group:		Networking/WWW
 Requires:	%{name} = %{version}-%{release}
-Requires:   firefox > 1.5	
 
 %description -n %{name}-firefox-plugin
 %{name} firefox plugin
@@ -287,6 +289,28 @@ make install install-plugins \
  KDE4_SERVICESDIR=%{_kde_datadir}/kde4/services \
  KDE4_CONFIGDIR=%{_kde_configdir} \
  KDE4_APPSDATADIR=%{_kde_appsdir}/klash
+
+cp -p %{SOURCE1} %{buildroot}%{_datadir}/%{name}/
+
+#menu entry
+mkdir -p %{buildroot}%{_datadir}/applications
+cat > %{buildroot}%{_datadir}/applications/mandriva-%{name}.desktop << EOF
+[Desktop Entry]
+Name=Gnash SWF Viewer
+GenericName=SWF Viewer
+Comment=%{Summary}
+Exec=%{name} %{_datadir}/%{name}/%{name}-splash.swf
+Icon=GnashG
+Terminal=false
+Type=Application
+StartupNotify=false
+Categories=AudioVideo;GTK;Video;Player;
+MimeType=application/x-shockwave-flash;application/futuresplash;
+EOF
+
+mkdir -p %{buildroot}%{_datadir}/icons/hicolor/32x32/apps
+cp -p ./gui/images/GnashG.png %{buildroot}%{_datadir}/icons/hicolor/32x32/apps
+
 
 rm -rf %{buildroot}/%{_localstatedir}/lib/scrollkeeper
 rm -f %{buildroot}/%{_libdir}/mozilla/plugins/*.a
