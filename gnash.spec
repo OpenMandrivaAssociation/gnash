@@ -16,7 +16,7 @@
 %define libname_orig lib%{name}
 
 %define bzr	0
-%define rel	3
+%define rel	4
 %define major	0
 
 %if %bzr
@@ -298,7 +298,7 @@ cat > %{buildroot}%{_datadir}/applications/mandriva-%{name}.desktop << EOF
 [Desktop Entry]
 Name=Gnash SWF Viewer
 GenericName=SWF Viewer
-Comment=%{Summary}
+Comment=%{summary}
 Exec=%{name} %{_datadir}/%{name}/%{name}-splash.swf
 Icon=GnashG
 Terminal=false
