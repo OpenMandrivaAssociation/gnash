@@ -15,31 +15,33 @@
 %define libname_dev %mklibname -d %{name} 
 %define libname_orig lib%{name}
 
-%define bzr	0
-%define rel	5
+%define bzr	20100801
+%define rel	1
 %define major	0
 
 %if %bzr
 %define release		%mkrel -c %bzr %rel
 %define distname	%name-%bzr.tar.xz
 %define dirname		%name
+%define buildversion	trunk
 %else
 %define release		%mkrel %rel
 %define distname	%name-%version.tar.bz2
 %define dirname		%name-%version
+%define buildversion	%version
 %endif
 
 Name: gnash
-Version: 0.8.7
+Version: 0.8.8
 Release: %{release}
 Summary: %{name} - a GNU Flash movie player
 License: GPLv3
 Group: Networking/WWW
 Source0: %{distname}
 Source1: http://www.getgnash.org/gnash-splash.swf
-Patch0: %{name}-0.8.5-ignore-moc-output-version.patch
+#Patch0: %{name}-0.8.5-ignore-moc-output-version.patch
 Patch1:	%{name}-0.8.3-manual.patch
-Patch2: gnash-0.8.7-linkage.patch
+#Patch2: gnash-0.8.7-linkage.patch
 BuildRoot: %{_tmppath}/%{name}-root
 URL: http://www.gnu.org/software/%{name}/
 %if %{with_klash}
@@ -58,7 +60,9 @@ BuildRequires:  libxslt-proc
 BuildRequires:  agg-devel
 BuildRequires:  mysql-devel
 BuildRequires:  libltdl-devel
-Buildrequires:	gtk2-devel
+BuildRequires:	gtk2-devel
+BuildRequires:	libts-devel
+BuildRequires:	libgtkglext-devel
 %if %{with_gstreamer}
 BuildRequires:  libgstreamer-plugins-base-devel
 %else
@@ -98,6 +102,8 @@ class.
 %files -f %name.lang
 %defattr(-,root,root,0755)
 %doc AUTHORS COPYING ChangeLog INSTALL NEWS README TODO
+%config(noreplace) %{_sysconfdir}/gnaspluginrc
+%config(noreplace) %{_sysconfdir}/gnashrc
 %{_bindir}/%{name}
 %{_bindir}/fb-%{name}
 %{_bindir}/gtk-%{name}
@@ -129,14 +135,14 @@ Provides:	%{libname_orig} = %{version}
 %files -n %{libname}
 %defattr(-,root,root)
 %dir %{_libdir}/%{name}
-%{_libdir}/%{name}/lib%{name}agg.so.%{major}*
-%{_libdir}/%{name}/lib%{name}base-%{version}.so
-%{_libdir}/%{name}/lib%{name}core-%{version}.so
-%{_libdir}/%{name}/lib%{name}amf-%{version}.so
-%{_libdir}/%{name}/lib%{name}media-%{version}.so
+%{_libdir}/%{name}/lib%{name}render.so.%{major}*
+%{_libdir}/%{name}/lib%{name}base-%{buildversion}.so
+%{_libdir}/%{name}/lib%{name}core-%{buildversion}.so
+%{_libdir}/%{name}/lib%{name}amf-%{buildversion}.so
+%{_libdir}/%{name}/lib%{name}media-%{buildversion}.so
 %{_libdir}/%{name}/lib%{name}net.so.%{major}*
-%{_libdir}/%{name}/lib%{name}sound-%{version}.so
-%{_libdir}/%{name}/libmozsdk.so.*
+%{_libdir}/%{name}/lib%{name}sound-%{buildversion}.so
+%{_libdir}/%{name}/lib%{name}vaapi-%{buildversion}.so
 %{_libdir}/%{name}/plugins/*.so
 
 #--------------------------------------------------------------------
@@ -156,15 +162,14 @@ Headers of %{name} for development.
 %defattr(-,root,root)
 %{_includedir}/%{name}/*
 %{_libdir}/%{name}/lib%{name}*.la
-%{_libdir}/%{name}/lib%{name}agg.so
+%{_libdir}/%{name}/lib%{name}render.so
 %{_libdir}/%{name}/lib%{name}amf.so
 %{_libdir}/%{name}/lib%{name}base.so
 %{_libdir}/%{name}/lib%{name}core.so
 %{_libdir}/%{name}/lib%{name}media.so
 %{_libdir}/%{name}/lib%{name}net.so
 %{_libdir}/%{name}/lib%{name}sound.so
-%{_libdir}/%{name}/libmozsdk.la
-%{_libdir}/%{name}/libmozsdk.so
+%{_libdir}/%{name}/lib%{name}vaapi.so
 %{_libdir}/%{name}/plugins/*.la
 %{_libdir}/pkgconfig/%{name}.pc
 #--------------------------------------------------------------------
@@ -234,22 +239,24 @@ Gnash tools.
 %{_bindir}/soldumper
 %{_bindir}/dumpshm
 %{_bindir}/flvdumper
+%{_bindir}/rtmpget
 %{_mandir}/man1/dumpshm.1*
 %{_mandir}/man1/gprocessor.1*
 %{_mandir}/man1/soldumper.1*
 %{_mandir}/man1/flvdumper.1*
+%{_mandir}/man1/rtmpget.1*
 
 #--------------------------------------------------------------------
 
 %prep
 %setup -q -n %{dirname}
-%patch0 -p1 -b .ignore~
+#%patch0 -p1 -b .ignore~
 %patch1 -p1 -b .manual~
-%patch2 -p0 -b .link
+#%patch2 -p0 -b .link
 
 %build
 ./autogen.sh
-%define _disable_ld_no_undefined 1
+%define _disable_ld_no_undefined 0
 
 %configure2_5x --disable-static --with-npapi-plugindir=%{_libdir}/mozilla/plugins \
   --enable-extensions=ALL \
@@ -271,8 +278,8 @@ Gnash tools.
 %endif
   --enable-cygnal \
   --disable-dependency-tracking \
-  --enable-avm2
-  
+  --enable-renderer=agg
+   
 
 %make
 
