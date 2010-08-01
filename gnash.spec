@@ -102,7 +102,7 @@ class.
 %files -f %name.lang
 %defattr(-,root,root,0755)
 %doc AUTHORS COPYING ChangeLog INSTALL NEWS README TODO
-%config(noreplace) %{_sysconfdir}/gnaspluginrc
+%config(noreplace) %{_sysconfdir}/gnashpluginrc
 %config(noreplace) %{_sysconfdir}/gnashrc
 %{_bindir}/%{name}
 %{_bindir}/fb-%{name}
