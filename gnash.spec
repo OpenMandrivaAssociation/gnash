@@ -50,9 +50,9 @@ BuildRequires:  kdelibs4-devel
 BuildRequires:  SDL_mixer-devel
 BuildRequires:  boost-devel
 BuildRequires:  curl-devel
-BuildRequires:  docbook2x
-BuildRequires:	docbook-dtd412-xml
-BuildRequires:  texinfo
+#BuildRequires:  docbook2x
+#BuildRequires:	docbook-dtd412-xml
+#BuildRequires:  texinfo
 BuildRequires:  doxygen
 BuildRequires:  rarian
 BuildRequires:  slang-devel
@@ -102,8 +102,8 @@ class.
 %files -f %name.lang
 %defattr(-,root,root,0755)
 %doc AUTHORS COPYING ChangeLog INSTALL NEWS README TODO
-%config(noreplace) %{_sysconfdir}/gnashpluginrc
-%config(noreplace) %{_sysconfdir}/gnashrc
+%config(noreplace) %{_sysconfdir}/%{name}pluginrc
+%config(noreplace) %{_sysconfdir}/%{name}rc
 %{_bindir}/%{name}
 %{_bindir}/fb-%{name}
 %{_bindir}/gtk-%{name}
@@ -116,8 +116,6 @@ class.
 %{_mandir}/man1/findwebcams.1.*
 %{_mandir}/man1/%{name}.1*
 %{_mandir}/man1/gtk-%{name}.1*
-%{_sysconfdir}/%{name}rc
-%{_sysconfdir}/%{name}pluginrc
 %{_datadir}/%{name}
 %{_datadir}/icons/hicolor/32x32/apps/*.png
 %{_datadir}/applications/mandriva-%{name}.desktop
@@ -219,7 +217,6 @@ Cygnal is a streaming media server that's Flash aware.
 %config(noreplace) %{_sysconfdir}/cygnalrc
 %{_bindir}/cygnal
 %{_mandir}/man1/cygnal.1*
-%{_mandir}/man1/rtmpget.1*
 %dir %{_libdir}/cygnal
 %{_libdir}/cygnal/plugins/*.so*
 
@@ -237,10 +234,8 @@ Gnash tools.
 %defattr(-,root,root,-)
 %{_bindir}/gprocessor
 %{_bindir}/soldumper
-%{_bindir}/dumpshm
 %{_bindir}/flvdumper
 %{_bindir}/rtmpget
-%{_mandir}/man1/dumpshm.1*
 %{_mandir}/man1/gprocessor.1*
 %{_mandir}/man1/soldumper.1*
 %{_mandir}/man1/flvdumper.1*
@@ -260,7 +255,6 @@ Gnash tools.
 
 %configure2_5x --disable-static --with-npapi-plugindir=%{_libdir}/mozilla/plugins \
   --enable-extensions=ALL \
-  --enable-docbook \
   --enable-ghelp \
   --disable-rpath \
 %if %{with_klash}
@@ -279,6 +273,7 @@ Gnash tools.
   --enable-cygnal \
   --disable-dependency-tracking \
   --enable-renderer=agg
+  #--enable-docbook
    
 
 %make
