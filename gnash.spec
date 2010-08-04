@@ -22,12 +22,12 @@
 %if %bzr
 %define release		%mkrel -c %bzr %rel
 %define distname	%name-%bzr.tar.xz
-%define dirname		%name
+%define dir_name		%name
 %define buildversion	trunk
 %else
 %define release		%mkrel %rel
 %define distname	%name-%version.tar.bz2
-%define dirname		%name-%version
+%define dir_name		%name-%version
 %define buildversion	%version
 %endif
 
@@ -244,7 +244,7 @@ Gnash tools.
 #--------------------------------------------------------------------
 
 %prep
-%setup -q -n %{dirname}
+%setup -q -n %{dir_name}
 #%patch0 -p1 -b .ignore~
 %patch1 -p1 -b .manual~
 #%patch2 -p0 -b .link
