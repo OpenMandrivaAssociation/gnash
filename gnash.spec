@@ -245,9 +245,9 @@ Gnash tools.
 
 %prep
 %setup -q -n %{dir_name}
-#%patch0 -p1 -b .ignore~
+#%%patch0 -p1 -b .ignore~
 %patch1 -p1 -b .manual~
-#%patch2 -p0 -b .link
+#%%patch2 -p0 -b .link
 
 %build
 ./autogen.sh
