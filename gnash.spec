@@ -16,7 +16,7 @@
 %define libname_orig lib%{name}
 
 %define bzr	20100801
-%define rel	1
+%define rel	2
 %define major	0
 
 %if %bzr
