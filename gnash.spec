@@ -15,19 +15,19 @@
 %define libname_dev %mklibname -d %{name} 
 %define libname_orig lib%{name}
 
-%define bzr	20100801
-%define rel	2
+%define bzr	20100807
+%define rel	1
 %define major	0
 
 %if %bzr
 %define release		%mkrel -c %bzr %rel
 %define distname	%name-%bzr.tar.xz
-%define dir_name		%name
+%define dir_name	%name
 %define buildversion	trunk
 %else
 %define release		%mkrel %rel
 %define distname	%name-%version.tar.bz2
-%define dir_name		%name-%version
+%define dir_name	%name-%version
 %define buildversion	%version
 %endif
 
@@ -39,9 +39,7 @@ License: GPLv3
 Group: Networking/WWW
 Source0: %{distname}
 Source1: http://www.getgnash.org/gnash-splash.swf
-#Patch0: %{name}-0.8.5-ignore-moc-output-version.patch
 Patch1:	%{name}-0.8.3-manual.patch
-#Patch2: gnash-0.8.7-linkage.patch
 BuildRoot: %{_tmppath}/%{name}-root
 URL: http://www.gnu.org/software/%{name}/
 %if %{with_klash}
@@ -245,9 +243,7 @@ Gnash tools.
 
 %prep
 %setup -q -n %{dir_name}
-#%%patch0 -p1 -b .ignore~
 %patch1 -p1 -b .manual~
-#%%patch2 -p0 -b .link
 
 %build
 ./autogen.sh
@@ -281,7 +277,6 @@ Gnash tools.
 %if %{with_tests}
 %make check
 %endif
-
 
 %install
 rm -rf %{buildroot}
