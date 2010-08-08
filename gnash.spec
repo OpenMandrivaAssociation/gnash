@@ -61,6 +61,9 @@ BuildRequires:  libltdl-devel
 BuildRequires:	gtk2-devel
 BuildRequires:	libts-devel
 BuildRequires:	libgtkglext-devel
+BuildRequires:	gsm-devel
+BuildRequires:	nspr-devel
+BuildRequires:	expat-devel
 %if %{with_gstreamer}
 BuildRequires:  libgstreamer-plugins-base-devel
 %else
