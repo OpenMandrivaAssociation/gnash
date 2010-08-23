@@ -260,10 +260,9 @@ Gnash tools.
 %else
   --disable-testsuite \
 %endif
-  --enable-media=gst \
+  --enable-media=ffmpeg,gst \
   --with-gstpbutils-incl=%{_includedir}/gstreamer-0.10 \
   --with-gstpbutils-lib=%{_libdir} \
-  --enable-media=ffmpeg \
   --enable-cygnal \
   --disable-dependency-tracking \
   --enable-doublebuf
