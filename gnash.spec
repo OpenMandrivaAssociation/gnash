@@ -4,7 +4,6 @@
 %define with_klash 0
 %endif
 
-%define with_gstreamer 0
 %define with_tests 0
 
 %{?_with_klash: %{expand: %%global with_klash 1}}
@@ -15,7 +14,7 @@
 %define libname_dev %mklibname -d %{name} 
 %define libname_orig lib%{name}
 
-%define bzr	20100810
+%define bzr	0
 %define rel	1
 %define major	0
 
@@ -64,11 +63,8 @@ BuildRequires:	libgtkglext-devel
 BuildRequires:	gsm-devel
 BuildRequires:	nspr-devel
 BuildRequires:	expat-devel
-%if %{with_gstreamer}
 BuildRequires:  libgstreamer-plugins-base-devel
-%else
 BuildRequires:	ffmpeg-devel
-%endif
 BuildRequires:  csound-devel
 Buildrequires:	dejagnu
 BuildRequires:	speex-devel
@@ -78,12 +74,11 @@ BuildRequires:  ming-utils >= 0.4.3
 Buildrequires:  netcat 
 Buildrequires:  wget
 %endif
-%if %{with_gstreamer}
 Requires:	gstreamer0.10-plugins-base
 Requires:	gstreamer0.10-plugins-ugly
 Requires:	gstreamer0.10-plugins-bad
 Requires:	gstreamer0.10-ffmpeg
-%endif
+Suggests:	lightspark
 
 %description
 %{name} is capable of reading up to SWF v9 files and opcodes, but primarily
@@ -109,10 +104,8 @@ class.
 %{_bindir}/fb-%{name}
 %{_bindir}/gtk-%{name}
 %{_bindir}/sdl-%{name}
-%if %{with_gstreamer}
 %{_bindir}/findmicrophones
 %{_bindir}/findwebcams
-%endif
 %{_mandir}/man1/findmicrophones.1.*
 %{_mandir}/man1/findwebcams.1.*
 %{_mandir}/man1/%{name}.1*
@@ -262,16 +255,18 @@ Gnash tools.
   --disable-kparts \
   --enable-gui=gtk,sdl,fb \
 %endif
-%if %{with_gstreamer}
+%if %{with_tests}
+  --enable-testsuite \
+%else
+  --disable-testsuite \
+%endif
   --enable-media=gst \
   --with-gstpbutils-incl=%{_includedir}/gstreamer-0.10 \
   --with-gstpbutils-lib=%{_libdir} \
-%else
   --enable-media=ffmpeg \
-%endif
   --enable-cygnal \
   --disable-dependency-tracking \
-  --enable-renderer=agg
+  --enable-doublebuf
   #--enable-docbook
    
 
