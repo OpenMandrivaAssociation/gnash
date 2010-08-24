@@ -15,7 +15,7 @@
 %define libname_orig lib%{name}
 
 %define bzr	0
-%define rel	1
+%define rel	2
 %define major	0
 
 %if %bzr
@@ -68,6 +68,7 @@ BuildRequires:	ffmpeg-devel
 BuildRequires:  csound-devel
 Buildrequires:	dejagnu
 BuildRequires:	speex-devel
+BuildRequires:	libxi-devel
 %if %{with_tests}
 BuildRequires:  ming-devel >= 0.4.3
 BuildRequires:  ming-utils >= 0.4.3
