@@ -15,7 +15,7 @@
 %define libname_orig lib%{name}
 
 %define bzr	0
-%define rel	3
+%define rel	4
 %define major	0
 
 %if %bzr
@@ -113,6 +113,7 @@ class.
 %{_datadir}/%{name}
 %{_datadir}/icons/hicolor/32x32/apps/*.png
 %{_datadir}/applications/mandriva-%{name}.desktop
+%{_datadir}/applications/mandriva-%{name}-context-menu.desktop
 
 #--------------------------------------------------------------------
 
@@ -300,6 +301,19 @@ Terminal=false
 Type=Application
 StartupNotify=false
 Categories=AudioVideo;GTK;Video;Player;
+EOF
+
+# context menu entry, to make double clicking an swf work
+cat > %{buildroot}%{_datadir}/applications/mandriva-%{name}-context-menu.desktop << EOF
+[Desktop Entry]
+Name=Gnash SWF Viewer
+GenericName=SWF Viewer
+Comment=%{summary}
+Exec=%{name} %U
+Icon=GnashG
+Terminal=false
+Type=Application
+StartupNotify=false
 MimeType=application/x-shockwave-flash;application/futuresplash;
 EOF
 
