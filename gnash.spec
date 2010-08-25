@@ -11,11 +11,11 @@
 %{?_with_gstreamer: %{expand: %%global with_tests 1}}
 
 %define libname %mklibname %{name} 0
-%define libname_dev %mklibname -d %{name} 
+%define libname_dev %mklibname -d %{name}
 %define libname_orig lib%{name}
 
 %define bzr	0
-%define rel	2
+%define rel	3
 %define major	0
 
 %if %bzr
@@ -72,7 +72,7 @@ BuildRequires:	libxi-devel
 %if %{with_tests}
 BuildRequires:  ming-devel >= 0.4.3
 BuildRequires:  ming-utils >= 0.4.3
-Buildrequires:  netcat 
+Buildrequires:  netcat
 Buildrequires:  wget
 %endif
 Requires:	gstreamer0.10-plugins-base
@@ -98,8 +98,7 @@ class.
 
 %files -f %name.lang
 %defattr(-,root,root,0755)
-%doc AUTHORS COPYING ChangeLog INSTALL NEWS README TODO
-%config(noreplace) %{_sysconfdir}/%{name}pluginrc
+%doc AUTHORS COPYING ChangeLog-%{version} INSTALL NEWS README TODO
 %config(noreplace) %{_sysconfdir}/%{name}rc
 %{_bindir}/%{name}
 %{_bindir}/fb-%{name}
@@ -119,7 +118,7 @@ class.
 
 %package -n	%{libname}
 Summary:	%{name} library
-Group:	        Networking/WWW	
+Group:	        Networking/WWW
 Provides:	%{libname_orig} = %{version}
 
 %description -n %{libname}
@@ -176,6 +175,7 @@ Requires:	%{name} = %{version}-%{release}
 %{name} firefox plugin
 
 %files -n %{name}-firefox-plugin
+%config(noreplace) %{_sysconfdir}/%{name}pluginrc
 %{_libdir}/mozilla/plugins/*.so
 
 #--------------------------------------------------------------------
@@ -220,7 +220,7 @@ Cygnal is a streaming media server that's Flash aware.
 %package tools
 Summary:   gnash tools
 Requires:  %{name} = %{version}-%{release}
-Group:     Video 
+Group:     Video
 
 %description tools
 Gnash tools.
