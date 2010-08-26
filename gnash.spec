@@ -295,7 +295,7 @@ cat > %{buildroot}%{_datadir}/applications/mandriva-%{name}.desktop << EOF
 Name=Gnash SWF Viewer
 GenericName=SWF Viewer
 Comment=%{summary}
-Exec=%{name} %{_datadir}/%{name}/%{name}-splash.swf %U
+Exec=%{name} %{_datadir}/%{name}/%{name}-splash.swf
 Icon=GnashG
 Terminal=false
 Type=Application
