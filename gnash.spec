@@ -135,7 +135,9 @@ Provides:	%{libname_orig} = %{version}
 %{_libdir}/%{name}/lib%{name}media-%{buildversion}.so
 %{_libdir}/%{name}/lib%{name}net.so.%{major}*
 %{_libdir}/%{name}/lib%{name}sound-%{buildversion}.so
+%if %mdvver >= 201100
 %{_libdir}/%{name}/lib%{name}vaapi-%{buildversion}.so
+%endif
 %{_libdir}/%{name}/plugins/*.so
 
 #--------------------------------------------------------------------
@@ -162,7 +164,9 @@ Headers of %{name} for development.
 %{_libdir}/%{name}/lib%{name}media.so
 %{_libdir}/%{name}/lib%{name}net.so
 %{_libdir}/%{name}/lib%{name}sound.so
+%if %mdvver >= 201100
 %{_libdir}/%{name}/lib%{name}vaapi.so
+%endif
 %{_libdir}/%{name}/plugins/*.la
 %{_libdir}/pkgconfig/%{name}.pc
 #--------------------------------------------------------------------
