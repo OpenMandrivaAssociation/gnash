@@ -1,13 +1,5 @@
-%if %mdkversion >= 200910
-%define with_klash 1
-%else
-%define with_klash 0
-%endif
-
 %define with_tests 0
 
-%{?_with_klash: %{expand: %%global with_klash 1}}
-%{?_with_gstreamer: %{expand: %%global with_gstreamer 1}}
 %{?_with_gstreamer: %{expand: %%global with_tests 1}}
 
 %define libname %mklibname %{name} 0
@@ -15,7 +7,7 @@
 %define libname_orig lib%{name}
 
 %define bzr	0
-%define rel	5
+%define rel	6
 %define major	0
 
 %if %bzr
@@ -31,25 +23,20 @@
 %endif
 
 Name: gnash
-Version: 0.8.8
+Version: 0.8.9
 Release: %{release}
 Summary: %{name} - a GNU Flash movie player
 License: GPLv3
 Group: Networking/WWW
 Source0: %{distname}
-Source1: http://www.getgnash.org/gnash-splash.swf
+Patch0: gnash-0.8.9-ffmpeg0.8.patch
 Patch1:	%{name}-0.8.3-manual.patch
 BuildRoot: %{_tmppath}/%{name}-root
 URL: http://www.gnu.org/software/%{name}/
-%if %{with_klash}
 BuildRequires:  kdelibs4-devel
-%endif
 BuildRequires:  SDL_mixer-devel
 BuildRequires:  boost-devel
 BuildRequires:  curl-devel
-#BuildRequires:  docbook2x
-#BuildRequires:	docbook-dtd412-xml
-#BuildRequires:  texinfo
 BuildRequires:  doxygen
 BuildRequires:  rarian
 BuildRequires:  slang-devel
@@ -57,7 +44,6 @@ BuildRequires:  libxslt-proc
 BuildRequires:  agg-devel
 BuildRequires:  mysql-devel
 BuildRequires:  libltdl-devel
-BuildRequires:	gtk2-devel
 BuildRequires:	libts-devel
 BuildRequires:	libgtkglext-devel
 BuildRequires:	gsm-devel
@@ -69,6 +55,10 @@ BuildRequires:  csound-devel
 Buildrequires:	dejagnu
 BuildRequires:	speex-devel
 BuildRequires:	libxi-devel
+BuildRequires:  desktop-file-utils
+BuildRequires:	pygtk2.0-devel
+BuildRequires:  xulrunner-devel
+BuildRequires:	gettext-devel
 %if %{with_tests}
 BuildRequires:  ming-devel >= 0.4.3
 BuildRequires:  ming-utils >= 0.4.3
@@ -98,9 +88,10 @@ class.
 
 %files -f %name.lang
 %defattr(-,root,root,0755)
-%doc AUTHORS COPYING ChangeLog-%{version} INSTALL NEWS README TODO
+%doc README AUTHORS COPYING NEWS
 %config(noreplace) %{_sysconfdir}/%{name}rc
 %{_bindir}/%{name}
+%{_bindir}/%{name}-gtk-launcher
 %{_bindir}/fb-%{name}
 %{_bindir}/gtk-%{name}
 %{_bindir}/sdl-%{name}
@@ -109,11 +100,13 @@ class.
 %{_mandir}/man1/findmicrophones.1.*
 %{_mandir}/man1/findwebcams.1.*
 %{_mandir}/man1/%{name}.1*
+%{_mandir}/man1/fb-%{name}.1*
+%{_mandir}/man1/%{name}-gtk-launcher.1*
 %{_mandir}/man1/gtk-%{name}.1*
+%{_mandir}/man1/sdl-%{name}.1*
 %{_datadir}/%{name}
-%{_datadir}/icons/hicolor/32x32/apps/*.png
-%{_datadir}/applications/mandriva-%{name}.desktop
-%{_datadir}/applications/mandriva-%{name}-context-menu.desktop
+%{_datadir}/icons/hicolor/32x32/apps/%{name}.xpm
+%{_datadir}/applications/%{name}.desktop
 
 #--------------------------------------------------------------------
 
@@ -128,17 +121,14 @@ Provides:	%{libname_orig} = %{version}
 %files -n %{libname}
 %defattr(-,root,root)
 %dir %{_libdir}/%{name}
-%{_libdir}/%{name}/lib%{name}render.so.%{major}*
+%{_libdir}/%{name}/lib%{name}render-%{buildversion}.so
 %{_libdir}/%{name}/lib%{name}base-%{buildversion}.so
 %{_libdir}/%{name}/lib%{name}core-%{buildversion}.so
 %{_libdir}/%{name}/lib%{name}amf-%{buildversion}.so
 %{_libdir}/%{name}/lib%{name}media-%{buildversion}.so
-%{_libdir}/%{name}/lib%{name}net.so.%{major}*
+%{_libdir}/%{name}/lib%{name}net-%{buildversion}.so
 %{_libdir}/%{name}/lib%{name}sound-%{buildversion}.so
-%if %mdvver >= 201100
 %{_libdir}/%{name}/lib%{name}vaapi-%{buildversion}.so
-%endif
-%{_libdir}/%{name}/plugins/*.so
 
 #--------------------------------------------------------------------
 
@@ -164,11 +154,9 @@ Headers of %{name} for development.
 %{_libdir}/%{name}/lib%{name}media.so
 %{_libdir}/%{name}/lib%{name}net.so
 %{_libdir}/%{name}/lib%{name}sound.so
-%if %mdvver >= 201100
 %{_libdir}/%{name}/lib%{name}vaapi.so
-%endif
-%{_libdir}/%{name}/plugins/*.la
 %{_libdir}/pkgconfig/%{name}.pc
+
 #--------------------------------------------------------------------
 
 %package -n %{name}-firefox-plugin
@@ -185,28 +173,32 @@ Requires:	%{name} = %{version}-%{release}
 
 #--------------------------------------------------------------------
 
-%if %{with_klash}
-%package -n	%{name}-konqueror-plugin
+%package -n	klash
 Summary:	%{name} konqueror plugin
 Group:		Graphical desktop/KDE
 Requires:	%{name} = %{version}-%{release}
-%description -n %{name}-konqueror-plugin
+Obsoletes:	%{name}-konqueror-plugin
+Provides:	%{name}-konqueror-plugin
+
+%description -n klash
 %{name} Konqueror plugin
 
-%files -n %{name}-konqueror-plugin
+%files -n klash
+%{_bindir}/gnash-qt-launcher
 %{_kde_bindir}/kde4-%{name}
-%{_kde_libdir}/kde4/libklashpart.la
 %{_kde_libdir}/kde4/libklashpart.so
 %{_kde_datadir}/kde4/services/klash_part.desktop
+%{_datadir}/applications/klash.desktop
+%{_datadir}/icons/hicolor/32x32/apps/klash.xpm
 %{_kde_datadir}/apps/klash/
 %{_mandir}/man1/kde4-%{name}.1*
-%endif
+%{_mandir}/man1/%{name}-qt-launcher.1*
 
 #--------------------------------------------------------------------
 
 %package cygnal
 Summary:   Streaming media server
-Requires:  %{name} = %{version}-%{release}
+Requires:  %{name}-tools = %{version}-%{release}
 Group:     System/Servers 
 
 %description cygnal
@@ -243,8 +235,86 @@ Gnash tools.
 
 #--------------------------------------------------------------------
 
+%package -n python-gnash
+Summary:   Gnash Python bindings
+Requires:  %{name} = %{version}-%{release}
+Group:     Development/Python
+
+%description -n python-gnash
+Python bindings for the Gnash widget. Can be used to embed Gnash into any PyGTK application.
+
+%files -n python-gnash
+%defattr(-,root,root,-)
+%doc COPYING
+%{python_sitearch}/gtk-2.0/gnash.so
+
+#--------------------------------------------------------------------
+
+%package extension-fileio
+Summary:   Fileio extension for Gnash
+Group:     Networking/WWW
+Requires:  %{name} = %{version}-%{release}
+
+%description extension-fileio
+This extension allows SWF files being played within Gnash to have direct access to the file system. The API is similar to the C library one.
+
+%files extension-fileio
+%defattr(-,root,root,-)
+%doc COPYING
+%{_libdir}/gnash/plugins/fileio.so
+
+#--------------------------------------------------------------------
+
+%package extension-lirc
+Summary:   LIRC extension for Gnash
+Group:     Networking/WWW
+Requires:  %{name} = %{version}-%{release}
+
+%description extension-lirc
+This extension allows SWF files being played within Gnash to have direct access to a LIRC based remote control device. The API is similar to the standard LIRC one.
+
+%files extension-lirc
+%defattr(-,root,root,-)
+%doc COPYING
+%{_libdir}/gnash/plugins/lirc.so
+
+#--------------------------------------------------------------------
+
+%package extension-dejagnu
+Summary:   DejaGnu extension for Gnash
+Group:     Development/Other
+Requires:  %{name} = %{version}-%{release}
+
+%description extension-dejagnu
+This extension allows SWF files to have a simple unit testing API. The API
+is similar to the DejaGnu unit testing one.
+
+%files extension-dejagnu
+%defattr(-,root,root,-)
+%doc COPYING
+%{_libdir}/gnash/plugins/dejagnu.so
+
+#--------------------------------------------------------------------
+
+%package extension-mysql
+Summary:   MySQL extension for Gnash
+Group:     Development/Databases
+Requires:  %{name} = %{version}-%{release}
+
+%description extension-mysql
+This extension allows SWF files being played within Gnash to have direct access to a MySQL database. The API is similar to the standard MySQL one.
+
+%files extension-mysql
+%defattr(-,root,root,-)
+%doc COPYING
+%{_libdir}/gnash/plugins/mysql.so
+
+#--------------------------------------------------------------------
+
+
 %prep
 %setup -q -n %{dir_name}
+%patch0 -p0 -b .ffmpeg
 %patch1 -p1 -b .manual~
 
 %build
@@ -252,27 +322,26 @@ Gnash tools.
 %define _disable_ld_no_undefined 0
 
 %configure2_5x --disable-static --with-npapi-plugindir=%{_libdir}/mozilla/plugins \
-  --enable-extensions=ALL \
-  --enable-ghelp \
+  --enable-extensions=fileio,lirc,dejagnu,mysql \
+  --enable-renderer=all \
+  --with-plugins-install=system \
+  --disable-ghelp \
   --disable-rpath \
-%if %{with_klash}
   --enable-gui=gtk,kde4,sdl,fb \
-%else
-  --disable-kparts \
-  --enable-gui=gtk,sdl,fb \
-%endif
 %if %{with_tests}
   --enable-testsuite \
 %else
   --disable-testsuite \
+  --without-swfdec-testsuite \
 %endif
   --enable-media=ffmpeg,gst \
-  --with-gstpbutils-incl=%{_includedir}/gstreamer-0.10 \
-  --with-gstpbutils-lib=%{_libdir} \
   --enable-cygnal \
   --disable-dependency-tracking \
-  --enable-doublebuf
-  #--enable-docbook
+  --enable-python \
+  --enable-doublebuf \
+  --disable-jemalloc \
+  --disable-docbook \
+  --htmldir=%{_datadir}/gnash/html
    
 
 %make
@@ -290,39 +359,15 @@ make install install-plugins \
  KDE4_CONFIGDIR=%{_kde_configdir} \
  KDE4_APPSDATADIR=%{_kde_appsdir}/klash
 
-cp -p %{SOURCE1} %{buildroot}%{_datadir}/%{name}/
 
 #menu entry
-mkdir -p %{buildroot}%{_datadir}/applications
-cat > %{buildroot}%{_datadir}/applications/mandriva-%{name}.desktop << EOF
-[Desktop Entry]
-Name=Gnash SWF Viewer
-GenericName=SWF Viewer
-Comment=%{summary}
-Exec=%{name} %{_datadir}/%{name}/%{name}-splash.swf
-Icon=GnashG
-Terminal=false
-Type=Application
-StartupNotify=false
-Categories=AudioVideo;GTK;Video;Player;
-EOF
+desktop-file-install					\
+	--dir %{buildroot}%{_datadir}/applications	\
+	%{buildroot}%{_datadir}/applications/%{name}.desktop
 
-# context menu entry, to make double clicking an swf work
-cat > %{buildroot}%{_datadir}/applications/mandriva-%{name}-context-menu.desktop << EOF
-[Desktop Entry]
-Name=Gnash SWF Viewer
-GenericName=SWF Viewer
-Comment=%{summary}
-Exec=%{name} %U
-Icon=GnashG
-Terminal=false
-Type=Application
-StartupNotify=false
-MimeType=application/x-shockwave-flash;application/futuresplash;
-EOF
-
-mkdir -p %{buildroot}%{_datadir}/icons/hicolor/32x32/apps
-cp -p ./gui/images/GnashG.png %{buildroot}%{_datadir}/icons/hicolor/32x32/apps
+desktop-file-install					\
+	--dir %{buildroot}%{_datadir}/applications	\
+	%{buildroot}%{_datadir}/applications/klash.desktop
 
 
 rm -rf %{buildroot}/%{_localstatedir}/lib/scrollkeeper
@@ -333,3 +378,4 @@ rm -f %{buildroot}/%{_libdir}/mozilla/plugins/*.la
 
 %clean
 rm -rf %{buildroot}
+
