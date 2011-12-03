@@ -7,7 +7,7 @@
 %define libname_orig lib%{name}
 
 %define bzr	0
-%define rel	1
+%define rel	2
 %define major	0
 
 %if %bzr
@@ -210,6 +210,7 @@ Cygnal is a streaming media server that's Flash aware.
 %{_bindir}/cygnal
 %{_mandir}/man1/cygnal.1*
 %dir %{_libdir}/cygnal
+%dir %{_libdir}/cygnal/plugins/
 %{_libdir}/cygnal/plugins/*.so*
 
 #--------------------------------------------------------------------
