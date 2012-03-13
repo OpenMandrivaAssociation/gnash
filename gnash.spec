@@ -145,7 +145,6 @@ Headers of %{name} for development.
 %files -n %{libname_dev}
 %defattr(-,root,root)
 %{_includedir}/%{name}/*
-%{_libdir}/%{name}/lib%{name}*.la
 %{_libdir}/%{name}/lib%{name}render.so
 %{_libdir}/%{name}/lib%{name}amf.so
 %{_libdir}/%{name}/lib%{name}base.so
