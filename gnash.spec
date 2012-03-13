@@ -23,13 +23,12 @@
 %endif
 
 Name: gnash
-Version: 0.8.9
+Version: 0.8.10
 Release: %{release}
 Summary: %{name} - a GNU Flash movie player
 License: GPLv3
 Group: Networking/WWW
 Source0: %{distname}
-Patch0: gnash-0.8.9-ffmpeg0.8.patch
 Patch1:	%{name}-0.8.3-manual.patch
 BuildRoot: %{_tmppath}/%{name}-root
 URL: http://www.gnu.org/software/%{name}/
@@ -128,7 +127,6 @@ Provides:	%{libname_orig} = %{version}
 %{_libdir}/%{name}/lib%{name}media-%{buildversion}.so
 %{_libdir}/%{name}/lib%{name}net-%{buildversion}.so
 %{_libdir}/%{name}/lib%{name}sound-%{buildversion}.so
-%{_libdir}/%{name}/lib%{name}vaapi-%{buildversion}.so
 
 #--------------------------------------------------------------------
 
@@ -154,7 +152,6 @@ Headers of %{name} for development.
 %{_libdir}/%{name}/lib%{name}media.so
 %{_libdir}/%{name}/lib%{name}net.so
 %{_libdir}/%{name}/lib%{name}sound.so
-%{_libdir}/%{name}/lib%{name}vaapi.so
 %{_libdir}/pkgconfig/%{name}.pc
 
 #--------------------------------------------------------------------
@@ -315,11 +312,9 @@ This extension allows SWF files being played within Gnash to have direct access 
 
 %prep
 %setup -q -n %{dir_name}
-%patch0 -p0 -b .ffmpeg
 %patch1 -p1 -b .manual~
 
 %build
-./autogen.sh
 %define _disable_ld_no_undefined 0
 
 %configure2_5x --disable-static --with-npapi-plugindir=%{_libdir}/mozilla/plugins \
