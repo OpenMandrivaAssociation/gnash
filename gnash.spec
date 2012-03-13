@@ -42,7 +42,7 @@ BuildRequires:  slang-devel
 BuildRequires:  libxslt-proc
 BuildRequires:  agg-devel
 BuildRequires:  mysql-devel
-BuildRequires:  libltdl-devel
+BuildRequires:  libtool-devel
 BuildRequires:	libts-devel
 BuildRequires:	libgtkglext-devel
 BuildRequires:	gsm-devel
