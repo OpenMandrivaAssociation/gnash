@@ -182,13 +182,13 @@ Provides:	%{name}-konqueror-plugin
 
 %files -n klash
 %{_bindir}/gnash-qt-launcher
-%{_kde_bindir}/kde4-%{name}
+%{_kde_bindir}/qt4-%{name}
 %{_kde_libdir}/kde4/libklashpart.so
 %{_kde_datadir}/kde4/services/klash_part.desktop
 %{_datadir}/applications/klash.desktop
 %{_datadir}/icons/hicolor/32x32/apps/klash.xpm
 %{_kde_datadir}/apps/klash/
-%{_mandir}/man1/kde4-%{name}.1*
+%{_mandir}/man1/qt4-%{name}.1*
 %{_mandir}/man1/%{name}-qt-launcher.1*
 
 #--------------------------------------------------------------------
