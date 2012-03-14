@@ -128,6 +128,7 @@ Provides:	%{libname_orig} = %{version}
 %{_libdir}/%{name}/lib%{name}media-%{buildversion}.so
 %{_libdir}/%{name}/lib%{name}net-%{buildversion}.so
 %{_libdir}/%{name}/lib%{name}sound-%{buildversion}.so
+%{_libdir}/%{name}/lib%{name}device-%{buildversion}.so
 
 #--------------------------------------------------------------------
 
@@ -152,6 +153,7 @@ Headers of %{name} for development.
 %{_libdir}/%{name}/lib%{name}media.so
 %{_libdir}/%{name}/lib%{name}net.so
 %{_libdir}/%{name}/lib%{name}sound.so
+%{_libdir}/%{name}/lib%{name}device.so
 %{_libdir}/pkgconfig/%{name}.pc
 
 #--------------------------------------------------------------------
