@@ -154,6 +154,7 @@ Headers of %{name} for development.
 %{_libdir}/%{name}/lib%{name}net.so
 %{_libdir}/%{name}/lib%{name}sound.so
 %{_libdir}/%{name}/lib%{name}device.so
+%{_libdir}/%{name}/lib%{name}device.la
 %{_libdir}/pkgconfig/%{name}.pc
 
 #--------------------------------------------------------------------
