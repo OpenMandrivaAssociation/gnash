@@ -154,7 +154,6 @@ Headers of %{name} for development.
 %{_libdir}/%{name}/lib%{name}net.so
 %{_libdir}/%{name}/lib%{name}sound.so
 %{_libdir}/%{name}/lib%{name}device.so
-%{_libdir}/%{name}/lib%{name}device.la
 %{_libdir}/pkgconfig/%{name}.pc
 
 #--------------------------------------------------------------------
@@ -333,7 +332,7 @@ This extension allows SWF files being played within Gnash to have direct access 
   --disable-testsuite \
   --without-swfdec-testsuite \
 %endif
-  --enable-media=ffmpeg,gst \
+  --enable-media=gst \
   --enable-cygnal \
   --disable-dependency-tracking \
   --enable-python \
