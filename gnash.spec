@@ -7,16 +7,16 @@
 %define libname_orig lib%{name}
 
 %define bzr	0
-%define rel	3
+%define rel	4
 %define major	0
 
 %if %bzr
-%define release		%mkrel -c %bzr %rel
+%define release		-c %bzr %rel
 %define distname	%name-%bzr.tar.xz
 %define dir_name	%name
 %define buildversion	trunk
 %else
-%define release		%mkrel %rel
+%define release		%rel
 %define distname	%name-%version.tar.bz2
 %define dir_name	%name-%version
 %define buildversion	%version
