@@ -318,6 +318,7 @@ This extension allows SWF files being played within Gnash to have direct access 
 
 %build
 %define _disable_ld_no_undefined 0
+%define _disable_ld_as_needed 0
 
 %configure2_5x --disable-static --with-npapi-plugindir=%{_libdir}/mozilla/plugins \
   --enable-extensions=fileio,lirc,dejagnu,mysql \
