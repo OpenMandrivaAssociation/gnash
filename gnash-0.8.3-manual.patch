@@ -1,0 +1,53 @@
+diff -up gnash-0.8.3/doc/C/gnashref.xml.manual gnash-0.8.3/doc/C/gnashref.xml
+--- gnash-0.8.3/doc/C/gnashref.xml.manual	2008-06-23 00:57:00.000000000 +0200
++++ gnash-0.8.3/doc/C/gnashref.xml	2008-06-23 00:59:25.000000000 +0200
+@@ -76,7 +76,7 @@
+     -->
+     
+     &legal;
+-    &revisionhistory;
++<!--     &revisionhistory; -->
+     
+     <releaseinfo>
+       This manual describes version &appversion; of &appname;.
+@@ -96,15 +96,15 @@
+ 
+ <!-- This chapter includes all the other sections used to document the
+      internals of how Gnash works. -->
+-  &internals;
++<!--   &internals; -->
+   &bugreport;
+-  &extensions;
++<!--   &extensions; -->
+ 
+ <!-- This chapter includes all the other sections used to document
+      protocols and formats used by Gnash. -->
+ 
+-  &rtmp;
+-  &plugin;
++<!--   &rtmp; -->
++<!--   &plugin; -->
+ 
+   <!-- The appendix. Nobody reads these coding style suggestions
+        anyway -->
+diff -up gnash-0.8.3/doc/C/gnashuser.xml.manual gnash-0.8.3/doc/C/gnashuser.xml
+--- gnash-0.8.3/doc/C/gnashuser.xml.manual	2008-06-23 00:54:42.000000000 +0200
++++ gnash-0.8.3/doc/C/gnashuser.xml	2008-06-23 00:56:45.000000000 +0200
+@@ -24,7 +24,7 @@
+     <!ENTITY installation     SYSTEM "usermanual/installation.xml">
+     <!ENTITY usage            SYSTEM "usermanual/usage.xml">
+     <!ENTITY gnashrc          SYSTEM "usermanual/gnashrc.xml">
+-    <!ENTITY glossary         SYSTEM "usermanual/glossary.xml">
++<!--    <!ENTITY glossary         SYSTEM "usermanual/glossary.xml"> -->
+ 
+  ]
+ >
+@@ -71,7 +71,7 @@
+   &usage;
+   &installation;
+   &bugreport;
+-  &glossary;
++<!--   &glossary; -->
+ 
+ 
+ <!-- ============= Authors =================================== -->
