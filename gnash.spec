@@ -59,6 +59,7 @@ BuildRequires:	pygtk2.0-devel
 BuildRequires:  xulrunner-devel
 BuildRequires:	gettext-devel
 BuildRequires:	libGConf2-devel
+BuildRequires:	pkgconfig(xt)
 %if %{with_tests}
 BuildRequires:  ming-devel >= 0.4.3
 BuildRequires:  ming-utils >= 0.4.3
