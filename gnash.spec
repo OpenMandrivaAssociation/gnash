@@ -30,6 +30,9 @@ License: GPLv3
 Group: Networking/WWW
 Source0: %{distname}
 Patch1:	%{name}-0.8.3-manual.patch
+Patch2: gnash-0.8.10-gcc47.patch
+Patch4: gnash-0.8.10-CVE-2012-1175.diff
+Patch5: gnash-0.8.10-link.patch
 BuildRoot: %{_tmppath}/%{name}-root
 URL: http://www.gnu.org/software/%{name}/
 BuildRequires:  kdelibs4-devel
@@ -316,11 +319,13 @@ This extension allows SWF files being played within Gnash to have direct access 
 %prep
 %setup -q -n %{dir_name}
 %patch1 -p1 -b .manual~
+%patch2 -p1 -b .gcc
+%patch4 -p1 -b .CVE-2012-1175
+%patch5 -p0 -b .link
 
 %build
 %define _disable_ld_no_undefined 0
 
-export LIBS="-lboost_system"
 %configure2_5x --disable-static --with-npapi-plugindir=%{_libdir}/mozilla/plugins \
   --enable-extensions=fileio,lirc,dejagnu,mysql \
   --enable-renderer=all \

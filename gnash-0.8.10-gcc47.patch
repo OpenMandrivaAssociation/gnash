@@ -1,0 +1,30 @@
+Description: Allow compilation with GCC-4.7.
+Origin: http://git.sv.gnu.org/gitweb/?p=gnash.git;a=patch;h=39fcd5139996c6d07d659c5b771f0e84711f9c46
+Author: Bastiaan Jacques <bastiaan@bjacques.org>
+Bug-Debian: http://bugs.debian.org/672621
+
+--- a/plugin/klash4/Makefile.am
++++ b/plugin/klash4/Makefile.am
+@@ -23,7 +23,9 @@ AM_CPPFLAGS = \
+ 	$(KDE4_CFLAGS) \
+ 	$(QT4_CFLAGS) \
+ 	$(X11_CFLAGS) \
+-	-DGNASHBINDIR=\"${bindir}\"
++	-I$(top_srcdir)/libbase \
++	-DGNASHBINDIR=\"${bindir}\" \
++	$(NULL)
+ 
+ plugindir   = $(KDE4_PLUGINDIR)
+ kde_servicesdir = $(KDE4_SERVICESDIR)
+diff --git a/plugin/klash4/klash_part.cpp b/plugin/klash4/klash_part.cpp
+index b027b4b..3ba0873 100644
+--- a/plugin/klash4/klash_part.cpp
++++ b/plugin/klash4/klash_part.cpp
+@@ -43,6 +43,7 @@
+ #include "klash_part.h"
+ 
+ #include <csignal>
++#include "GnashSystemIOHeaders.h"
+ 
+ //-----------------------------------------------------------------------------
+ 
