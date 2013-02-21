@@ -63,6 +63,7 @@ BuildRequires:  xulrunner-devel
 BuildRequires:	gettext-devel
 BuildRequires:	libGConf2-devel
 BuildRequires:	pkgconfig(xt)
+BuildRequires:	automake
 %if %{with_tests}
 BuildRequires:  ming-devel >= 0.4.3
 BuildRequires:  ming-utils >= 0.4.3
@@ -322,11 +323,11 @@ This extension allows SWF files being played within Gnash to have direct access 
 %patch2 -p1 -b .gcc
 %patch4 -p1 -b .CVE-2012-1175
 %patch5 -p0 -b .link
+./autogen.sh
 
 %build
 %define _disable_ld_no_undefined 0
 
-export LIBS="-lboost_system"
 %configure2_5x --disable-static --with-npapi-plugindir=%{_libdir}/mozilla/plugins \
   --enable-extensions=fileio,lirc,dejagnu,mysql \
   --enable-renderer=all \
