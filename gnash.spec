@@ -86,10 +86,10 @@ implemented; there is support for all of the commonly used methods of each
 class.
 
 %post -n %{name}
-%_install_info %{name}.info
+%__install_info %{name}.info
 
 %preun -n %{name}
-%_remove_install_info %{name}.info
+%__install_info %{name}.info
 
 %files -f %name.lang
 %defattr(-,root,root,0755)
@@ -246,7 +246,8 @@ Requires:  %{name} = %{version}-%{release}
 Group:     Development/Python
 
 %description -n python-gnash
-Python bindings for the Gnash widget. Can be used to embed Gnash into any PyGTK application.
+Python bindings for the Gnash widget. Can be used to embed Gnash 
+into any PyGTK application.
 
 %files -n python-gnash
 %defattr(-,root,root,-)
@@ -261,7 +262,9 @@ Group:     Networking/WWW
 Requires:  %{name} = %{version}-%{release}
 
 %description extension-fileio
-This extension allows SWF files being played within Gnash to have direct access to the file system. The API is similar to the C library one.
+This extension allows SWF files being played within Gnash to have 
+direct access to the file system. 
+The API is similar to the C library one.
 
 %files extension-fileio
 %defattr(-,root,root,-)
@@ -276,7 +279,9 @@ Group:     Networking/WWW
 Requires:  %{name} = %{version}-%{release}
 
 %description extension-lirc
-This extension allows SWF files being played within Gnash to have direct access to a LIRC based remote control device. The API is similar to the standard LIRC one.
+This extension allows SWF files being played within Gnash to have 
+direct access to a LIRC based remote control device. 
+The API is similar to the standard LIRC one.
 
 %files extension-lirc
 %defattr(-,root,root,-)
@@ -291,8 +296,8 @@ Group:     Development/Other
 Requires:  %{name} = %{version}-%{release}
 
 %description extension-dejagnu
-This extension allows SWF files to have a simple unit testing API. The API
-is similar to the DejaGnu unit testing one.
+This extension allows SWF files to have a simple unit testing API. 
+The API is similar to the DejaGnu unit testing one.
 
 %files extension-dejagnu
 %defattr(-,root,root,-)
@@ -307,7 +312,9 @@ Group:     Development/Databases
 Requires:  %{name} = %{version}-%{release}
 
 %description extension-mysql
-This extension allows SWF files being played within Gnash to have direct access to a MySQL database. The API is similar to the standard MySQL one.
+This extension allows SWF files being played within Gnash to have 
+direct access to a MySQL database. 
+The API is similar to the standard MySQL one.
 
 %files extension-mysql
 %defattr(-,root,root,-)
