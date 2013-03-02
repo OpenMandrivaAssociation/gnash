@@ -3,7 +3,7 @@
 %{?_with_gstreamer: %{expand: %%global with_tests 1}}
 
 %define libname %mklibname %{name} 0
-%define libname_dev %mklibname -d %{name}
+%define devname %mklibname -d %{name}
 %define libname_orig lib%{name}
 
 %define bzr	0
@@ -12,14 +12,14 @@
 
 %if %bzr
 %define release		-c %bzr %rel
-%define distname	%name-%bzr.tar.xz
-%define dir_name	%name
+%define distname	%{name}-%bzr.tar.xz
+%define dir_name	%{name}
 %define buildversion	trunk
 %else
 %define release		%rel
-%define distname	%name-%version.tar.bz2
-%define dir_name	%name-%version
-%define buildversion	%version
+%define distname	%{name}-%{version}.tar.bz2
+%define dir_name	%{name}-%{version}
+%define buildversion	%{version}
 %endif
 
 Name: gnash
@@ -28,13 +28,13 @@ Release: %{release}
 Summary: %{name} - a GNU Flash movie player
 License: GPLv3
 Group: Networking/WWW
+Url: http://www.gnu.org/software/gnash
 Source0: %{distname}
 Patch1:	%{name}-0.8.3-manual.patch
 Patch2: gnash-0.8.10-gcc47.patch
 Patch4: gnash-0.8.10-CVE-2012-1175.diff
 Patch5: gnash-0.8.10-link.patch
-BuildRoot: %{_tmppath}/%{name}-root
-URL: http://www.gnu.org/software/%{name}/
+
 BuildRequires:  kdelibs4-devel
 BuildRequires:  SDL_mixer-devel
 BuildRequires:  boost-devel
@@ -63,7 +63,6 @@ BuildRequires:  xulrunner-devel
 BuildRequires:	gettext-devel
 BuildRequires:	libGConf2-devel
 BuildRequires:	pkgconfig(xt)
-BuildRequires:	automake
 %if %{with_tests}
 BuildRequires:  ming-devel >= 0.4.3
 BuildRequires:  ming-utils >= 0.4.3
@@ -91,8 +90,7 @@ class.
 %preun -n %{name}
 %__install_info %{name}.info
 
-%files -f %name.lang
-%defattr(-,root,root,0755)
+%files -f %{name}.lang
 %doc README AUTHORS COPYING NEWS
 %config(noreplace) %{_sysconfdir}/%{name}rc
 %{_bindir}/%{name}
@@ -124,7 +122,6 @@ Provides:	%{libname_orig} = %{version}
 %{name} library.
 
 %files -n %{libname}
-%defattr(-,root,root)
 %dir %{_libdir}/%{name}
 %{_libdir}/%{name}/lib%{name}render-%{buildversion}.so
 %{_libdir}/%{name}/lib%{name}base-%{buildversion}.so
@@ -137,19 +134,18 @@ Provides:	%{libname_orig} = %{version}
 
 #--------------------------------------------------------------------
 
-%package -n	%{libname_dev}
-Summary:	Headers of %name for development
+%package -n	%{devname}
+Summary:	Headers of %{name} for development
 Group:		Development/C
 Requires:	%{libname} = %{version}
 Provides:	%{name}-devel = %{version}-%{release}
 Provides:	%{libname_orig}-devel = %{version}-%{release}
 Obsoletes: %{libname}-devel
 
-%description -n %{libname_dev}
+%description -n %{devname}
 Headers of %{name} for development.
 
-%files -n %{libname_dev}
-%defattr(-,root,root)
+%files -n %{devname}
 %{_includedir}/%{name}/*
 %{_libdir}/%{name}/lib%{name}render.so
 %{_libdir}/%{name}/lib%{name}amf.so
@@ -209,7 +205,6 @@ Group:     System/Servers
 Cygnal is a streaming media server that's Flash aware.
 
 %files cygnal
-%defattr(-,root,root,-)
 %config(noreplace) %{_sysconfdir}/cygnalrc
 %{_bindir}/cygnal
 %{_mandir}/man1/cygnal.1*
@@ -228,7 +223,6 @@ Group:     Video
 Gnash tools.
 
 %files tools
-%defattr(-,root,root,-)
 %{_bindir}/gprocessor
 %{_bindir}/soldumper
 %{_bindir}/flvdumper
@@ -250,7 +244,6 @@ Python bindings for the Gnash widget. Can be used to embed Gnash
 into any PyGTK application.
 
 %files -n python-gnash
-%defattr(-,root,root,-)
 %doc COPYING
 %{python_sitearch}/gtk-2.0/gnash.so
 
@@ -267,7 +260,6 @@ direct access to the file system.
 The API is similar to the C library one.
 
 %files extension-fileio
-%defattr(-,root,root,-)
 %doc COPYING
 %{_libdir}/gnash/plugins/fileio.so
 
@@ -284,7 +276,6 @@ direct access to a LIRC based remote control device.
 The API is similar to the standard LIRC one.
 
 %files extension-lirc
-%defattr(-,root,root,-)
 %doc COPYING
 %{_libdir}/gnash/plugins/lirc.so
 
@@ -300,7 +291,6 @@ This extension allows SWF files to have a simple unit testing API.
 The API is similar to the DejaGnu unit testing one.
 
 %files extension-dejagnu
-%defattr(-,root,root,-)
 %doc COPYING
 %{_libdir}/gnash/plugins/dejagnu.so
 
@@ -317,7 +307,6 @@ direct access to a MySQL database.
 The API is similar to the standard MySQL one.
 
 %files extension-mysql
-%defattr(-,root,root,-)
 %doc COPYING
 %{_libdir}/gnash/plugins/mysql.so
 
@@ -365,7 +354,6 @@ The API is similar to the standard MySQL one.
 %endif
 
 %install
-rm -rf %{buildroot}
 make install install-plugins \
  DESTDIR=%{buildroot} INSTALL='install -p' \
  KDE4_PLUGINDIR=%{_kde_libdir}/kde4 \
@@ -388,8 +376,5 @@ rm -rf %{buildroot}/%{_localstatedir}/lib/scrollkeeper
 rm -f %{buildroot}/%{_libdir}/mozilla/plugins/*.a
 rm -f %{buildroot}/%{_libdir}/mozilla/plugins/*.la
 
-%find_lang %name
-
-%clean
-rm -rf %{buildroot}
+%find_lang %{name}
 
