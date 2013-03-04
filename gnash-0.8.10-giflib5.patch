@@ -1,0 +1,11 @@
+--- ./libbase/GnashImageGif.cpp.orig	2013-03-04 00:19:20.133467267 +0000
++++ ./libbase/GnashImageGif.cpp	2013-03-04 00:19:30.261467677 +0000
+@@ -269,7 +269,7 @@
+ void
+ GifInput::read()
+ {
+-    _gif = DGifOpen(_inStream.get(), &readData); 
++    _gif = DGifOpen(_inStream.get(), &readData,NULL); 
+ 
+     GifRecordType record;
+ 

@@ -34,6 +34,7 @@ Patch1:	%{name}-0.8.3-manual.patch
 Patch2: gnash-0.8.10-gcc47.patch
 Patch4: gnash-0.8.10-CVE-2012-1175.diff
 Patch5: gnash-0.8.10-link.patch
+Patch6: gnash-0.8.10-giflib5.patch
 
 BuildRequires:  kdelibs4-devel
 BuildRequires:  SDL_mixer-devel
@@ -319,6 +320,7 @@ The API is similar to the standard MySQL one.
 %patch2 -p1 -b .gcc
 %patch4 -p1 -b .CVE-2012-1175
 %patch5 -p0 -b .link
+%patch6 -p0 -b .giflib5
 ./autogen.sh
 
 %build
