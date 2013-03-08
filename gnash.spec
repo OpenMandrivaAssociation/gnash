@@ -48,7 +48,7 @@ BuildRequires:  agg-devel
 BuildRequires:  mysql-devel
 BuildRequires:  libtool-devel
 BuildRequires:	libts-devel
-BuildRequires:	libgtkglext-devel
+BuildRequires:	gtkglext-devel
 BuildRequires:	gsm-devel
 BuildRequires:	nspr-devel
 BuildRequires:	expat-devel
@@ -62,7 +62,7 @@ BuildRequires:  desktop-file-utils
 BuildRequires:	pygtk2.0-devel
 BuildRequires:  xulrunner-devel
 BuildRequires:	gettext-devel
-BuildRequires:	libGConf2-devel
+BuildRequires:	pkgconfig(gconf-2.0)
 BuildRequires:	pkgconfig(xt)
 %if %{with_tests}
 BuildRequires:  ming-devel >= 0.4.3
