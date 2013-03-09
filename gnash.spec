@@ -7,7 +7,7 @@
 %define libname_orig lib%{name}
 
 %define bzr	0
-%define rel	6
+%define rel	7
 %define major	0
 
 %if %bzr
@@ -85,12 +85,6 @@ and v9. Not all ActionScript 2 classes are implemented yet, but all of
 the most heavily used ones are. Many ActionScript 2 classes are partially
 implemented; there is support for all of the commonly used methods of each
 class.
-
-%post -n %{name}
-%__install_info %{name}.info
-
-%preun -n %{name}
-%__install_info %{name}.info
 
 %files -f %{name}.lang
 %doc README AUTHORS COPYING NEWS
