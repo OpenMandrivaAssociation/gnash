@@ -52,7 +52,7 @@ BuildRequires:	gtkglext-devel
 BuildRequires:	gsm-devel
 BuildRequires:	nspr-devel
 BuildRequires:	expat-devel
-BuildRequires:  libgstreamer-plugins-base-devel
+BuildRequires:  gstreamer0.10-plugins-base-devel
 BuildRequires:	ffmpeg-devel
 BuildRequires:  csound-devel
 Buildrequires:	dejagnu
