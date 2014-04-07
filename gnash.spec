@@ -43,11 +43,11 @@ BuildRequires:  curl-devel
 BuildRequires:  doxygen
 BuildRequires:  rarian
 BuildRequires:  slang-devel
-BuildRequires:  libxslt-proc
+BuildRequires:  xsltproc
 BuildRequires:  agg-devel
 BuildRequires:  mysql-devel
 BuildRequires:  libtool-devel
-BuildRequires:	libts-devel
+BuildRequires:	ts-devel
 BuildRequires:	gtkglext-devel
 BuildRequires:	gsm-devel
 BuildRequires:	nspr-devel
@@ -57,7 +57,7 @@ BuildRequires:	ffmpeg-devel
 BuildRequires:  csound-devel
 Buildrequires:	dejagnu
 BuildRequires:	speex-devel
-BuildRequires:	libxi-devel
+BuildRequires:	pkgconfig(xi)
 BuildRequires:  desktop-file-utils
 BuildRequires:	pygtk2.0-devel
 BuildRequires:	python-gobject-devel
