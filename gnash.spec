@@ -47,7 +47,7 @@ BuildRequires:  xsltproc
 BuildRequires:  agg-devel
 BuildRequires:  mysql-devel
 BuildRequires:  libtool-devel
-BuildRequires:	ts-devel
+BuildRequires:	tslib-devel
 BuildRequires:	gtkglext-devel
 BuildRequires:	gsm-devel
 BuildRequires:	nspr-devel
