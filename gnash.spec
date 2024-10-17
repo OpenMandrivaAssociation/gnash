@@ -28,7 +28,7 @@ Release: %{release}
 Summary: %{name} - a GNU Flash movie player
 License: GPLv3
 Group: Networking/WWW
-Url: http://www.gnu.org/software/gnash
+Url: https://www.gnu.org/software/gnash
 Source0: %{distname}
 Patch1:	%{name}-0.8.3-manual.patch
 Patch2: gnash-0.8.10-gcc47.patch
