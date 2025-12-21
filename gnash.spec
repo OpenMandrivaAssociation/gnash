@@ -36,6 +36,11 @@ Patch4: gnash-0.8.10-CVE-2012-1175.diff
 Patch5: gnash-0.8.10-link.patch
 Patch6: gnash-0.8.10-giflib5.patch
 
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:  kdelibs4-devel
 BuildRequires:  SDL_mixer-devel
 BuildRequires:  boost-devel
